@@ -9,7 +9,6 @@ import { Button } from 'react-bootstrap';
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <Button>부트스트랩?</Button>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -5,7 +5,7 @@ const Header: React.FC<{}> = () => {
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Container>
-                <Col><Navbar.Brand href="#home">로고이름</Navbar.Brand></Col>
+                <Col><Navbar.Brand href="#home">크립토그래퍼</Navbar.Brand></Col>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                 <Col ><Nav className="me-auto">
@@ -20,7 +20,6 @@ const Header: React.FC<{}> = () => {
                     </Form>
                     </Nav>
                     </Col>
-                    
                     <Nav>
                     <Nav.Link href="#Login">Login</Nav.Link>
                     <Nav.Link eventKey={2} href="#RegisterAccount">
