@@ -1,11 +1,13 @@
 import React from "react";
 import Header from "./components/Header";
 import Tabs from "./components/Tabs";
-import Cards from "./components/Cards"
+import CardsBuy from "./components/CardsBuy"
+import CardsSell from "./components/CardsSell"
 import RegisterPicture from "./components/RegisterPicture"
 import CarouselMain from "./components/CarouselMain"
 import HelloWorld from "./components/HelloWorld";
 import RenderForm from "./components/RenderForm";
+import GridLayoutBuy from "./components/GridLayoutBuy"
 
 const App: React.FC<{}> = () => {
   return (
@@ -13,8 +15,10 @@ const App: React.FC<{}> = () => {
       <Header />
       <Tabs/>
       <CarouselMain/>
-      <Cards/>
+      <CardsBuy/>
+      <CardsSell/>
       <RegisterPicture/>
+      <GridLayoutBuy/>
       {/*<RenderForm />*/}
     </>
   );
