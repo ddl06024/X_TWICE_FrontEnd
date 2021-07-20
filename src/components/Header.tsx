@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Col, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
-//d
+
 const Header: React.FC<{}> = () => {
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">

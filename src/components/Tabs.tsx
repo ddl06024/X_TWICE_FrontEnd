@@ -3,7 +3,7 @@ import { Nav } from "react-bootstrap";
 //d
 const Tabs: React.FC<{}> = () => {
     return (
-        <Nav justify variant="tabs" defaultActiveKey="/home">
+        <Nav justify variant="tabs" defaultActiveKey="/home" className="mt-4">
             <Nav.Item>
                 <Nav.Link href="/home">나의 보유토큰</Nav.Link>
             </Nav.Item>
