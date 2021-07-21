@@ -7,6 +7,7 @@ import RegisterPicture from "./components/RegisterPicture"
 import Login from "./components/Login"
 import CarouselMain from "./components/CarouselMain"
 import RegisterAccount from "./components/RegisterAccount"
+import TransactionTable from"./components/TransactionTable"
 import HelloWorld from "./components/HelloWorld";
 import RenderForm from "./components/RenderForm";
 import GridLayoutBuy from "./components/GridLayoutBuy"
@@ -23,6 +24,7 @@ const App: React.FC<{}> = () => {
       <Login/>
       <GridLayoutBuy/>
       <RegisterAccount/>
+      <TransactionTable/>
       {/*<RenderForm />*/}
     </>
   );
