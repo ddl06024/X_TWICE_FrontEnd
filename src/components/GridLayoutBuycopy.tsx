@@ -8,7 +8,7 @@ const GridLayoutBuycopy: React.FC<{}> = () => {
     setPictures(Pictures+20);
   }
     return (
-        <div style={{width: '100%', margin:'0'}}>
+        <div style={{width: '100%', margin:'2rem auto'}}>
           <div style={{width: '85%', margin: '1rem auto'}}>
     
             <Row>

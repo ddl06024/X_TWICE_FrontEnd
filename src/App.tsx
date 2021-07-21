@@ -20,10 +20,10 @@ const App: React.FC<{}> = () => {
   return (
     <div>
       <Header />
-      <Tabs/>
-      <Container>
-        <TransactionTable />
-      </Container>
+      
+      
+        <RegisterAccount />
+ 
     </div>
   );
 };
