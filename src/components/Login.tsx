@@ -3,7 +3,7 @@ import { Button, Col, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
 
 const Login: React.FC<{}> = () => {
     return (
-        <Nav className="justify-content-center">
+        <Nav className="justify-content-center" style={{width: '40rem auto', margin:'4rem auto'}}>
         <div style={{ width: 860, height: 'auto' }}>
         <Form>
             <Row className="mb-3">

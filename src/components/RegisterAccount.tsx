@@ -3,7 +3,8 @@ import { Accordion,  Button,  Card, Nav} from "react-bootstrap";
 
 const RegisterAccount: React.FC<{}> = () => {
     return (
-        <Nav className="justify-content-center" style={{width: '100%', margin:'4rem auto'}}>
+     
+        <Nav className="justify-content-center" style={{width: '40rem', margin:'4rem auto'}}>
         <div style={{ width: '40rem', height: 'auto' }}>
         <Accordion defaultActiveKey="0">
             
@@ -39,7 +40,7 @@ const RegisterAccount: React.FC<{}> = () => {
     </Accordion>
     </div>
     </Nav>
-    
+
     
     );
 };
