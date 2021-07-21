@@ -8,11 +8,11 @@ const CarouselMain: React.FC<{}> = () => {
         <Nav className="justify-content-center">
         <Row>
         
-        <Col  md="auto" >
+        <Col  md="auto" style={{marginTop:120}} >
           <h1>NFT를 수집하고</h1>
           <h1> 판매해보세요!</h1>
-          <Button variant="primary">Primary</Button>{' '}
-          <Button variant="outline-primary">Primary</Button>{' '}
+          <Button variant="primary" style={{marginLeft:60, marginTop:30}}>만들기</Button>{' '}
+          <Button variant="outline-primary" style={{marginLeft:10, marginTop:30}}>보기</Button>{' '}
         </Col>
         
     <Col><div style={{ width: 560, height: 'auto' }}>
