@@ -3,6 +3,7 @@ import { Nav } from "react-bootstrap";
 //d
 const Tabs: React.FC<{}> = () => {
     return (
+        <div style={{width: '85%', margin: '1rem auto'}}>
         <Nav justify variant="tabs" defaultActiveKey="/home" className="mt-4">
             <Nav.Item>
                 <Nav.Link href="/home">나의 보유토큰</Nav.Link>
@@ -14,6 +15,7 @@ const Tabs: React.FC<{}> = () => {
                 <Nav.Link eventKey="link-2">나의 거래내역</Nav.Link>
             </Nav.Item>
         </Nav>
+        </div>
     );
 };
 

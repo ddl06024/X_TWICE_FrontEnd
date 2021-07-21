@@ -11,24 +11,20 @@ import TransactionTable from "./components/TransactionTable"
 import CardsSimilarity from "./components/CardsSimilarity"
 import HelloWorld from "./components/HelloWorld";
 import RenderForm from "./components/RenderForm";
+import GridLayoutBuycopy from "./components/GridLayoutBuycopy"
 import GridLayoutBuy from "./components/GridLayoutBuy"
+import { Container } from "react-bootstrap";
+
 
 const App: React.FC<{}> = () => {
   return (
-    <>
+    <div>
       <Header />
       <Tabs/>
-      <CarouselMain/>
-      <CardsBuy/>
-      <CardsSell/>
-      <CardsSimilarity/>
-      <RegisterPicture/>
-      <Login/>
-      <GridLayoutBuy/>
-      <RegisterAccount/>
-      <TransactionTable/>
-      {/*<RenderForm />*/}
-    </>
+      <Container>
+        <GridLayoutBuycopy />
+      </Container>
+    </div>
   );
 };
 
