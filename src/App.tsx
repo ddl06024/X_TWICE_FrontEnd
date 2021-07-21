@@ -22,7 +22,7 @@ const App: React.FC<{}> = () => {
       <Header />
       <Tabs/>
       <Container>
-        <GridLayoutBuycopy />
+        <TransactionTable />
       </Container>
     </div>
   );
