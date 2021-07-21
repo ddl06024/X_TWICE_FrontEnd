@@ -14,15 +14,14 @@ import RenderForm from "./components/RenderForm";
 import GridLayoutBuycopy from "./components/GridLayoutBuycopy"
 import GridLayoutBuy from "./components/GridLayoutBuy"
 import { Container } from "react-bootstrap";
-
+import CategoryTab from "./components/CategoryTab"
 
 const App: React.FC<{}> = () => {
   return (
     <div>
       <Header />
+      <CarouselMain/>
       
-      
-        <Login />
  
     </div>
   );

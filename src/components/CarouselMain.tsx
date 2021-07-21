@@ -4,18 +4,22 @@ import { Button, Carousel, Col, Container, Nav, Row } from "react-bootstrap";
 const CarouselMain: React.FC<{}> = () => {
     return (
       
-      <Container  className="mt-4">
+      <Container  style={{marginTop: '4rem'}}>
         <Nav className="justify-content-center">
-        <Row>
+        <Row >
         
-        <Col  md="auto" style={{marginTop:120}} >
-          <h1>NFT를 수집하고</h1>
+        <Col  md="auto" style={{marginTop : '7rem'}}  >
+        <div style={{textAlign:'center'}}>
+          <h1>NFT를 수집하고</h1> 
           <h1> 판매해보세요!</h1>
-          <Button variant="primary" style={{marginLeft:60, marginTop:30}}>만들기</Button>{' '}
-          <Button variant="outline-primary" style={{marginLeft:10, marginTop:30}}>보기</Button>{' '}
+         </div>
+          <Nav className="justify-content-center" >
+             <Button variant="primary" style={{margin:10}}>만들기</Button>{' '}
+          <Button variant="outline-primary" style={{margin:10}}>보기</Button>{' '}</Nav>
+          
         </Col>
         
-    <Col><div style={{ width: 560, height: 'auto' }}>
+    <Col>
         <Carousel>
           <Carousel.Item>
             <img
@@ -53,7 +57,7 @@ const CarouselMain: React.FC<{}> = () => {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        </div></Col>
+        </Col>
     
   
       
