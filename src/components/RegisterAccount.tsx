@@ -1,9 +1,10 @@
 import React from "react";
 import { Accordion,  Button,  Card, Nav} from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 const RegisterAccount: React.FC<{}> = () => {
+    const history = useHistory();
     return (
-     
         <Nav className="justify-content-center" style={{width: '40rem', margin:'4rem auto'}}>
         <div style={{ width: '40rem', height: 'auto' }}>
         <Accordion defaultActiveKey="0">
@@ -31,8 +32,8 @@ const RegisterAccount: React.FC<{}> = () => {
                 <Accordion.Header>#2 KeyStore파일과 비밀번호로 로그인해주세요.</Accordion.Header>
                 <Accordion.Body>
                     <Nav className="justify-content-center" style={{width: '100%', margin:'2rem auto'}}>
-                <Button variant="primary" style={{margin: '1rem '}}>로그인하러가기</Button>{' '}
-                  <Button variant="outline-primary" style={{margin: '1rem '}}>홈으로</Button>{' '}
+                <Button variant="primary" style={{margin: '1rem '}} onClick={()=>{history.push('/login')}}>로그인하러가기</Button>{' '}
+                  <Button variant="outline-primary" style={{margin: '1rem '}} onClick={()=>{history.push('/')}}>홈으로</Button>{' '}
                   </Nav>
                 </Accordion.Body>
             </Accordion.Item>

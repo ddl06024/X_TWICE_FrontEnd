@@ -15,6 +15,7 @@ import GridLayoutBuy from "./components/GridLayoutBuy"
 import { Container } from "react-bootstrap";
 import CategoryTab from "./components/CategoryTab"
 import { Route, Switch } from "react-router-dom";
+import SearchWord from "./components/SearchWord"
 
 const App: React.FC<{}> = () => {
   return (
@@ -26,18 +27,22 @@ const App: React.FC<{}> = () => {
         <Route exact path="/"  component={CarouselMain}/>
         <Route path="/login" component={Login}/>
         <Route path="/registerAccount" component={RegisterAccount}/>
+        <Route path="/search" component={GridLayoutBuy}/>
         <Route exact path="/registerPicture"  component={RegisterPicture}/>
         <Route exact path="/registerPicture/result"  component={CardsSimilarity}/>
-        <Route path="/myPage" component={Tabs}/>
-        <Route path="/myPage/myToken" component={GridLayoutBuy}/>
-        <Route path="/myPage/myTokenOnSale" component={GridLayoutBuy}/>
-        <Route path="/myPage/transactions" component={TransactionTable}/>
+        
+          
+          </Switch>
+          <Route path="/myPage" component={Tabs}></Route>
+          <Route path="/myPage/myToken" component={GridLayoutBuy}/>
+          <Route path="/myPage/myTokenOnSale" component={GridLayoutBuy}/>
+          <Route path="/myPage/transactions" component={TransactionTable}/>
         <Route path="/viewPictures" component={Tabs}/>
         <Route path="/viewPictures/price" component={GridLayoutBuy}/>
         <Route path="/viewPictures/popularity" component={GridLayoutBuy}/>
         <Route path="/viewPictures/category" component={CategoryTab}/>
         <Route path="/viewPictures/category/1" component={GridLayoutBuy}/>
-        </Switch>
+        
 
  
     </div> 

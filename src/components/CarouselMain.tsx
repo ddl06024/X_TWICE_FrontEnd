@@ -1,7 +1,9 @@
 import React from "react";
 import { Button, Carousel, Col, Container, Nav, Row } from "react-bootstrap";
+import {useHistory} from 'react-router-dom'
 
 const CarouselMain: React.FC<{}> = () => {
+    const history = useHistory();
     return (
       
       <Container  style={{marginTop: '4rem'}}>
@@ -14,8 +16,8 @@ const CarouselMain: React.FC<{}> = () => {
           <h1> 판매해보세요!</h1>
          </div>
           <Nav className="justify-content-center" >
-             <Button variant="primary" style={{margin:10}}>만들기</Button>{' '}
-          <Button variant="outline-primary" style={{margin:10}}>보기</Button>{' '}</Nav>
+             <Button variant="primary" style={{margin:10}} onClick={()=>{history.push('/registerPicture')}}>만들기</Button>{' '}
+          <Button variant="outline-primary" style={{margin:10}} onClick={()=>{history.push('/viewPictures/price')}}>보기</Button>{' '}</Nav>
           
         </Col>
         

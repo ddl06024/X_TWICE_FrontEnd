@@ -1,7 +1,9 @@
 import React from "react";
 import { Button, Col, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 const Login: React.FC<{}> = () => {
+    const history = useHistory();
     return (
         <Nav className="justify-content-center" style={{width: '40rem auto', margin:'4rem auto'}}>
         <div style={{ width: 860, height: 'auto' }}>
@@ -22,7 +24,7 @@ const Login: React.FC<{}> = () => {
         
             
         
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={()=>{history.push('/')}}>
             로그인
         </Button>
       </Form>
