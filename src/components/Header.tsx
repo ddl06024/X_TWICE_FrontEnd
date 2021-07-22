@@ -1,7 +1,9 @@
 import React from "react";
 import { Button, Col, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { useHistory} from 'react-router-dom';
 
 const Header: React.FC<{}> = () => {
+    const history = useHistory();
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light" >
             <Container style={{margin:'1rem'}}>
@@ -24,10 +26,12 @@ const Header: React.FC<{}> = () => {
                     </Nav>
                     </Col>
                     <Nav>
-                    <Nav.Link href="#Login">Login</Nav.Link>
+                    <Nav.Link onClick= {()=>{history.push("/login")}}>Login</Nav.Link>
                     <Nav.Link eventKey={2} href="#RegisterAccount">
                         RegisterAccount
                     </Nav.Link>
+              
+                 
                     </Nav>
                  
                 </Navbar.Collapse>

@@ -5,8 +5,8 @@ const CarouselMain: React.FC<{}> = () => {
     return (
       
       <Container  style={{marginTop: '4rem'}}>
-        <Nav className="justify-content-center">
-        <Row >
+        <Nav className="justify-content-center" >
+        <Row style={{width:'75%'}}>
         
         <Col  md="auto" style={{marginTop : '7rem'}}  >
         <div style={{textAlign:'center'}}>
@@ -19,9 +19,9 @@ const CarouselMain: React.FC<{}> = () => {
           
         </Col>
         
-    <Col>
-        <Carousel>
-          <Carousel.Item>
+    <Col style={{alignContent:'center'}}>
+        <Carousel >
+          <Carousel.Item >
             <img
               className="d-block w-100"
               src="../tempImages/big.jpg"
