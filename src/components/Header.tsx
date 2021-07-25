@@ -5,7 +5,7 @@ import { useHistory} from 'react-router-dom';
 const Header: React.FC<{}> = () => {
     const history = useHistory();
     return (
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light" >
+        <Navbar collapseOnSelect expand="lg" bg="light" variant="light" style={{position: 'fixed', top: '0', width:'100%'}}>
             <Container style={{margin:'1rem'}}>
                 {/*<Col><Navbar.Brand><Image src="../tempImages/NFT_Icon.png" fluid style={{width:"50%"}}/></Navbar.Brand></Col>*/}
                 <Col><Navbar.Brand style={{cursor:'pointer'}} className="AppName" onClick={()=>{history.push('/')}}>
