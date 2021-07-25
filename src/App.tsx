@@ -18,37 +18,34 @@ import { Route, Switch } from "react-router-dom";
 import SearchWord from "./components/SearchWord"
 import GridLayoutSell from "./components/GridLayoutSell"
 import GridLayoutMyTokenOnSale from "./components/GridLayoutMyTokenOnSale"
+
+
+
 const App: React.FC<{}> = () => {
+  
+  
   return (
     <div>
        
        <Header />
-
-       
+      <Route exact path="/"  render={()=><CarouselMain/>}/>
+      <Route path="/login" render={()=><Login/>}/>
+      <Route path="/registerAccount" render={()=><RegisterAccount/>}/>
+      <Route path="/search" render={()=><SearchWord/>}/>
+      <Route path="/search" render={()=><GridLayoutBuy/>}/>
+      <Route exact path="/registerPicture"  render={()=><RegisterPicture/>}/>
+      <Route exact path="/registerPicture/result"  render={()=><CardsSimilarity/>}/>
+      <Route path="/myPage" render={()=><Tabs/>}></Route>
+      <Route path="/myPage/myToken" render={()=><GridLayoutSell/>}/>
+      <Route path="/myPage/myTokenOnSale" render={()=><GridLayoutMyTokenOnSale/>}/> 
+      <Route path="/myPage/transactions" render={()=><TransactionTable/>}/>
+      <Route path="/viewPictures" render={()=><SearchWord/>}/>
       
-        <Route exact path="/"  component={CarouselMain}/>
-        <Route path="/login" component={Login}/>
-        <Route path="/registerAccount" component={RegisterAccount}/>
-        <Route path="/search" component={SearchWord}/>
-        <Route path="/search" component={GridLayoutBuy}/>
-        <Route exact path="/registerPicture"  component={RegisterPicture}/>
-        <Route exact path="/registerPicture/result"  component={CardsSimilarity}/>
-        <Route path="/myPage" component={Tabs}></Route>
-        <Route path="/myPage/myToken" component={GridLayoutSell}/>
-        <Route path="/myPage/myTokenOnSale" component={GridLayoutMyTokenOnSale}/> 
-        <Route path="/myPage/transactions" component={TransactionTable}/>
-        <Route path="/viewPictures" component={SearchWord}/>
-        {/**
-        <Route path="/viewPictures/price" component={GridLayoutBuy}/>
-        <Route path="/viewPictures/popularity" component={GridLayoutBuy}/>*/}
-        <Route path="/viewPictures/category" component={CategoryTab}/>
-        {/**<Route path="/viewPictures/category/1" component={GridLayoutBuy}/>*/}
-        <Route path={["/viewPictures/price", "/viewPictures/popularity"
-        ,  "/viewPictures/category/1" ]} component={GridLayoutBuy}/>
-         
-        
+      <Route path="/viewPictures/category" render={()=><CategoryTab/>}/>
 
- 
+      <Route path={["/viewPictures/price", "/viewPictures/popularity"
+      ,  "/viewPictures/category/1" ]} render={()=><GridLayoutBuy/>}/>
+         
     </div> 
   );
 };

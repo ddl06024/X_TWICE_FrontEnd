@@ -18,7 +18,7 @@ const SearchWord: React.FC<{}> = () => {
       }else if(e.target.value==="2"){
           history.push('/viewPictures/popularity');
       }else{
-          history.push('/viewPictures/price');
+          history.push('/viewPictures/price')
       }}}>
         <option value="1">가격순</option>
         <option value="2">인기순</option>

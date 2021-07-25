@@ -4,6 +4,7 @@ import {useHistory} from 'react-router-dom'
 
 const CarouselMain: React.FC<{}> = () => {
     const history = useHistory();
+    
     return (
       
       <Container  style={{marginTop: '4rem'}}>

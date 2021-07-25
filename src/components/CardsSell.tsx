@@ -2,17 +2,18 @@ import React from "react";
 import { Button, Card, Col, FloatingLabel, Form, Row } from "react-bootstrap";
 
 
-const CardsSell: React.FC<{}> = () => {
+const CardsSell: React.FC<any> = (props) => {
+    console.log(props);
     return (
-        <Col lg={3} md={4} xs={12} style={{margin:'1rem 1rem'}}>
+        <Col lg={3} md={4} xs={12} >
       <Card>
         <Card.Img variant="bottom" src="../tempImages/big.jpg" />
         <Card.Body>
           <Card.Title>제목</Card.Title>
           <Card.Text>
-            사진 ID : 12<br/>
-            소유자 : 지의신<br/>
-            게시일 : 2021.07.21<br/>
+            사진 ID : 12<br/> 제목 : {props.title}<br/>
+            소유자 : 지의신<br/>게시일 : 2021.07.21<br/>
+            설명 : {props.desc}
           </Card.Text>
           <Row>
           <Col><Form.Control placeholder="1.5klay" /></Col>
