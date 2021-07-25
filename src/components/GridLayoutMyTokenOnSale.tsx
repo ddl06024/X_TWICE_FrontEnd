@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {  Button, Col, Container, Row } from "react-bootstrap";
-import CardsBuy from "./CardsBuy"
+import CardsMyTokenOnSale from "./CardsMyTokenOnSale"
 
-const GridLayoutBuy: React.FC<{}> = () => {
+const GridLayoutMyTokenOnSale: React.FC<{}> = () => {
   const [Pictures, setPictures] = useState(20);
   const loadMorePictures = () => {
     setPictures(Pictures+20);
@@ -13,7 +13,7 @@ const GridLayoutBuy: React.FC<{}> = () => {
     
             <Row>
               {Array.from({ length: Pictures }).map((_, index) => (
-              <CardsBuy key={index}/>
+              <CardsMyTokenOnSale key={index}/>
             ))}
             </Row>
           </div>
@@ -24,6 +24,6 @@ const GridLayoutBuy: React.FC<{}> = () => {
     );
 };
 
-export default GridLayoutBuy;
+export default GridLayoutMyTokenOnSale;
 
 

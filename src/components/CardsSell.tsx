@@ -4,7 +4,8 @@ import { Button, Card, Col, FloatingLabel, Form, Row } from "react-bootstrap";
 
 const CardsSell: React.FC<{}> = () => {
     return (
-      <Card style={{ width: '18rem' }}>
+        <Col lg={3} md={4} xs={12} style={{margin:'1rem 1rem'}}>
+      <Card>
         <Card.Img variant="bottom" src="../tempImages/big.jpg" />
         <Card.Body>
           <Card.Title>제목</Card.Title>
@@ -15,16 +16,19 @@ const CardsSell: React.FC<{}> = () => {
           </Card.Text>
           <Row>
           <Col><Form.Control placeholder="1.5klay" /></Col>
-          <Col><Button variant="primary">판매하기</Button></Col>
+          <Col><Button variant="primary" >판매하기</Button></Col>
  
         </Row>
           
         </Card.Body>
       </Card>
+      </Col>
     );
 };
 
 
 export default CardsSell;
+
+
 
 

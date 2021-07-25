@@ -7,10 +7,10 @@ const CarouselMain: React.FC<{}> = () => {
     return (
       
       <Container  style={{marginTop: '4rem'}}>
-        <Nav className="justify-content-center" >
-        <Row style={{width:'75%'}}>
+        <Nav className="justify-content-center"  >
+        <Row style={{width:'75%'}} className="align-items-center">
         
-        <Col  md="auto" style={{marginTop : '7rem'}}  >
+        <Col md="auto"  >
         <div style={{textAlign:'center'}}>
           <h1>NFT를 수집하고</h1> 
           <h1> 판매해보세요!</h1>
@@ -21,7 +21,7 @@ const CarouselMain: React.FC<{}> = () => {
           
         </Col>
         
-    <Col style={{alignContent:'center'}}>
+    <Col style={{alignContent:'center'}} >
         <Carousel >
           <Carousel.Item >
             <img
@@ -66,7 +66,7 @@ const CarouselMain: React.FC<{}> = () => {
         </Row>
         </Nav>
         </Container>
-      
+    
     );
 };
 

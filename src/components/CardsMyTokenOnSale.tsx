@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Card, Col, FloatingLabel, Form, Row } from "react-bootstrap";
-const CardsBuy: React.FC<{}> = () => {
+const CardsMyTokenOnSale: React.FC<{}> = () => {
   return (
-    <Col lg={3} md={4} xs={12} >
+    <Col lg={3} md={4} xs={12} style={{margin:'1rem auto'}}>
     <Card >
       <Card.Img variant="bottom" src="../tempImages/big.jpg" />
       <Card.Body>
@@ -14,9 +14,9 @@ const CardsBuy: React.FC<{}> = () => {
         </Card.Text>
         <Row >
         <Col><h6 style={{
-                      textAlign:"center", marginTop:8, color:"green"
+                      textAlign:"center", marginTop:8, color:"red"
                     }}>1.5klay</h6></Col>
-        <Col><Button variant="secondary" >구매하기</Button></Col>
+        <Col><Button variant="danger">판매취소</Button></Col>
 
           </Row>
         
@@ -25,6 +25,6 @@ const CardsBuy: React.FC<{}> = () => {
     </Col>
   );
                   }
-export default CardsBuy;
+export default CardsMyTokenOnSale;
 
 

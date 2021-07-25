@@ -4,9 +4,9 @@ import { Nav } from "react-bootstrap";
 const CategoryTab: React.FC<{}> = () => {
     return (
       <div style={{width: '85%', margin: '1rem auto'}}>
-          <Nav justify variant="pills" defaultActiveKey="/home">
+          <Nav justify variant="pills" defaultActiveKey="link-0">
             <Nav.Item>
-              <Nav.Link href="/home">Option 1</Nav.Link>
+              <Nav.Link eventKey="link-0">Option 1</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="link-1">Option 2</Nav.Link>

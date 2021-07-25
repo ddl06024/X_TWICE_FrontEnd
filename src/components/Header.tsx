@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Button, Col, Container, Form, FormControl, Nav, Navbar, Image} from "react-bootstrap";
 import { useHistory} from 'react-router-dom';
 
 const Header: React.FC<{}> = () => {
@@ -7,7 +7,8 @@ const Header: React.FC<{}> = () => {
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light" >
             <Container style={{margin:'1rem'}}>
-                <Col><Navbar.Brand className="AppName" onClick={()=>{history.push('/')}}>
+                {/*<Col><Navbar.Brand><Image src="../tempImages/NFT_Icon.png" fluid style={{width:"50%"}}/></Navbar.Brand></Col>*/}
+                <Col><Navbar.Brand style={{cursor:'pointer'}} className="AppName" onClick={()=>{history.push('/')}}>
                 크립토그래퍼
                     </Navbar.Brand></Col>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
