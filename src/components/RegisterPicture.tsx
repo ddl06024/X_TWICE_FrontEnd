@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import { Button, Col, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
 import { useHistory} from 'react-router-dom';
 const RegisterPicture: React.FC<any> = (props) => {
-    console.log(props);
     const history = useHistory();
 {/**     const [nft, setNft] = useState<any>({
         userId:'default',
@@ -21,10 +20,10 @@ const RegisterPicture: React.FC<any> = (props) => {
     }
     const onClickHandler = () =>{
             let _contents = Array.from(props.nft.nft.contents);
-            _contents.push({id:props.nft.nft.nftId, onSale:false, title:title, desc:desc, price:0});
+            _contents.push({id:props.nft.nft.count, onSale:false, title:title, desc:desc, price:0});
             const newNft = {
                 userId: props.nft.nft.userId,
-                nftId: props.nft.nft.nftId+1,
+                count: props.nft.nft.count+1,
                 contents: _contents,
             }
             props.onClick(newNft);
@@ -81,7 +80,7 @@ const RegisterPicture: React.FC<any> = (props) => {
             <Button variant="primary" type="submit" style = {{margin:'1rem'}} >
             Submit
         </Button>
-        <Button variant="primary" onClick={onClickHandler} style = {{margin:'1rem'}}>등록 </Button>
+        <Button variant="primary" onClick={onClickHandler} style = {{margin:'1rem'}}>등록 </Button>  
 
       </Form>
       </div>

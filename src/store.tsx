@@ -9,7 +9,7 @@ export default createStore(function(state:any, action:any){
     if(state === undefined){
         return {nft:{
             userId:'default',
-            nftId: 1,
+            count: 1,
             contents:[
             {id: 0, onSale:true, title: "첫번쨰 게시물", desc:"첫번째게시물입니다!!!!!!", price:3}
         ]
