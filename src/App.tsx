@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Tabs from "./components/Tabs";
 import CardsBuy from "./components/CardsBuy"
 import CardsSell from "./components/CardsSell"
-import RegisterPicture from "./components/RegisterPicture"
+import RegisterPicture from "./containers/RegisterPicture"
 import Login from "./components/Login"
 import CarouselMain from "./components/CarouselMain"
 import RegisterAccount from "./components/RegisterAccount"
@@ -16,8 +16,8 @@ import { Container } from "react-bootstrap";
 import CategoryTab from "./components/CategoryTab"
 import { Route, Switch } from "react-router-dom";
 import SearchWord from "./components/SearchWord"
-import GridLayoutSell from "./components/GridLayoutSell"
-import GridLayoutMyTokenOnSale from "./components/GridLayoutMyTokenOnSale"
+import GridLayoutSell from "./containers/GridLayoutSell"
+import GridLayoutMyTokenOnSale from "./containers/GridLayoutMyTokenOnSale"
 
 
 

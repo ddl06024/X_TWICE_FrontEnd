@@ -1,41 +1,45 @@
 import React, {useEffect, useState} from "react";
 import { Button, Col, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
 import { useHistory} from 'react-router-dom';
-const RegisterPicture: React.FC<{}> = () => {
+const RegisterPicture: React.FC<any> = (props) => {
+    console.log(props);
     const history = useHistory();
-    const [id, setId] = useState(1);
-    const [state, setState] = useState<any>({
-        currentId: 0,
+{/**     const [nft, setNft] = useState<any>({
+        userId:'default',
+        nftId: 1,
         contents:[
-            {id: 0, title: "첫번쨰 게시물", desc:"첫번째게시물입니다!!!!!!"}
+            {id: 0, onSale:true, title: "첫번쨰 게시물", desc:"첫번째게시물입니다!!!!!!", price:3}
         ]
-        
-    });
+    });*/}
     const [title, setTitle] = useState<any>('');
     const [desc, setDesc] = useState<any>('');
     const handleChange = (e:any)=>{
-        console.log(e.target.value);
         setTitle(e.target.value);
     }
     const descHandleChange = (e:any) =>{
-        console.log(e.target.value);
         setDesc(e.target.value);
     }
-    const onSubmitHandler = () =>{
-            let _contents = Array.from(state.contents);
-            _contents.push({id:id, title:title, desc:desc});
-            setState({
+    const onClickHandler = () =>{
+            let _contents = Array.from(props.nft.nft.contents);
+            _contents.push({id:props.nft.nft.nftId, onSale:false, title:title, desc:desc, price:0});
+            const newNft = {
+                userId: props.nft.nft.userId,
+                nftId: props.nft.nft.nftId+1,
+                contents: _contents,
+            }
+            props.onClick(newNft);
+          {/*  setNft({
                 contents:_contents,
-                currentId : id,  
-            });
-            setId(id+1);
+                nftId : props.nft.nft.nftId+1,
+            });*/}
     }
     return ( 
         <Nav className="justify-content-center" style={{width: '40rem auto', margin:'4rem auto'}}>
         <div style={{ width: 860, height: 'auto' }}>
         <Form onSubmit={()=>{
+              
             history.push({
-                state: state,
+                //state: state,
                 pathname: '/myPage/myToken'
              });
         }}> 
@@ -73,10 +77,12 @@ const RegisterPicture: React.FC<{}> = () => {
                 />
             </FloatingLabel>
             </Row>
-            <Button variant="primary" onClick={onSubmitHandler} style = {{margin:'1rem'}}>유사도 검사하기 </Button>
+            <Button variant="primary" onClick={()=>{alert('유사도검사중');}} style = {{margin:'1rem'}}>유사도 검사하기 </Button>
             <Button variant="primary" type="submit" style = {{margin:'1rem'}} >
             Submit
         </Button>
+        <Button variant="primary" onClick={onClickHandler} style = {{margin:'1rem'}}>등록 </Button>
+
       </Form>
       </div>
       </Nav>
