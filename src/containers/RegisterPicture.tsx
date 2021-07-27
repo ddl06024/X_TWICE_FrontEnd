@@ -9,7 +9,6 @@ function mapDispatchToProps(dispatch:any){
     return {
         onClick:function(nft:any){
             dispatch({type: 'CREATE', nft:nft});
-            
         }
     }
 }

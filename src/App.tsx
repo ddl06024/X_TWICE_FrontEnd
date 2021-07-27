@@ -15,10 +15,14 @@ import { Route, Switch } from "react-router-dom";
 import SearchWord from "./components/SearchWord"
 import GridLayoutSell from "./containers/GridLayoutSell"
 import GridLayoutMyTokenOnSale from "./containers/GridLayoutMyTokenOnSale"
+import AppAxios from "./pages/appAxios";
 const App: React.FC<{}> = () => {
   return (
     <div>
        <Header />
+       
+       <Route exact path="/AppAxios"  render={()=><AppAxios/>}/>
+       
       <Route exact path="/"  render={()=><CarouselMain/>}/>
       <Route path="/login" render={()=><Login/>}/>
       <Route path="/registerAccount" render={()=><RegisterAccount/>}/>
@@ -34,7 +38,7 @@ const App: React.FC<{}> = () => {
       <Route path="/viewPictures/category" render={()=><CategoryTab/>}/>
       <Route path={["/viewPictures/price", "/viewPictures/popularity"
       ,  "/viewPictures/category/1" ]} render={()=><GridLayoutBuy/>}/>
-         
+              
     </div> 
   );
 };
