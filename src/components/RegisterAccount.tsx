@@ -1,10 +1,33 @@
-import React from "react";
-import { Accordion,  Button,  Card, Nav} from "react-bootstrap";
+import React, {useState} from "react";
+import {   Button, Form,} from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import caver from "../configs/klaytn";
+  
 
 const RegisterAccount: React.FC<{}> = () => {
+    
+    const [privateKey, setPrivateKey] = useState(null);
+    
+    const generatePrivateKey = () => {
+        const pk  = caver.klay.accounts.create()
+        setPrivateKey(pk)
+        console.log(pk);
+      }
+   
     const history = useHistory();
     return (
+        <Form>
+            <Form.Group className="mb-3" controlId="formBasicPassword"  >
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" name="user_password" value={privateKey||''}/>
+            </Form.Group>
+            <Button variant="primary" type="button" onClick={generatePrivateKey}>
+            생성
+        </Button>
+      </Form>
+    );
+};
+        {/* 
         <Nav className="justify-content-center" style={{width: '40rem', margin:'4rem auto'}}>
         <div style={{ width: '40rem', height: 'auto' }}>
         <Accordion defaultActiveKey="0">
@@ -42,9 +65,8 @@ const RegisterAccount: React.FC<{}> = () => {
     </div>
     </Nav>
 
-    
-    );
-};
+    */}
+
 
 export default RegisterAccount;
 

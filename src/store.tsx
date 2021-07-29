@@ -21,5 +21,8 @@ export default createStore(function(state:any, action:any){
     if(action.type=== 'ChangeToOnSaleMode'){
         return {...state}
     }
+    if(action.type=== 'Login'){
+        return {...state, pwd : action.pwd}
+    }
     return state;
 }, composeEnhancers());

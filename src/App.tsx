@@ -4,7 +4,7 @@ import Tabs from "./components/Tabs";
 import CardsBuy from "./components/CardsBuy"
 import CardsSell from "./components/CardsSell"
 import RegisterPicture from "./containers/RegisterPicture"
-import Login from "./components/Login"
+import Login from "./containers/Login"
 import CarouselMain from "./components/CarouselMain"
 import RegisterAccount from "./components/RegisterAccount"
 import TransactionTable from "./components/TransactionTable"
@@ -15,14 +15,15 @@ import { Route, Switch } from "react-router-dom";
 import SearchWord from "./components/SearchWord"
 import GridLayoutSell from "./containers/GridLayoutSell"
 import GridLayoutMyTokenOnSale from "./containers/GridLayoutMyTokenOnSale"
-import AppAxios from "./pages/appAxios";
+import AppAxios from "./hooks/appAxios";
+import Auth from "./components/Auth"
 const App: React.FC<{}> = () => {
   return (
     <div>
        <Header />
        
        <Route exact path="/AppAxios"  render={()=><AppAxios/>}/>
-       
+     {/** <Route exact path="/Auth" render={()=><Auth/>}/>  */}
       <Route exact path="/"  render={()=><CarouselMain/>}/>
       <Route path="/login" render={()=><Login/>}/>
       <Route path="/registerAccount" render={()=><RegisterAccount/>}/>
