@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from "react";
 import { Button, Col, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { setCookie } from "../hooks/cookie";
+import { setCookie, getCookie } from "../hooks/cookie";
 import { useUsers } from "../hooks/useUsers";
 
 const Login: React.FC<any> = (props) => {
@@ -30,19 +30,22 @@ const Login: React.FC<any> = (props) => {
       user_password,
     });
     if (res.data) {
-      const cookie = setCookie("myToken", res.data, {
+      setCookie("myToken", res.data, {
         path: "/",
         secure: true,
         sameSite: "none",
       });
     }
-
     console.log(res.data);
-    const token = res.data;
-    const res2 = await isUserLogin({
-      token,
+    history.push({
+      pathname: "/",
+      state: { tk: getCookie("myToken") },
     });
-    console.log(res2);
+    //const token = res.data;
+    //const res2 = await isUserLogin({
+    //  token,
+    //});
+    //console.log(res2);
   }
 
   return (

@@ -13,12 +13,12 @@ import { Route } from "react-router-dom";
 import SearchWord from "./components/SearchWord";
 import GridLayoutSell from "./containers/GridLayoutSell";
 import GridLayoutMyTokenOnSale from "./containers/GridLayoutMyTokenOnSale";
+import { getCookie } from "./hooks/cookie";
 const App: React.FC<{}> = () => {
   return (
     <div>
-      <Header />
-
       {/** <Route exact path="/Auth" render={()=><Auth/>}/>  */}
+      <Route path="/" render={() => <Header />} />
       <Route exact path="/" render={() => <CarouselMain />} />
       <Route path="/login" render={() => <Login />} />
       <Route path="/registerAccount" render={() => <RegisterAccount />} />

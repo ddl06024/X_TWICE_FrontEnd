@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Col,
@@ -9,10 +9,17 @@ import {
   Navbar,
   Image,
 } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-
-const Header: React.FC<{}> = () => {
+import { useHistory, useLocation } from "react-router-dom";
+import { getCookie, removeCookie } from "../hooks/cookie";
+const Header: React.FC<any> = (props) => {
   const history = useHistory();
+  const [token, setToken] = useState(getCookie("myToken"));
+  const location = useLocation<any>();
+  useEffect(() => {
+    if (location.state) {
+      setToken(location.state);
+    }
+  }, [location]);
   return (
     <Navbar
       collapseOnSelect
@@ -52,28 +59,49 @@ const Header: React.FC<{}> = () => {
                     history.push("/search");
                   }}
                 >
-                  Search
+                  검색
                 </Button>
               </Form>
             </Nav>
           </Col>
-          <Nav>
-            <Nav.Link
-              onClick={() => {
-                history.push("/login");
-              }}
-            >
-              로그인
-            </Nav.Link>
-            <Nav.Link
-              eventKey={2}
-              onClick={() => {
-                history.push("/registerAccount");
-              }}
-            >
-              회원가입
-            </Nav.Link>
-          </Nav>
+          {token ? (
+            <Nav>
+              <Nav.Link
+                onClick={() => {
+                  removeCookie("myToken");
+                  setToken(getCookie("myToken"));
+                }}
+              >
+                로그아웃
+              </Nav.Link>
+              <Nav.Link
+                eventKey={2}
+                onClick={() => {
+                  history.push("/myPage/myToken");
+                }}
+              >
+                마이페이지
+              </Nav.Link>
+            </Nav>
+          ) : (
+            <Nav>
+              <Nav.Link
+                onClick={() => {
+                  history.push("/login");
+                }}
+              >
+                로그인
+              </Nav.Link>
+              <Nav.Link
+                eventKey={2}
+                onClick={() => {
+                  history.push("/registerAccount");
+                }}
+              >
+                회원가입
+              </Nav.Link>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
