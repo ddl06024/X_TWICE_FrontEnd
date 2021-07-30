@@ -1,9 +1,9 @@
 import Login from "../components/Login";
-import {connect} from 'react-redux';
-import axios from 'axios';
+import { connect } from "react-redux";
+import axios from "axios";
 //import Caver from "caver-js";
 
-function mapDispatchToProps(dispatch:any){
+function mapDispatchToProps(dispatch: any) {
   /*  const config = {
         rpcURL: "https://api.baobab.klaytn.net:8651",
       };
@@ -104,19 +104,19 @@ getWallet: function () {
   },
 
     }*/
-    return {
-        onSubmit:function(pwd:any){
-            axios({
-                method: "post",
-                url: "https://jsonplaceholder.typicode.com/users",
-                data:{
-                    username: pwd,
-                },
-            }).then((res)=>{
-                console.log(res);
-            })
-            dispatch({type: 'Login', pwd:pwd});
-        }
-    }
+  return {
+    onSubmit: function (pwd: any) {
+      axios({
+        method: "post",
+        url: "https://jsonplaceholder.typicode.com/users",
+        data: {
+          username: pwd,
+        },
+      }).then((res) => {
+        console.log(res);
+      });
+      dispatch({ type: "Login", pwd: pwd });
+    },
+  };
 }
 export default connect(null, mapDispatchToProps)(Login);

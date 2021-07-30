@@ -1,33 +1,134 @@
-import React, {useState} from "react";
-import {   Button, Form,} from "react-bootstrap";
+import React, { useState, useReducer } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import caver from "../configs/klaytn";
-  
+import { useUsers } from "../hooks/useUsers";
 
 const RegisterAccount: React.FC<{}> = () => {
-    
-    const [privateKey, setPrivateKey] = useState(null);
-    
-    const generatePrivateKey = () => {
-        const pk  = caver.klay.accounts.create()
-        setPrivateKey(pk)
-        console.log(pk);
-      }
-   
-    const history = useHistory();
-    return (
-        <Form>
-            <Form.Group className="mb-3" controlId="formBasicPassword"  >
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" name="user_password" value={privateKey||''}/>
-            </Form.Group>
-            <Button variant="primary" type="button" onClick={generatePrivateKey}>
-            생성
+  const [user_privatekey, setPrivateKey] = useState(null);
+
+  const generatePrivateKey = () => {
+    const { privateKey: pk } = caver.klay.accounts.create();
+    setPrivateKey(pk);
+    console.log(pk);
+    console.log(pk.length);
+  };
+
+  const initialFormStates = {
+    user_id: "",
+    user_password: "",
+    user_passwordcheck: "",
+    checkPassword: false,
+  };
+
+  const [formState, setFormState] = useReducer(
+    (curVals: any, newVals: any) => ({ ...curVals, ...newVals }),
+    initialFormStates
+  );
+
+  const { user_id, user_password, user_passwordcheck } = formState;
+
+  const handleFormChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormState({ [name]: value });
+  };
+
+  const history = useHistory();
+
+  const { signUpUser } = useUsers();
+  async function signup() {
+    const res = await signUpUser({
+      user_id,
+      // user_password,
+      user_account: user_privatekey,
+    });
+    console.log(res.data);
+    const token = res.data;
+  }
+
+  return (
+    <div style={{ margin: "2rem", marginTop: "4rem" }}>
+      <Form>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label> ID</Form.Label>
+          <Form.Control
+            type="id"
+            placeholder="아이디"
+            name="user_id"
+            onChange={handleFormChange}
+            value={user_id}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>비밀번호</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="비밀번호"
+            name="user_password"
+            onChange={handleFormChange}
+            value={user_password}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>비밀번호 확인</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="비밀번호 확인"
+            name="user_passwordcheck"
+            value={user_passwordcheck}
+            onChange={handleFormChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>프라이빗 키</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="프라이빗 키"
+            name="user_privatekey"
+            value={user_privatekey || ""}
+            onChange={handleFormChange}
+          />
+        </Form.Group>
+        <Form.Text className="text-muted" style={{ marginRight: "0.5rem" }}>
+          We'll never share your PrivateKey with anyone else.
+        </Form.Text>
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={generatePrivateKey}
+          size="sm"
+        >
+          Private Key 생성
+        </Button>
+        <br />
+        <Button variant="success" type="button" onClick={signup}>
+          회원가입
         </Button>
       </Form>
-    );
+
+      <p style={{ marginTop: "2rem" }}>
+        계정이 있으신가요?
+        <Button
+          variant="outline-secondary"
+          size="sm"
+          onClick={() => {
+            history.push({
+              //state: state,
+              pathname: "/login",
+            });
+          }}
+        >
+          로그인
+        </Button>
+      </p>
+    </div>
+  );
 };
-        {/* 
+export default RegisterAccount;
+
+{
+  /* 
         <Nav className="justify-content-center" style={{width: '40rem', margin:'4rem auto'}}>
         <div style={{ width: '40rem', height: 'auto' }}>
         <Accordion defaultActiveKey="0">
@@ -65,11 +166,5 @@ const RegisterAccount: React.FC<{}> = () => {
     </div>
     </Nav>
 
-    */}
-
-
-export default RegisterAccount;
-
-
-
-
+    */
+}
