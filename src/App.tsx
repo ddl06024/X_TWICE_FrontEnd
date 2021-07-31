@@ -16,7 +16,7 @@ import GridLayoutMyTokenOnSale from "./containers/GridLayoutMyTokenOnSale";
 import { getCookie } from "./hooks/cookie";
 const App: React.FC<{}> = () => {
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       {/** <Route exact path="/Auth" render={()=><Auth/>}/>  */}
       <Route path="/" render={() => <Header />} />
       <Route exact path="/" render={() => <CarouselMain />} />

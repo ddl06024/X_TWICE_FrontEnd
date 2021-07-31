@@ -8,6 +8,7 @@ import {
   Nav,
   Navbar,
   Image,
+  Row,
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { getCookie, removeCookie } from "../hooks/cookie";
@@ -17,53 +18,50 @@ const Header: React.FC<any> = (props) => {
   const location = useLocation<any>();
   useEffect(() => {
     if (location.state) {
-      setToken(location.state);
+      setToken(location.state.tk);
     }
   }, [location]);
   return (
-    <Navbar
-      collapseOnSelect
-      expand="lg"
-      bg="light"
-      variant="light"
-      style={{ position: "fixed", top: "0", width: "100%" }}
-    >
-      <Container style={{ margin: "1rem" }}>
-        {/*<Col><Navbar.Brand><Image src="../tempImages/NFT_Icon.png" fluid style={{width:"50%"}}/></Navbar.Brand></Col>*/}
-        <Col>
-          <Navbar.Brand
-            style={{ cursor: "pointer" }}
-            className="AppName"
-            onClick={() => {
-              history.push("/");
-            }}
-          >
-            크립토그래퍼
-          </Navbar.Brand>
-        </Col>
+    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+      <Container>
+        <Image
+          src="../tempImages/NFT_Icon.png"
+          fluid
+          style={{
+            height: "auto",
+            width: "auto",
+            maxHeight: "72px",
+            maxWidth: "50px",
+          }}
+        />
+        <Navbar.Brand
+          style={{
+            cursor: "pointer",
+            alignContent: "center",
+            marginRight: "40px",
+          }}
+          className="AppName"
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          크립토그래퍼
+        </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Col>
-            <Nav className="me-auto">
-              <Form className="d-flex">
-                <FormControl
-                  style={{ marginLeft: "10rem", width: "30rem" }}
-                  type="search"
-                  placeholder="Search"
-                  className="mr-2"
-                  aria-label="Search"
-                />
-                <Button
-                  variant="outline-success"
-                  onClick={() => {
-                    history.push("/search");
-                  }}
-                >
-                  검색
-                </Button>
-              </Form>
-            </Nav>
-          </Col>
+          <Nav className="me-auto">
+            <Form className="d-flex ">
+              <FormControl
+                type="search"
+                placeholder="Search"
+                className="mr-2"
+                aria-label="Search"
+                style={{ width: "40vw" }}
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+          </Nav>
           {token ? (
             <Nav>
               <Nav.Link
