@@ -1,44 +1,62 @@
 import React from "react";
-import { Button, Card, Col, FloatingLabel, Form, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  FloatingLabel,
+  Form,
+  FormControl,
+  InputGroup,
+  Row,
+} from "react-bootstrap";
+import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 const CardsBuy: React.FC<any> = (props) => {
   const onClickHandle = () => {
     props.value.onSale = false;
     props.onClick(props.value);
   };
+  const [modalShow, setModalShow] = React.useState(false);
   return (
-    <Col lg={3} md={4} xs={12}>
+    <Col lg={3} md={4} xs={12} style={{ margin: "1rem auto" }}>
       <Card>
         <Card.Img variant="bottom" src="../tempImages/big.jpg" />
-        <Card.Body>
-          <Card.Title>제목</Card.Title>
+        <Card.Body style={{ height: "210px" }}>
+          <Card.Title>{props.value.title}</Card.Title>
           <Card.Text>
             사진 ID : 12
-            <br /> 제목 : {props.value.title}
             <br />
-            소유자 : 지의신
-            <br />
-            게시일 : 2021.07.21
-            <br />
-            설명 : {props.value.desc}
-          </Card.Text>
-          <Row>
-            <Col>
-              <h6
-                style={{
-                  textAlign: "center",
-                  marginTop: 8,
-                  color: "green",
-                }}
+            <Button
+              variant="dark"
+              onClick={() => setModalShow(true)}
+              style={{ marginTop: "0.5rem" }}
+            >
+              자세히 보기
+            </Button>
+            <MyVerticallyCenteredModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              title={props.value.title}
+              desc={props.value.desc}
+              src="../tempImages/big.jpg"
+            />
+            <hr />
+            <InputGroup className="mb-3" style={{ marginTop: "1rem" }}>
+              <FormControl
+                placeholder={props.value.price + " klay"}
+                readOnly
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                style={{ textAlign: "center" }}
+              />
+              <Button
+                variant="success"
+                id="button-addon2"
+                onClick={onClickHandle}
               >
-                1.5klay
-              </h6>
-            </Col>
-            <Col>
-              <Button variant="secondary" onClick={onClickHandle}>
                 구매하기
               </Button>
-            </Col>
-          </Row>
+            </InputGroup>
+          </Card.Text>
         </Card.Body>
       </Card>
     </Col>

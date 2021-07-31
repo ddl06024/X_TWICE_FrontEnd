@@ -1,43 +1,68 @@
 import React, { useState } from "react";
-import { Button, Card, Col, FloatingLabel, Form, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  FloatingLabel,
+  Form,
+  FormControl,
+  InputGroup,
+  Row,
+} from "react-bootstrap";
+import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 
 const CardsSell: React.FC<any> = (props) => {
-  const [price, setPrice] = useState<any>(0);
+  const [price, setPrice] = useState<any>(null);
   const handleChange = (e: any) => {
     setPrice(e.target.value);
   };
   const sellHandle = () => {
+    if (!price) {
+      alert("값을 입력하세요");
+      return;
+    }
     props.value.price = price;
     props.value.onSale = true;
     props.onClick(props.value);
   };
-
+  const [modalShow, setModalShow] = React.useState(false);
   return (
-    <Col lg={3} md={4} xs={12}>
+    <Col lg={3} md={4} xs={12} style={{ margin: "1rem auto" }}>
       <Card>
         <Card.Img variant="bottom" src="../tempImages/big.jpg" />
-        <Card.Body style={{ height: "250px" }}>
-          <Card.Title>제목</Card.Title>
+        <Card.Body style={{ height: "210px" }}>
+          <Card.Title>{props.value.title}</Card.Title>
           <Card.Text>
             사진 ID : 12
-            <br /> 제목 : {props.value.title}
             <br />
-            소유자 : 지의신
-            <br />
-            게시일 : 2021.07.21
-            <br />
-            설명 : {props.value.desc}
-          </Card.Text>
-          <Row>
-            <Col>
-              <Form.Control placeholder="klay" onChange={handleChange} />
-            </Col>
-            <Col>
-              <Button variant="primary" onClick={sellHandle}>
+            <Button
+              variant="dark"
+              onClick={() => setModalShow(true)}
+              style={{ marginTop: "0.5rem" }}
+            >
+              자세히 보기
+            </Button>
+            <MyVerticallyCenteredModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              title={props.value.title}
+              desc={props.value.desc}
+              src="../tempImages/big.jpg"
+            />
+            <hr />
+            <InputGroup className="mb-3" style={{ marginTop: "1rem" }}>
+              <FormControl
+                placeholder="가격(klay)"
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                style={{ textAlign: "center" }}
+                onChange={handleChange}
+              />
+              <Button variant="success" id="button-addon2" onClick={sellHandle}>
                 판매하기
               </Button>
-            </Col>
-          </Row>
+            </InputGroup>
+          </Card.Text>
         </Card.Body>
       </Card>
     </Col>
