@@ -1,10 +1,10 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
+import { Container, Nav } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 const Tabs: React.FC<{}> = () => {
   const history = useHistory();
   return (
-    <div style={{ width: "85%", margin: "1rem auto" }}>
+    <Container style={{ marginBottom: "1rem" }}>
       <Nav justify variant="tabs" defaultActiveKey="link-1" className="mt-4">
         <Nav.Item>
           <Nav.Link
@@ -37,7 +37,7 @@ const Tabs: React.FC<{}> = () => {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-    </div>
+    </Container>
   );
 };
 

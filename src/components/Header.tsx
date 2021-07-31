@@ -22,16 +22,26 @@ const Header: React.FC<any> = (props) => {
     }
   }, [location]);
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="light"
+      variant="light"
+      sticky="top"
+    >
       <Container>
         <Image
           src="../tempImages/NFT_Icon.png"
           fluid
           style={{
+            cursor: "pointer",
             height: "auto",
             width: "auto",
             maxHeight: "72px",
             maxWidth: "50px",
+          }}
+          onClick={() => {
+            history.push("/");
           }}
         />
         <Navbar.Brand
@@ -45,13 +55,13 @@ const Header: React.FC<any> = (props) => {
             history.push("/");
           }}
         >
-          크립토그래퍼
+          사진 거래소
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Form className="d-flex ">
+            <Form className="d-flex">
               <FormControl
                 type="search"
                 placeholder="Search"

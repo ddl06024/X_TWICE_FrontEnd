@@ -7,13 +7,13 @@ const GridLayoutSell: React.FC<any> = (props) => {
   const nft = props.nft.nft;
 
   return (
-    <div style={{ width: "85%", margin: "3rem auto" }}>
+    <Container style={{ height: "100%" }}>
       <Row>
         {Array.from(nft.contents).map((x: any, index) => {
           if (x.onSale === false) return <CardsSell key={index} value={x} />;
         })}
       </Row>
-    </div>
+    </Container>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import caver from "../configs/klaytn";
 import { useUsers } from "../hooks/useUsers";
@@ -47,7 +47,7 @@ const RegisterAccount: React.FC<{}> = () => {
   }
 
   return (
-    <div style={{ margin: "2rem", marginTop: "4rem" }}>
+    <Container style={{ marginTop: "4rem", height: "100%" }}>
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label> ID</Form.Label>
@@ -84,7 +84,7 @@ const RegisterAccount: React.FC<{}> = () => {
           <Form.Label>프라이빗 키</Form.Label>
           <Form.Control
             type="password"
-            placeholder="프라이빗 키"
+            placeholder="Private Key 생성을 누르세요"
             name="user_privatekey"
             value={user_privatekey || ""}
             onChange={handleFormChange}
@@ -94,7 +94,7 @@ const RegisterAccount: React.FC<{}> = () => {
           We'll never share your PrivateKey with anyone else.
         </Form.Text>
         <Button
-          variant="secondary"
+          variant="primary"
           type="button"
           onClick={generatePrivateKey}
           size="sm"
@@ -111,6 +111,7 @@ const RegisterAccount: React.FC<{}> = () => {
         계정이 있으신가요?
         <Button
           variant="outline-secondary"
+          style={{ marginLeft: "0.2rem" }}
           size="sm"
           onClick={() => {
             history.push({
@@ -122,7 +123,7 @@ const RegisterAccount: React.FC<{}> = () => {
           로그인
         </Button>
       </p>
-    </div>
+    </Container>
   );
 };
 export default RegisterAccount;

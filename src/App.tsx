@@ -18,7 +18,7 @@ const App: React.FC<{}> = () => {
   return (
     <div style={{ height: "100%" }}>
       {/** <Route exact path="/Auth" render={()=><Auth/>}/>  */}
-      <Route path="/" render={() => <Header />} />
+      <Route path="/" render={() => <Header />}></Route>
       <Route exact path="/" render={() => <CarouselMain />} />
       <Route path="/login" render={() => <Login />} />
       <Route path="/registerAccount" render={() => <RegisterAccount />} />

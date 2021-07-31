@@ -16,7 +16,7 @@ const CardsSell: React.FC<any> = (props) => {
     <Col lg={3} md={4} xs={12}>
       <Card>
         <Card.Img variant="bottom" src="../tempImages/big.jpg" />
-        <Card.Body>
+        <Card.Body style={{ height: "250px" }}>
           <Card.Title>제목</Card.Title>
           <Card.Text>
             사진 ID : 12
