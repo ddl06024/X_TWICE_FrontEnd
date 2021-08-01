@@ -15,6 +15,17 @@ import { getCookie, removeCookie } from "../hooks/cookie";
 const Header: React.FC<any> = (props) => {
   const history = useHistory();
   const [token, setToken] = useState(getCookie("myToken"));
+  const [search, setSearch] = useState("");
+  const handleSearchWords = (e: any) => {
+    setSearch(e.target.value);
+  };
+  const handleSearch = () => {
+    history.push({
+      pathname: "/viewPictures/popularity",
+      state: { word: search },
+    });
+  };
+
   const location = useLocation<any>();
   useEffect(() => {
     if (location.state) {
@@ -68,8 +79,11 @@ const Header: React.FC<any> = (props) => {
                 className="mr-2"
                 aria-label="Search"
                 style={{ width: "40vw" }}
+                onChange={handleSearchWords}
               />
-              <Button variant="outline-success">Search</Button>
+              <Button variant="outline-success" onClick={handleSearch}>
+                Search
+              </Button>
             </Form>
           </Nav>
           {token ? (

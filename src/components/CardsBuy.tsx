@@ -21,42 +21,42 @@ const CardsBuy: React.FC<any> = (props) => {
       <Card>
         <Card.Img variant="bottom" src="../tempImages/big.jpg" />
         <Card.Body style={{ height: "210px" }}>
-          <Card.Title>{props.value.title}</Card.Title>
-          <Card.Text>
-            사진 ID : 12
-            <br />
-            <Button
-              variant="dark"
-              onClick={() => setModalShow(true)}
-              style={{ marginTop: "0.5rem" }}
-            >
-              자세히 보기
-            </Button>
-            <MyVerticallyCenteredModal
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-              title={props.value.title}
-              desc={props.value.desc}
-              src="../tempImages/big.jpg"
-            />
-            <hr />
-            <InputGroup className="mb-3" style={{ marginTop: "1rem" }}>
-              <FormControl
-                placeholder={props.value.price + " klay"}
-                readOnly
-                aria-label="Recipient's username"
-                aria-describedby="basic-addon2"
-                style={{ textAlign: "center" }}
-              />
-              <Button
-                variant="success"
-                id="button-addon2"
-                onClick={onClickHandle}
-              >
-                구매하기
-              </Button>
-            </InputGroup>
+          <Card.Text style={{ fontWeight: "bold", marginBottom: "0.3rem" }}>
+            제목 : {props.value.title}
           </Card.Text>
+          <span style={{ fontSize: "0.8rem" }}>사진 ID : 12</span>
+          <br />
+          <Button
+            variant="dark"
+            onClick={() => setModalShow(true)}
+            style={{ marginTop: "0.8rem" }}
+          >
+            자세히 보기
+          </Button>
+          <MyVerticallyCenteredModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            title={props.value.title}
+            desc={props.value.desc}
+            src="../tempImages/big.jpg"
+          />
+          <hr />
+          <InputGroup className="mb-3" style={{ marginTop: "1rem" }}>
+            <FormControl
+              placeholder={props.value.price + " klay"}
+              readOnly
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+              style={{ textAlign: "center" }}
+            />
+            <Button
+              variant="success"
+              id="button-addon2"
+              onClick={onClickHandle}
+            >
+              구매하기
+            </Button>
+          </InputGroup>
         </Card.Body>
       </Card>
     </Col>

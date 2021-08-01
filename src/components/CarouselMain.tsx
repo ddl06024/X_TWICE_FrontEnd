@@ -28,7 +28,7 @@ const CarouselMain: React.FC<{}> = () => {
                 variant="outline-primary"
                 style={{ margin: 10 }}
                 onClick={() => {
-                  history.push("/viewPictures/price");
+                  history.push("/viewPictures/popularity");
                 }}
               >
                 보기
