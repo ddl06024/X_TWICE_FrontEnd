@@ -39,6 +39,7 @@ const Header: React.FC<any> = (props) => {
       bg="light"
       variant="light"
       sticky="top"
+      style={{ minHeight: "75px" }}
     >
       <Container>
         <Image

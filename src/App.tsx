@@ -15,6 +15,7 @@ import GridLayoutSell from "./containers/GridLayoutSell";
 import GridLayoutMyTokenOnSale from "./containers/GridLayoutMyTokenOnSale";
 import Footer from "./components/Footer";
 import { getCookie } from "./hooks/cookie";
+import Introduction from "./components/Introduction";
 import "./App.css";
 const App: React.FC<{}> = () => {
   return (
@@ -24,7 +25,7 @@ const App: React.FC<{}> = () => {
         <Route path="/" render={() => <Header />}></Route>
 
         <Route exact path="/" render={() => <CarouselMain />} />
-
+        <Route exact path="/" render={() => <Introduction />} />
         <Route path="/login" render={() => <Login />} />
         <Route path="/registerAccount" render={() => <RegisterAccount />} />
         <Route path="/search" render={() => <SearchWord />} />

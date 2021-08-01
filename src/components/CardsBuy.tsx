@@ -21,9 +21,17 @@ const CardsBuy: React.FC<any> = (props) => {
       <Card>
         <Card.Img variant="bottom" src="../tempImages/big.jpg" />
         <Card.Body style={{ height: "210px" }}>
-          <Card.Text style={{ fontWeight: "bold", marginBottom: "0.3rem" }}>
+          <Card.Text
+            style={{
+              fontWeight: "bold",
+              marginBottom: "0.3rem",
+              maxWidth: "100%",
+            }}
+            className="d-inline-block text-truncate"
+          >
             제목 : {props.value.title}
           </Card.Text>
+          <br />
           <span style={{ fontSize: "0.8rem" }}>사진 ID : 12</span>
           <br />
           <Button
