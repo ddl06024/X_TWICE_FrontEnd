@@ -60,7 +60,7 @@ const RegisterAccount: React.FC<{}> = () => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPassword1">
           <Form.Label>비밀번호</Form.Label>
           <Form.Control
             type="password"
@@ -70,7 +70,7 @@ const RegisterAccount: React.FC<{}> = () => {
             value={user_password}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPassword2">
           <Form.Label>비밀번호 확인</Form.Label>
           <Form.Control
             type="password"
@@ -80,7 +80,7 @@ const RegisterAccount: React.FC<{}> = () => {
             onChange={handleFormChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPassword3">
           <Form.Label>프라이빗 키</Form.Label>
           <Form.Control
             type="password"

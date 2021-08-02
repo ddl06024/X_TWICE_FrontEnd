@@ -93,6 +93,7 @@ const Header: React.FC<any> = (props) => {
                 onClick={() => {
                   removeCookie("myToken");
                   setToken(getCookie("myToken"));
+                  console.log(getCookie("myToken"));
                 }}
               >
                 로그아웃

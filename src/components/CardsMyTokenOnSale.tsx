@@ -29,7 +29,7 @@ const CardsMyTokenOnSale: React.FC<any> = (props) => {
             style={{
               fontWeight: "bold",
               marginBottom: "0.3rem",
-              maxWidth: "150px",
+              maxWidth: "100%",
             }}
             className="d-inline-block text-truncate"
           >

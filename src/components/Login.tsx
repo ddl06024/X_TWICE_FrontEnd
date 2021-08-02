@@ -30,7 +30,7 @@ const Login: React.FC<any> = (props) => {
     setFormState({ [name]: value });
   };
   const history = useHistory();
-  const { loginUser, isUserLogin } = useUsers();
+  const { loginUser } = useUsers();
   async function login() {
     console.log(formState);
     const res = await loginUser({

@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { usePictures } from "../hooks/usePictures";
 const RegisterPicture: React.FC<any> = (props) => {
   const history = useHistory();
-  {
-    /**     const [nft, setNft] = useState<any>({
-        userId:'default',
-        nftId: 1,
-        contents:[
-            {id: 0, onSale:true, title: "첫번쨰 게시물", desc:"첫번째게시물입니다!!!!!!", price:3}
-        ]
-    });*/
-  }
   const [title, setTitle] = useState<any>("");
   const [desc, setDesc] = useState<any>("");
+  const [files, setFiles] = useState<any>(null);
+  const [category, setCategory] = useState<any>(null);
   const handleChange = (e: any) => {
     setTitle(e.target.value);
   };
   const descHandleChange = (e: any) => {
     setDesc(e.target.value);
+  };
+  const handleFiles = (e: any) => {
+    console.log(e.target.files);
+    setFiles(e.target.files);
+  };
+  const handleCategory = (e: any) => {
+    console.log(e.target.value);
+    setCategory(e.target.value);
   };
   const onClickHandler = () => {
     let _contents = Array.from(props.nft.nft.contents);
@@ -42,22 +44,36 @@ const RegisterPicture: React.FC<any> = (props) => {
             });*/
     }
   };
+  const { registerPictures } = usePictures();
+  async function register() {
+    try {
+      const res = await registerPictures({
+        token_id: "2343" + new Date().getMilliseconds().toString(),
+        picture_url: "wwwaver.com",
+        picture_title: title,
+        picture_category: "122",
+        picture_info: desc,
+      });
+      console.log(res);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <Nav
       className="justify-content-center"
       style={{ width: "40rem auto", margin: "4rem auto" }}
     >
       <div style={{ width: 860, height: "auto" }}>
-        <Form
-          onSubmit={() => {
-            history.push({
-              //state: state,
-              pathname: "/myPage/myToken",
-            });
-          }}
-        >
+        <Form>
           <Row className="mb-3">
-            <Form.Group controlId="formFile" className="mb-3">
+            <Form.Group
+              controlId="formFile"
+              className="mb-3"
+              onChange={handleFiles}
+            >
               <Form.Label>사진</Form.Label>
               <Form.Control type="file" />
             </Form.Group>
@@ -77,7 +93,10 @@ const RegisterPicture: React.FC<any> = (props) => {
             controlId="floatingSelect"
             label="카테고리선택"
           >
-            <Form.Select aria-label="Floating label select example">
+            <Form.Select
+              aria-label="Floating label select example"
+              onChange={handleCategory}
+            >
               <option>Open this select menu</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -111,15 +130,21 @@ const RegisterPicture: React.FC<any> = (props) => {
           >
             유사도 검사하기{" "}
           </Button>
-          <Button variant="primary" type="submit" style={{ margin: "1rem" }}>
-            Submit
-          </Button>
+
           <Button
             variant="primary"
             onClick={onClickHandler}
             style={{ margin: "1rem" }}
           >
             등록{" "}
+          </Button>
+          <Button
+            variant="primary"
+            type="button"
+            style={{ margin: "1rem" }}
+            onClick={register}
+          >
+            Submit
           </Button>
         </Form>
       </div>
