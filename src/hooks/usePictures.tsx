@@ -1,4 +1,5 @@
 import { instance1, instance2 } from "../configs/axios";
+import { getCookie } from "../configs/cookie";
 
 export function usePictures() {
   async function registerPictures(params: any) {

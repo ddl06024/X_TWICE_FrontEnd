@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Tabs from "./components/Tabs";
 import RegisterPicture from "./containers/RegisterPicture";
 import Login from "./containers/Login";
-import CarouselMain from "./components/CarouselMain";
+import CarouselMain from "./containers/CarouselMain";
 import RegisterAccount from "./components/RegisterAccount";
 import TransactionTable from "./components/TransactionTable";
 import CardsSimilarity from "./components/CardsSimilarity";
@@ -14,9 +14,9 @@ import SearchWord from "./containers/SearchWord";
 import GridLayoutSell from "./containers/GridLayoutSell";
 import GridLayoutMyTokenOnSale from "./containers/GridLayoutMyTokenOnSale";
 import Footer from "./components/Footer";
-import { getCookie } from "./hooks/cookie";
 import Introduction from "./components/Introduction";
 import "./App.css";
+
 const App: React.FC<{}> = () => {
   return (
     <div style={{ height: "100%" }} className="page-container">

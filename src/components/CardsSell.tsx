@@ -57,6 +57,7 @@ const CardsSell: React.FC<any> = (props) => {
             title={props.value.title}
             desc={props.value.desc}
             src="../tempImages/big.jpg"
+            category={props.value.category}
           />
           <hr />
           <InputGroup className="mb-3" style={{ marginTop: "1rem" }}>

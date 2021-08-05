@@ -1,7 +1,10 @@
 import axios from "axios";
-import { getCookie } from "../hooks/cookie";
+import { getCookie } from "./cookie";
 import { useHistory } from "react-router-dom";
-import { removeCookie } from "../hooks/cookie";
+import { removeCookie } from "./cookie";
+import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
+import history from "./history";
 
 //const history = useHistory();
 
@@ -19,9 +22,18 @@ const instance2 = axios.create({
   },
 });
 
+instance2.interceptors.request.use(
+  (config) => {
+    config.headers.Authorization = `${getCookie("myToken")}`;
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 instance2.interceptors.response.use(
   (response) => {
     console.log(response);
+
     // Return a successful response back to the calling service
     return response;
   },
@@ -32,9 +44,10 @@ instance2.interceptors.response.use(
       console.log("error401");
       if (confirm("인증이 만료되었습니다. 이동하시겠습니까?")) {
         removeCookie("myToken");
-        return (location.href = "/login");
+        history.push("/login");
+
+        //(location.href = "/login");
         // history.pushState(null, "", "/login");
-        //history.push("/login");
       }
     } else {
       return Promise.reject(error);
