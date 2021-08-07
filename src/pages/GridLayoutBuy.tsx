@@ -86,7 +86,7 @@ const GridLayoutBuy: React.FC<any> = (props) => {
           </p>
         )}
         {loading ? (
-          <Spinner animation="border" role="status">
+          <Spinner animation="border" role="status" style={{ margin: "auto" }}>
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         ) : (
