@@ -1,4 +1,4 @@
-import Login from "../components/Login";
+import Login from "../pages/Login";
 import { connect } from "react-redux";
 function mapDispatchToProps(dispatch: any) {
   return {

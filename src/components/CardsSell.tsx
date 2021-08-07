@@ -27,7 +27,11 @@ const CardsSell: React.FC<any> = (props) => {
   };
   const [modalShow, setModalShow] = React.useState(false);
   return (
-    <Col lg={3} md={4} xs={12} style={{ margin: "1rem auto" }}>
+    <Col
+      style={{
+        padding: "0.7rem",
+      }}
+    >
       <Card>
         <Card.Img variant="bottom" src="../tempImages/big.jpg" />
         <Card.Body style={{ height: "210px" }}>

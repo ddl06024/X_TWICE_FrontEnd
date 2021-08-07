@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Card, Col, Container, Row, Image } from "react-bootstrap";
 import CardsSell from "../containers/CardsSell";
 import { useLocation } from "react-router";
-import "./Footer.css";
+import "../assets/css/Footer.css";
 
 const Footer: React.FC<any> = () => {
   console.log("wow");

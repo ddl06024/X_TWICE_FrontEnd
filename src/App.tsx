@@ -1,20 +1,20 @@
 import React from "react";
-import Header from "./components/Header";
-import Tabs from "./components/Tabs";
+import Header from "./pages/Header";
+import Tabs from "./pages/Tabs";
 import RegisterPicture from "./containers/RegisterPicture";
 import Login from "./containers/Login";
 import CarouselMain from "./containers/CarouselMain";
-import RegisterAccount from "./components/RegisterAccount";
-import TransactionTable from "./components/TransactionTable";
-import CardsSimilarity from "./components/CardsSimilarity";
+import RegisterAccount from "./pages/RegisterAccount";
+import TransactionTable from "./pages/TransactionTable";
+
 import GridLayoutBuy from "./containers/GridLayoutBuy";
-import CategoryTab from "./components/CategoryTab";
+import CategoryTab from "./pages/CategoryTab";
 import { Route } from "react-router-dom";
 import SearchWord from "./containers/SearchWord";
 import GridLayoutSell from "./containers/GridLayoutSell";
 import GridLayoutMyTokenOnSale from "./containers/GridLayoutMyTokenOnSale";
-import Footer from "./components/Footer";
-import Introduction from "./components/Introduction";
+import Footer from "./pages/Footer";
+import Introduction from "./pages/Introduction";
 import "./App.css";
 
 const App: React.FC<{}> = () => {
@@ -35,11 +35,7 @@ const App: React.FC<{}> = () => {
           path="/registerPicture"
           render={() => <RegisterPicture />}
         />
-        <Route
-          exact
-          path="/registerPicture/result"
-          render={() => <CardsSimilarity />}
-        />
+
         <Route path="/myPage" render={() => <Tabs />}></Route>
         <Route path="/myPage/myToken" render={() => <GridLayoutSell />} />
         <Route

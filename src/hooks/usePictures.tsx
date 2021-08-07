@@ -6,7 +6,14 @@ export function usePictures() {
     const { data } = await instance2.post("/pictures", params);
     return data;
   }
+  async function getPictures(params: any) {
+    const { data } = await instance2.get("/pictures/popular", {
+      params,
+    });
+    return data;
+  }
   return {
     registerPictures,
+    getPictures,
   };
 }

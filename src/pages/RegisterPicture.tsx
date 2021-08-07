@@ -58,15 +58,19 @@ const RegisterPicture: React.FC<any> = (props) => {
   async function registerToBackend(
     url1: string,
     title1: string,
-    desc1: string
+    desc1: string,
+    directoryName1: string,
+    fileName1: string
   ) {
     try {
       const { data, errors } = await registerPictures({
         token_id: "2343" + new Date().getMilliseconds().toString(),
         picture_url: url1,
         picture_title: title1,
-        picture_category: "122",
+        picture_category: category.toString(),
         picture_info: desc1,
+        picture_directory: directoryName1,
+        picture_name: fileName1,
       });
 
       if (errors) {
@@ -95,7 +99,7 @@ const RegisterPicture: React.FC<any> = (props) => {
       await imageRef.put(files, { contentType: "image/jpg" });
       const imageUrl = await imageRef.getDownloadURL();
       console.log(imageUrl);
-      return imageName;
+      return imageUrl;
     } catch (err) {
       throw new ImageError(err.message);
     }
@@ -115,7 +119,13 @@ const RegisterPicture: React.FC<any> = (props) => {
         throw new ImageError("이미지가 등록되지 못했습니다.");
       }
 
-      const data = await registerToBackend(url, title, desc);
+      const data = await registerToBackend(
+        url,
+        title,
+        desc,
+        "images",
+        `img${nowTime}.jpg`
+      );
       console.log(data);
     } catch (err) {
       alert(err.name + "/" + err.message);

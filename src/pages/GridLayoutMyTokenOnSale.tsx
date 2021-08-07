@@ -6,7 +6,7 @@ const GridLayoutMyTokenOnSale: React.FC<any> = (props) => {
   const nft = props.nft.nft;
   return (
     <Container style={{ height: "100%" }}>
-      <Row>
+      <Row lg={{ cols: 4 }} md={{ cols: 3 }} xs={{ cols: 2 }}>
         {Array.from(nft.contents).map((x: any, index) => {
           if (x.onSale === true)
             return <CardsMyTokenOnSale key={index} value={x} />;
