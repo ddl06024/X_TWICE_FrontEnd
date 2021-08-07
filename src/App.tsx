@@ -1,63 +1,40 @@
 import React from "react";
-import Header from "./pages/Header";
-import Tabs from "./pages/Tabs";
-import RegisterPicture from "./containers/RegisterPicture";
-import Login from "./containers/Login";
-import CarouselMain from "./containers/CarouselMain";
-import RegisterAccount from "./pages/RegisterAccount";
-import TransactionTable from "./pages/TransactionTable";
-
-import GridLayoutBuy from "./containers/GridLayoutBuy";
-import CategoryTab from "./pages/CategoryTab";
-import { Route } from "react-router-dom";
-import SearchWord from "./containers/SearchWord";
-import GridLayoutSell from "./containers/GridLayoutSell";
-import GridLayoutMyTokenOnSale from "./containers/GridLayoutMyTokenOnSale";
-import Footer from "./pages/Footer";
-import Introduction from "./pages/Introduction";
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
+import LoginPage from "./pages/LoginPage";
+import MainPage from "./pages/MainPage";
+import MyToken from "./pages/MyToken";
+import MyTokenOnSale from "./pages/MyTokenOnSale";
+import RegisterAccountPage from "./pages/RegisterAccountPage";
+import RegisterPicturePage from "./pages/RegisterPicturePage";
+import Search from "./pages/Search";
+import Transactions from "./pages/Transactions";
+import ViewByCategory from "./pages/ViewByCategory";
+import ViewByPopularity from "./pages/ViewByPopularity";
+import ViewByPrice from "./pages/ViewByPrice";
 
 const App: React.FC<{}> = () => {
   return (
     <div style={{ height: "100%" }} className="page-container">
       <div className="content-wrap">
-        {/** <Route exact path="/Auth" render={()=><Auth/>}/>  */}
-        <Route path="/" render={() => <Header />}></Route>
-
-        <Route exact path="/" render={() => <CarouselMain />} />
-        <Route exact path="/" render={() => <Introduction />} />
-        <Route path="/login" render={() => <Login />} />
-        <Route path="/registerAccount" render={() => <RegisterAccount />} />
-        <Route path="/search" render={() => <SearchWord />} />
-        <Route path="/search" render={() => <GridLayoutBuy />} />
+        <Route exact path="/" render={() => <MainPage />}></Route>
+        <Route path="/login" render={() => <LoginPage />} />
+        <Route path="/registerAccount" render={() => <RegisterAccountPage />} />
+        <Route path="/search" render={() => <Search />} />
+        <Route path="/registerPicture" render={() => <RegisterPicturePage />} />
+        <Route path="/myPage/myToken" render={() => <MyToken />} />
+        <Route path="/myPage/myTokenOnSale" render={() => <MyTokenOnSale />} />
+        <Route path="/myPage/transactions" render={() => <Transactions />} />
+        <Route path={"/viewPictures/price"} render={() => <ViewByPrice />} />
         <Route
-          exact
-          path="/registerPicture"
-          render={() => <RegisterPicture />}
-        />
-
-        <Route path="/myPage" render={() => <Tabs />}></Route>
-        <Route path="/myPage/myToken" render={() => <GridLayoutSell />} />
-        <Route
-          path="/myPage/myTokenOnSale"
-          render={() => <GridLayoutMyTokenOnSale />}
+          path={"/viewPictures/popularity"}
+          render={() => <ViewByPopularity />}
         />
         <Route
-          path="/myPage/transactions"
-          render={() => <TransactionTable />}
-        />
-        <Route path="/viewPictures" render={() => <SearchWord />} />
-        <Route path="/viewPictures/category" render={() => <CategoryTab />} />
-        <Route
-          path={[
-            "/viewPictures/price",
-            "/viewPictures/popularity",
-            "/viewPictures/category/1",
-          ]}
-          render={() => <GridLayoutBuy />}
+          path={"/viewPictures/category/1"}
+          render={() => <ViewByCategory />}
         />
       </div>
-      <Footer />
     </div>
   );
 };

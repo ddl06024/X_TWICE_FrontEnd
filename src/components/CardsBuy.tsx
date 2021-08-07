@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -17,6 +17,10 @@ const CardsBuy: React.FC<any> = (props) => {
     props.onClick(props.value);
   };
   const [modalShow, setModalShow] = React.useState(false);
+  const [src, setSrc] = useState(props.value.picture_url);
+  const imageErrorHandler = () => {
+    setSrc("../tempImages/noimage.png");
+  };
   return (
     <Col
       style={{
@@ -24,7 +28,12 @@ const CardsBuy: React.FC<any> = (props) => {
       }}
     >
       <Card>
-        <Card.Img variant="bottom" src={props.value.picture_url} />
+        <Card.Img
+          variant="bottom"
+          src={src}
+          onError={() => imageErrorHandler()}
+          style={{ width: "100%", height: "12rem" }}
+        />
         <Card.Body style={{ height: "210px" }}>
           <Card.Text
             style={{

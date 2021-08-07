@@ -12,7 +12,11 @@ import { useHistory } from "react-router-dom";
 
 const CarouselMain: React.FC<any> = (props) => {
   const history = useHistory();
-  const nft = props.nft.nft;
+  const srcArray = [
+    "../tempImages/noimage.png",
+    "../tempImages/noimage.png",
+    "../tempImages/noimage.png",
+  ];
   return (
     <Nav
       className="justify-content-center"
@@ -47,19 +51,19 @@ const CarouselMain: React.FC<any> = (props) => {
               }}
             >
               보기
-            </Button>{" "}
+            </Button>
           </Nav>
         </Col>
 
         <Col style={{ alignContent: "center" }}>
           <Carousel>
-            {Array.from(nft.contents).map((x: any, index) => {
-              if (x.onSale === true && index < 5)
+            {Array.from(srcArray).map((x: any, index) => {
+              if (index < 5)
                 return (
                   <Carousel.Item>
                     <Image
                       className="d-block w-100"
-                      src="../tempImages/big.jpg"
+                      src={x}
                       alt="First slide"
                     />
                     <Carousel.Caption>

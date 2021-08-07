@@ -12,7 +12,6 @@ import {
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router";
 const SearchWord: React.FC<any> = (props) => {
-  const nft = props.nft.nft;
   const history = useHistory();
   const location = useLocation<any>();
   const [badge, setBadge] = useState(null);
@@ -27,7 +26,7 @@ const SearchWord: React.FC<any> = (props) => {
       <Navbar style={{ padding: "0" }}>
         <Container>
           <span>
-            {nft.contents.length}개 결과
+            개 결과
             {badge ? (
               <span style={{ marginLeft: "1rem" }}>
                 검색어 : <Badge bg="secondary">{badge}</Badge>{" "}
