@@ -7,15 +7,14 @@ import {
   Form,
   FormControl,
   InputGroup,
+  ListGroup,
+  ListGroupItem,
   Row,
 } from "react-bootstrap";
-import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
+import MyVerticallyCenteredModalBuy from "./MyVerticallyCenteredModalBuy";
 const CardsBuy: React.FC<any> = (props) => {
   console.log(props);
-  const onClickHandle = () => {
-    props.value.onSale = false;
-    props.onClick(props.value);
-  };
+
   const [modalShow, setModalShow] = React.useState(false);
   const [src, setSrc] = useState(props.value.picture_url);
   const imageErrorHandler = () => {
@@ -45,9 +44,10 @@ const CardsBuy: React.FC<any> = (props) => {
           >
             제목 : {props.value.picture_title}
           </Card.Text>
-          <br />
-          <span style={{ fontSize: "0.8rem" }}>사진 ID : 12</span>
-          <br />
+          <ListGroup className="list-group-flush">
+            <ListGroupItem>사진 ID : 12</ListGroupItem>
+            <ListGroupItem>가격 : {""}</ListGroupItem>
+          </ListGroup>
           <Button
             variant="dark"
             onClick={() => setModalShow(true)}
@@ -55,7 +55,7 @@ const CardsBuy: React.FC<any> = (props) => {
           >
             자세히 보기
           </Button>
-          <MyVerticallyCenteredModal
+          <MyVerticallyCenteredModalBuy
             show={modalShow}
             onHide={() => setModalShow(false)}
             title={props.value.picture_title}
@@ -63,23 +63,6 @@ const CardsBuy: React.FC<any> = (props) => {
             src={props.value.picture_url}
             //category={props.value.category}
           />
-          <hr />
-          <InputGroup className="mb-3" style={{ marginTop: "1rem" }}>
-            <FormControl
-              // placeholder={props.value.price + " klay"}
-              readOnly
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-              style={{ textAlign: "center" }}
-            />
-            <Button
-              variant="success"
-              id="button-addon2"
-              onClick={onClickHandle}
-            >
-              구매하기
-            </Button>
-          </InputGroup>
         </Card.Body>
       </Card>
     </Col>
