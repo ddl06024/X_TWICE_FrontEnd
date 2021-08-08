@@ -9,8 +9,10 @@ const GridLayoutBuy: React.FC<any> = (props) => {
   const [pageNum, setPageNum] = useState(1);
   const [count, setCount] = useState(0);
   const [pageCount, setPageCount] = useState(0);
+  const { loading, setLoading, errors, setErrors } = useFetch();
+  const { first, setFirst, last, setLast } = usePagination();
   useEffect(() => {
-    setPageCount(Math.ceil(count / last));
+    setPageCount(Math.ceil(count / 10));
   }, [count]);
 
   let items = [];
@@ -27,18 +29,20 @@ const GridLayoutBuy: React.FC<any> = (props) => {
     const num = Number(text);
     if (num) {
       setPageNum(num);
-      setFirst((num - 1) * last);
+      const firstNum = (num - 1) * last;
+      const lastNum = firstNum + 12;
+      setFirst(firstNum);
+      setLast(lastNum);
     }
   }
+  useEffect(() => {
+    getFirstPictures();
+  }, [first]);
   const paginationBasic = (
     <div>
       <Pagination onClick={(event) => pagination(event)}>{items}</Pagination>
     </div>
   );
-  // const nft = props.nft.nft;
-
-  const { loading, setLoading, errors, setErrors } = useFetch();
-  const { first, setFirst, last, setLast } = usePagination();
 
   const [pictures, setPictures] = useState<Array<any>>([]);
   const { getPictures } = usePictures();
@@ -50,6 +54,7 @@ const GridLayoutBuy: React.FC<any> = (props) => {
       await setTimeout(() => {
         console.log("wait");
       }, 200000);
+      console.log("first = " + first + ", " + "last = " + last + " .");
       const { data } = await getPictures({ first, last });
       console.log(data);
       // console.log(errors);
@@ -70,11 +75,6 @@ const GridLayoutBuy: React.FC<any> = (props) => {
       setLoading(false);
     }
   }
-
-  useEffect(() => {
-    setLast(4);
-    getFirstPictures();
-  }, [first]);
 
   return (
     <Container style={{ height: "100%" }}>

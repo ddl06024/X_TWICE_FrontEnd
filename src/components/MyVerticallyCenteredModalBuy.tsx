@@ -2,7 +2,6 @@ import { Button, Modal, Image, FormControl, InputGroup } from "react-bootstrap";
 import React from "react";
 
 function MyVerticallyCenteredModalBuy(props: any) {
-  console.log(props);
   const onClickHandle = () => {
     props.value.onSale = false;
     props.onClick(props.value);
