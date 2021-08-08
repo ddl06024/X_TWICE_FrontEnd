@@ -19,7 +19,7 @@ export function usePictures() {
     return data;
   }
   async function getPicturesCategory(params: any) {
-    const { data } = await instance2.get("/pictures/popular", {
+    const { data } = await instance2.get("/pictures/category", {
       params,
     });
     return data;
@@ -28,5 +28,6 @@ export function usePictures() {
     registerPictures,
     getPicturesPrice,
     getPicturesPopular,
+    getPicturesCategory,
   };
 }

@@ -41,7 +41,7 @@ const SearchWord: React.FC<any> = (props) => {
               aria-label="Default select example"
               onChange={(e: any) => {
                 if (e.target.value === "3") {
-                  history.push("/viewPictures/category/1");
+                  history.push("/viewPictures/category");
                 } else if (e.target.value === "1") {
                   history.push("/viewPictures/popularity");
                 } else {

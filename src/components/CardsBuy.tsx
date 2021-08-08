@@ -13,13 +13,12 @@ import {
 } from "react-bootstrap";
 import MyVerticallyCenteredModalBuy from "./MyVerticallyCenteredModalBuy";
 const CardsBuy: React.FC<any> = (props) => {
-  console.log(props);
-
   const [modalShow, setModalShow] = React.useState(false);
   const [src, setSrc] = useState(props.value.picture_url);
   const imageErrorHandler = () => {
     setSrc("../tempImages/noimage.png");
   };
+
   return (
     <Col
       style={{

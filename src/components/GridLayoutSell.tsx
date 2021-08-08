@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import CardsSell from "../components/CardsSell";
 import CardsBuy from "../components/CardsBuy";
-import { useLocation } from "react-router";
 
 const GridLayoutSell: React.FC<any> = (props) => {
   const tempArray = [""];

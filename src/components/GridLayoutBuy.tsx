@@ -6,6 +6,7 @@ import { usePagination } from "../hooks/usePagination";
 import { usePictures } from "../hooks/usePictures";
 
 const GridLayoutBuy: React.FC<any> = (props) => {
+  console.log(props);
   const [pageNum, setPageNum] = useState(1);
   const [count, setCount] = useState(0);
   const [pageCount, setPageCount] = useState(0);
@@ -45,7 +46,8 @@ const GridLayoutBuy: React.FC<any> = (props) => {
   );
 
   const [pictures, setPictures] = useState<Array<any>>([]);
-  const { getPicturesPopular, getPicturesPrice } = usePictures();
+  const { getPicturesPopular, getPicturesPrice, getPicturesCategory } =
+    usePictures();
 
   async function getFirstPictures() {
     try {
@@ -56,12 +58,18 @@ const GridLayoutBuy: React.FC<any> = (props) => {
       }, 200000);
       console.log("first = " + first + ", " + "last = " + last + " .");
 
-      /* const { data } =
+      const { data } =
         props.value === "popular"
           ? await getPicturesPopular({ first, last })
-          : await getPicturesPrice({ first, last });
-          */
-      const { data } = await getPicturesPopular({ first, last });
+          : props.value === "price"
+          ? await getPicturesPrice({ first, last })
+          : await getPicturesCategory({
+              category: props.category,
+              first,
+              last,
+            });
+
+      //const { data } = await getPicturesPopular({ first, last });
       console.log(data);
       // console.log(errors);
       setCount(data.count);

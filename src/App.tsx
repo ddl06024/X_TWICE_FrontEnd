@@ -31,7 +31,7 @@ const App: React.FC<{}> = () => {
           render={() => <ViewByPopularity />}
         />
         <Route
-          path={"/viewPictures/category/1"}
+          path={"/viewPictures/category"}
           render={() => <ViewByCategory />}
         />
       </div>
