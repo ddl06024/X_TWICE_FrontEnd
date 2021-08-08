@@ -9,7 +9,7 @@ const ViewByPrice: React.FC<{}> = () => {
     <main>
       <Header />
       <SearchWordCategoryTab />
-      <GridLayoutBuy />
+      <GridLayoutBuy value="price" />
       <Footer />
     </main>
   );

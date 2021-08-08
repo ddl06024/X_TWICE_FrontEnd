@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Carousel,
@@ -7,16 +7,50 @@ import {
   Nav,
   Row,
   Image,
+  Spinner,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
+import { usePictures } from "../hooks/usePictures";
 
 const CarouselMain: React.FC<any> = (props) => {
+  const { loading, setLoading, errors, setErrors } = useFetch();
+  useEffect(() => {
+    getFirstPictures();
+  }, []);
+  const [pictures, setPictures] = useState<Array<any>>([]);
+  const { getPicturesPopular } = usePictures();
+  async function getFirstPictures() {
+    try {
+      setLoading(true);
+      setErrors(undefined);
+      await setTimeout(() => {
+        console.log("wait");
+      }, 200000);
+      const { data } = await getPicturesPopular({ first: 0, last: 5 });
+      console.log(data);
+      // console.log(errors);
+      setPictures(data.items);
+      //setErrors(errors);
+    } catch (err) {
+      const isAxiosError = err?.isAxiosError ?? false;
+      if (isAxiosError) {
+        const {
+          response: { data },
+        } = err;
+        console.log(data);
+        setErrors(data);
+        console.log(err);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
   const history = useHistory();
-  const srcArray = [
-    "../tempImages/noimage.png",
-    "../tempImages/noimage.png",
-    "../tempImages/noimage.png",
-  ];
+  /*const [src, setSrc] = useState(pictures[0].picture_url);*/
+  const imageErrorHandler = (e: any) => {
+    e.target.src = "../tempImages/noimage.png";
+  };
   return (
     <Nav
       className="justify-content-center"
@@ -57,22 +91,38 @@ const CarouselMain: React.FC<any> = (props) => {
 
         <Col style={{ alignContent: "center" }}>
           <Carousel>
-            {Array.from(srcArray).map((x: any, index) => {
-              if (index < 5)
+            {errors && (
+              <p>
+                {" "}
+                {errors.name} {errors.status}{" "}
+              </p>
+            )}
+            {loading ? (
+              <Spinner
+                animation="border"
+                role="status"
+                style={{ margin: "auto" }}
+              >
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            ) : (
+              pictures.map((x: any, index) => {
                 return (
                   <Carousel.Item>
                     <Image
                       className="d-block w-100"
-                      src={x}
+                      onError={imageErrorHandler}
+                      src={x.picture_url}
                       alt="First slide"
                     />
                     <Carousel.Caption>
-                      <h3>{x.title}</h3>
-                      <p>{x.desc}</p>
+                      <h3>{x.picture_title}</h3>
+                      <p>{x.picture_desc}</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                 );
-            })}
+              })
+            )}
           </Carousel>
         </Col>
       </Row>

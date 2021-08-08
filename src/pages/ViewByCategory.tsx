@@ -11,7 +11,7 @@ const ViewByCategory: React.FC<{}> = () => {
       <Header />
       <SearchWordCategoryTab />
       <CategoryTab />
-      <GridLayoutBuy />
+      <GridLayoutBuy value="category" />
       <Footer />
     </main>
   );

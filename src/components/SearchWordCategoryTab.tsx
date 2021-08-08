@@ -38,6 +38,7 @@ const SearchWord: React.FC<any> = (props) => {
             style={{ padding: "0" }}
           >
             <Form.Select
+              aria-label="Default select example"
               onChange={(e: any) => {
                 if (e.target.value === "3") {
                   history.push("/viewPictures/category/1");

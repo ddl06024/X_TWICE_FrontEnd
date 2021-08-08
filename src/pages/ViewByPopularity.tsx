@@ -9,7 +9,7 @@ const ViewByPopularity: React.FC<{}> = () => {
     <main>
       <Header />
       <SearchWordCategoryTab />
-      <GridLayoutBuy />
+      <GridLayoutBuy value="popular" />
       <Footer />
     </main>
   );

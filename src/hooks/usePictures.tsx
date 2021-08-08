@@ -6,7 +6,19 @@ export function usePictures() {
     const { data } = await instance2.post("/pictures", params);
     return data;
   }
-  async function getPictures(params: any) {
+  async function getPicturesPopular(params: any) {
+    const { data } = await instance2.get("/pictures/popular", {
+      params,
+    });
+    return data;
+  }
+  async function getPicturesPrice(params: any) {
+    const { data } = await instance2.get("/pictures/price", {
+      params,
+    });
+    return data;
+  }
+  async function getPicturesCategory(params: any) {
     const { data } = await instance2.get("/pictures/popular", {
       params,
     });
@@ -14,6 +26,7 @@ export function usePictures() {
   }
   return {
     registerPictures,
-    getPictures,
+    getPicturesPrice,
+    getPicturesPopular,
   };
 }

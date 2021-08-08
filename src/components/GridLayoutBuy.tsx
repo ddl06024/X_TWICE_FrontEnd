@@ -45,7 +45,7 @@ const GridLayoutBuy: React.FC<any> = (props) => {
   );
 
   const [pictures, setPictures] = useState<Array<any>>([]);
-  const { getPictures } = usePictures();
+  const { getPicturesPopular, getPicturesPrice } = usePictures();
 
   async function getFirstPictures() {
     try {
@@ -55,7 +55,13 @@ const GridLayoutBuy: React.FC<any> = (props) => {
         console.log("wait");
       }, 200000);
       console.log("first = " + first + ", " + "last = " + last + " .");
-      const { data } = await getPictures({ first, last });
+
+      /* const { data } =
+        props.value === "popular"
+          ? await getPicturesPopular({ first, last })
+          : await getPicturesPrice({ first, last });
+          */
+      const { data } = await getPicturesPopular({ first, last });
       console.log(data);
       // console.log(errors);
       setCount(data.count);
