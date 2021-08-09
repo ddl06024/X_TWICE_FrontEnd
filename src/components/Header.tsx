@@ -13,6 +13,7 @@ import {
 import { useHistory, useLocation } from "react-router-dom";
 import { getCookie, removeCookie } from "../configs/cookie";
 const Header: React.FC<any> = (props) => {
+  console.log(props);
   const history = useHistory();
   const [token, setToken] = useState(getCookie("myToken"));
   const [search, setSearch] = useState("");
@@ -21,7 +22,7 @@ const Header: React.FC<any> = (props) => {
   };
   const handleSearch = () => {
     history.push({
-      pathname: "/viewPictures/popularity",
+      pathname: "/viewPictures",
       state: { word: search },
     });
   };

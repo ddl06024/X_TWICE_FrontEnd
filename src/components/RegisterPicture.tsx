@@ -53,7 +53,7 @@ const RegisterPicture: React.FC<any> = (props) => {
             });*/
     }
   };
-  const { registerPictures } = usePictures();
+  const { insertPicture } = usePictures();
 
   async function registerToBackend(
     url1: string,
@@ -63,7 +63,7 @@ const RegisterPicture: React.FC<any> = (props) => {
     fileName1: string
   ) {
     try {
-      const { data, errors } = await registerPictures({
+      const { data, errors } = await insertPicture({
         token_id: "2343" + new Date().getMilliseconds().toString(),
         picture_url: url1,
         picture_title: title1,

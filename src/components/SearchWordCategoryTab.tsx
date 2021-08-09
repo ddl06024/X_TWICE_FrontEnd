@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router";
 const SearchWord: React.FC<any> = (props) => {
+  console.log(props);
   const history = useHistory();
   const location = useLocation<any>();
   const [badge, setBadge] = useState(null);
@@ -26,7 +27,7 @@ const SearchWord: React.FC<any> = (props) => {
       <Navbar style={{ padding: "0" }}>
         <Container>
           <span>
-            개 결과
+            {props.count}개 결과
             {badge ? (
               <span style={{ marginLeft: "1rem" }}>
                 검색어 : <Badge bg="secondary">{badge}</Badge>{" "}
@@ -40,18 +41,13 @@ const SearchWord: React.FC<any> = (props) => {
             <Form.Select
               aria-label="Default select example"
               onChange={(e: any) => {
-                if (e.target.value === "3") {
-                  history.push("/viewPictures/category");
-                } else if (e.target.value === "1") {
-                  history.push("/viewPictures/popularity");
-                } else {
-                  history.push("/viewPictures/price");
-                }
+                props.setViewBy(e.target.value.toString());
+                history.push("/viewPictures");
               }}
             >
-              <option value="1">인기순</option>
-              <option value="2">가격순</option>
-              <option value="3">카테고리</option>
+              <option value="popularity">인기순</option>
+              <option value="price">가격순</option>
+              <option value="category">카테고리</option>
             </Form.Select>
           </Navbar>
         </Container>

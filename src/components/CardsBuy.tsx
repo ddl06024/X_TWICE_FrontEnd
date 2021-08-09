@@ -11,6 +11,8 @@ import {
   ListGroupItem,
   Row,
 } from "react-bootstrap";
+import { useFetch } from "../hooks/useFetch";
+import { usePictures } from "../hooks/usePictures";
 import MyVerticallyCenteredModalBuy from "./MyVerticallyCenteredModalBuy";
 const CardsBuy: React.FC<any> = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -49,7 +51,9 @@ const CardsBuy: React.FC<any> = (props) => {
           </ListGroup>
           <Button
             variant="dark"
-            onClick={() => setModalShow(true)}
+            onClick={() => {
+              setModalShow(true);
+            }}
             style={{ marginTop: "0.8rem" }}
           >
             자세히 보기
@@ -57,9 +61,7 @@ const CardsBuy: React.FC<any> = (props) => {
           <MyVerticallyCenteredModalBuy
             show={modalShow}
             onHide={() => setModalShow(false)}
-            title={props.value.picture_title}
-            //desc={props.value.desc}
-            src={props.value.picture_url}
+            info={props}
             //category={props.value.category}
           />
         </Card.Body>

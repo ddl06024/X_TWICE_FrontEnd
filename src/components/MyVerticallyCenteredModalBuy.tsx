@@ -1,10 +1,18 @@
-import { Button, Modal, Image, FormControl, InputGroup } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  Image,
+  FormControl,
+  InputGroup,
+  ListGroup,
+} from "react-bootstrap";
 import React from "react";
 
 function MyVerticallyCenteredModalBuy(props: any) {
+  const info = props.info.value;
   const onClickHandle = () => {
-    props.value.onSale = false;
-    props.onClick(props.value);
+    //props.value.onSale = false;
+    //props.onClick(props.value);
   };
   return (
     <Modal
@@ -16,13 +24,19 @@ function MyVerticallyCenteredModalBuy(props: any) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          {props.title}
+          제목 : {info.picture_title}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Image src={props.src} fluid />
-        <h4>카테고리 : {props.category}</h4>
-        <p>설명 : {props.desc}</p>
+        <Image src={info.picture_url} fluid />
+        <h4>
+          <ListGroup horizontal="md" className="my-2">
+            <ListGroup.Item>카테고리 : {info.picture_category}</ListGroup.Item>
+            <ListGroup.Item>ID : {info.token_id}</ListGroup.Item>
+            <ListGroup.Item>조회수 : {info.picture_count} </ListGroup.Item>
+          </ListGroup>
+        </h4>
+        <p>설명 : {info.picture_info}</p>
       </Modal.Body>
       <Modal.Footer>
         <InputGroup
@@ -38,7 +52,7 @@ function MyVerticallyCenteredModalBuy(props: any) {
             style={{
               textAlign: "center",
             }}
-            placeholder="klay"
+            placeholder={`${info.picture_price}` + " klay"}
           />
           <Button id="button-addon2" onClick={onClickHandle}>
             구매하기

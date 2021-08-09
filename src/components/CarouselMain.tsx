@@ -19,7 +19,7 @@ const CarouselMain: React.FC<any> = (props) => {
     getFirstPictures();
   }, []);
   const [pictures, setPictures] = useState<Array<any>>([]);
-  const { getPicturesPopular } = usePictures();
+  const { fetchPicturesByPopularity } = usePictures();
   async function getFirstPictures() {
     try {
       setLoading(true);
@@ -27,7 +27,7 @@ const CarouselMain: React.FC<any> = (props) => {
       await setTimeout(() => {
         console.log("wait");
       }, 200000);
-      const { data } = await getPicturesPopular({ first: 0, last: 5 });
+      const { data } = await fetchPicturesByPopularity({ first: 0, last: 5 });
       console.log(data);
       // console.log(errors);
       setPictures(data.items);
@@ -81,7 +81,7 @@ const CarouselMain: React.FC<any> = (props) => {
               variant="outline-primary"
               style={{ margin: 10 }}
               onClick={() => {
-                history.push("/viewPictures/popularity");
+                history.push("/viewPictures");
               }}
             >
               보기
@@ -117,7 +117,7 @@ const CarouselMain: React.FC<any> = (props) => {
                     />
                     <Carousel.Caption>
                       <h3>{x.picture_title}</h3>
-                      <p>{x.picture_desc}</p>
+                      <p>{x.picture_info}</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                 );

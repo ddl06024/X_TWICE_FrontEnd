@@ -9,9 +9,7 @@ import RegisterAccountPage from "./pages/RegisterAccountPage";
 import RegisterPicturePage from "./pages/RegisterPicturePage";
 import Search from "./pages/Search";
 import Transactions from "./pages/Transactions";
-import ViewByCategory from "./pages/ViewByCategory";
-import ViewByPopularity from "./pages/ViewByPopularity";
-import ViewByPrice from "./pages/ViewByPrice";
+import ViewPictures from "./pages/ViewPictures";
 
 const App: React.FC<{}> = () => {
   return (
@@ -25,15 +23,7 @@ const App: React.FC<{}> = () => {
         <Route path="/myPage/myToken" render={() => <MyToken />} />
         <Route path="/myPage/myTokenOnSale" render={() => <MyTokenOnSale />} />
         <Route path="/myPage/transactions" render={() => <Transactions />} />
-        <Route path={"/viewPictures/price"} render={() => <ViewByPrice />} />
-        <Route
-          path={"/viewPictures/popularity"}
-          render={() => <ViewByPopularity />}
-        />
-        <Route
-          path={"/viewPictures/category"}
-          render={() => <ViewByCategory />}
-        />
+        <Route path={"/viewPictures"} render={() => <ViewPictures />} />
       </div>
     </div>
   );

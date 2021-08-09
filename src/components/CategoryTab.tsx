@@ -6,12 +6,12 @@ const CategoryTab: React.FC<any> = (props) => {
   console.log(props);
   return (
     <div style={{ width: "85%", margin: "1rem auto" }}>
-      <Nav justify variant="pills">
+      <Nav justify variant="pills" defaultActiveKey="link-0">
         <Nav.Item>
           <Nav.Link
             eventKey="link-0"
             onSelect={() => {
-              props.parentFunction("option1");
+              props.setCategory("One");
             }}
           >
             Option 1
@@ -21,7 +21,7 @@ const CategoryTab: React.FC<any> = (props) => {
           <Nav.Link
             eventKey="link-1"
             onSelect={() => {
-              props.parentFunction("option2");
+              props.setCategory("Two");
             }}
           >
             Option 2
@@ -32,7 +32,7 @@ const CategoryTab: React.FC<any> = (props) => {
           <Nav.Link
             eventKey="link-2"
             onSelect={() => {
-              props.parentFunction("option3");
+              props.setCategory("Three");
             }}
           >
             Option 3
@@ -42,7 +42,7 @@ const CategoryTab: React.FC<any> = (props) => {
           <Nav.Link
             eventKey="link-3"
             onSelect={() => {
-              props.parentFunction("option4");
+              props.setCategory("Four");
             }}
           >
             Option 4
@@ -52,7 +52,7 @@ const CategoryTab: React.FC<any> = (props) => {
           <Nav.Link
             eventKey="link-4"
             onSelect={() => {
-              props.parentFunction("option5");
+              props.setCategory("Five");
             }}
           >
             Option 5
@@ -62,7 +62,7 @@ const CategoryTab: React.FC<any> = (props) => {
           <Nav.Link
             eventKey="link-5"
             onSelect={() => {
-              props.parentFunction("option6");
+              props.setCategory("Six");
             }}
           >
             Option 6
@@ -72,7 +72,7 @@ const CategoryTab: React.FC<any> = (props) => {
           <Nav.Link
             eventKey="link-6"
             onSelect={() => {
-              props.parentFunction("option7");
+              props.setCategory("Seven");
             }}
           >
             Option 7
