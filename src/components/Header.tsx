@@ -13,7 +13,6 @@ import {
 import { useHistory, useLocation } from "react-router-dom";
 import { getCookie, removeCookie } from "../configs/cookie";
 const Header: React.FC<any> = (props) => {
-  console.log(props);
   const history = useHistory();
   const [token, setToken] = useState(getCookie("myToken"));
   const [search, setSearch] = useState("");
@@ -21,10 +20,9 @@ const Header: React.FC<any> = (props) => {
     setSearch(e.target.value);
   };
   const handleSearch = () => {
-    history.push({
-      pathname: "/viewPictures",
-      state: { word: search },
-    });
+    props.setViewBy("search");
+    props.setSearchWord(search);
+    history.push("/viewPictures");
   };
 
   const location = useLocation<any>();

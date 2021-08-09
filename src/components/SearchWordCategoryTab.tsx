@@ -10,18 +10,16 @@ import {
   Navbar,
   Row,
 } from "react-bootstrap";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
 const SearchWord: React.FC<any> = (props) => {
-  console.log(props);
   const history = useHistory();
-  const location = useLocation<any>();
   const [badge, setBadge] = useState(null);
 
   useEffect(() => {
-    if (location.state) {
-      setBadge(location.state.word);
+    if (props.searchWord) {
+      setBadge(props.searchWord);
     }
-  }, [location]);
+  }, [props.searchWord]);
   return (
     <Container style={{ marginTop: "1rem" }}>
       <Navbar style={{ padding: "0" }}>

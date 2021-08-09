@@ -15,7 +15,7 @@ import { useFetch } from "../hooks/useFetch";
 import { usePictures } from "../hooks/usePictures";
 import MyVerticallyCenteredModalBuy from "./MyVerticallyCenteredModalBuy";
 const CardsBuy: React.FC<any> = (props) => {
-  const [modalShow, setModalShow] = React.useState(false);
+  //const [modalShow, setModalShow] = React.useState(false);
   const [src, setSrc] = useState(props.value.picture_url);
   const imageErrorHandler = () => {
     setSrc("../tempImages/noimage.png");
@@ -52,18 +52,18 @@ const CardsBuy: React.FC<any> = (props) => {
           <Button
             variant="dark"
             onClick={() => {
-              setModalShow(true);
+              //setModalShow(true);
             }}
             style={{ marginTop: "0.8rem" }}
           >
             자세히 보기
           </Button>
-          <MyVerticallyCenteredModalBuy
+          {/*  <MyVerticallyCenteredModalBuy
             show={modalShow}
             onHide={() => setModalShow(false)}
             info={props}
             //category={props.value.category}
-          />
+        /> */}
         </Card.Body>
       </Card>
     </Col>

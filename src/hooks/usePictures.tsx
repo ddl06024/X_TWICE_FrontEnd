@@ -36,11 +36,23 @@ export function usePictures() {
     return data;
   }
 
+  async function fetchPicturesBySearch(params: any) {
+    console.log(params.keyword);
+    const { data } = await instance2.get(
+      `/pictures/keywords/${params.keyword}`,
+      {
+        params,
+      }
+    );
+    return data;
+  }
+
   return {
     insertPicture,
     fetchPicturesByPrice,
     fetchPicturesByPopularity,
     fetchPicturesByCategory,
     fetchPictureInfo,
+    fetchPicturesBySearch,
   };
 }

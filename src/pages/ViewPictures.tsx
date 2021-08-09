@@ -50,9 +50,10 @@ const ViewByPopularity: React.FC<{}> = () => {
   }
   const [viewBy, setViewBy] = useState("popularity");
   const [category, setCategory] = useState("One");
+  const [searchWord, setSearchWord] = useState(null);
   useEffect(() => {
     getFirstPictures();
-  }, [first, viewBy, category]);
+  }, [first, viewBy, category, searchWord]);
 
   const paginationBasic = (
     <div
@@ -67,6 +68,7 @@ const ViewByPopularity: React.FC<{}> = () => {
     fetchPicturesByCategory,
     fetchPicturesByPopularity,
     fetchPicturesByPrice,
+    fetchPicturesBySearch,
   } = usePictures();
   const history = useHistory();
 
@@ -86,6 +88,12 @@ const ViewByPopularity: React.FC<{}> = () => {
             })
           : viewBy == "price"
           ? await fetchPicturesByPrice({
+              first,
+              last: offset,
+            })
+          : viewBy == "search"
+          ? await fetchPicturesBySearch({
+              keyword: searchWord,
               first,
               last: offset,
             })
@@ -114,8 +122,12 @@ const ViewByPopularity: React.FC<{}> = () => {
   const loadingComp = <CategoryTab setCategory={setCategory} />;
   return (
     <main>
-      <Header />
-      <SearchWordCategoryTab count={count} setViewBy={setViewBy} />
+      <Header setViewBy={setViewBy} setSearchWord={setSearchWord} />
+      <SearchWordCategoryTab
+        count={count}
+        searchWord={searchWord}
+        setViewBy={setViewBy}
+      />
       {viewBy === "category" && loadingComp}
       <GridLayoutBuy
         value={{ errors, count, pictures, loading, paginationBasic }}
