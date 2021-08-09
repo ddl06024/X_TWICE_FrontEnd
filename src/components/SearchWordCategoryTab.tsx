@@ -16,9 +16,7 @@ const SearchWord: React.FC<any> = (props) => {
   const [badge, setBadge] = useState(null);
 
   useEffect(() => {
-    if (props.searchWord) {
-      setBadge(props.searchWord);
-    }
+    setBadge(props.searchWord);
   }, [props.searchWord]);
   return (
     <Container style={{ marginTop: "1rem" }}>
@@ -39,6 +37,7 @@ const SearchWord: React.FC<any> = (props) => {
             <Form.Select
               aria-label="Default select example"
               onChange={(e: any) => {
+                props.setSearchWord(null);
                 props.setViewBy(e.target.value.toString());
                 history.push("/viewPictures");
               }}

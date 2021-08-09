@@ -11,10 +11,10 @@ import {
   ListGroupItem,
   Row,
 } from "react-bootstrap";
-import { useFetch } from "../hooks/useFetch";
-import { usePictures } from "../hooks/usePictures";
+import { useHistory } from "react-router-dom";
 import MyVerticallyCenteredModalBuy from "./MyVerticallyCenteredModalBuy";
 const CardsBuy: React.FC<any> = (props) => {
+  const history = useHistory();
   //const [modalShow, setModalShow] = React.useState(false);
   const [src, setSrc] = useState(props.value.picture_url);
   const imageErrorHandler = () => {
@@ -53,6 +53,10 @@ const CardsBuy: React.FC<any> = (props) => {
             variant="dark"
             onClick={() => {
               //setModalShow(true);
+              history.push({
+                pathname: "/viewPictures/info",
+                state: { information: props.value },
+              });
             }}
             style={{ marginTop: "0.8rem" }}
           >

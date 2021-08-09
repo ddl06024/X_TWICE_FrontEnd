@@ -8,7 +8,7 @@ import { useFetch } from "../hooks/useFetch";
 import { usePagination } from "../hooks/usePagination";
 import { usePictures } from "../hooks/usePictures";
 import { Pagination } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import CategoryTab from "../components/CategoryTab";
 const ViewByPopularity: React.FC<{}> = () => {
   const { loading, setLoading, errors, setErrors } = useFetch();
@@ -24,7 +24,17 @@ const ViewByPopularity: React.FC<{}> = () => {
     pageCount,
     setPageCount,
   } = usePagination();
+  const location = useLocation<any>();
 
+  const [searchWord, setSearchWord] = useState(null);
+  const [viewBy, setViewBy] = useState("popularity");
+  const [category, setCategory] = useState("One");
+  useEffect(() => {
+    if (location.state) {
+      setViewBy(location.state.viewBy);
+      setSearchWord(location.state.search);
+    }
+  }, [location]);
   useEffect(() => {
     setOffset(12);
     setPageCount(Math.ceil(count / offset));
@@ -48,10 +58,9 @@ const ViewByPopularity: React.FC<{}> = () => {
       setFirst(firstNum);
     }
   }
-  const [viewBy, setViewBy] = useState("popularity");
-  const [category, setCategory] = useState("One");
-  const [searchWord, setSearchWord] = useState(null);
+
   useEffect(() => {
+    console.log(searchWord);
     getFirstPictures();
   }, [first, viewBy, category, searchWord]);
 
@@ -122,11 +131,12 @@ const ViewByPopularity: React.FC<{}> = () => {
   const loadingComp = <CategoryTab setCategory={setCategory} />;
   return (
     <main>
-      <Header setViewBy={setViewBy} setSearchWord={setSearchWord} />
+      <Header />
       <SearchWordCategoryTab
         count={count}
         searchWord={searchWord}
         setViewBy={setViewBy}
+        setSearchWord={setSearchWord}
       />
       {viewBy === "category" && loadingComp}
       <GridLayoutBuy

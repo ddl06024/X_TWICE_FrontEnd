@@ -10,6 +10,7 @@ import RegisterPicturePage from "./pages/RegisterPicturePage";
 import Search from "./pages/Search";
 import Transactions from "./pages/Transactions";
 import ViewPictures from "./pages/ViewPictures";
+import PictureInfo from "./pages/PictureInfo";
 
 const App: React.FC<{}> = () => {
   return (
@@ -23,7 +24,8 @@ const App: React.FC<{}> = () => {
         <Route path="/myPage/myToken" render={() => <MyToken />} />
         <Route path="/myPage/myTokenOnSale" render={() => <MyTokenOnSale />} />
         <Route path="/myPage/transactions" render={() => <Transactions />} />
-        <Route path={"/viewPictures"} render={() => <ViewPictures />} />
+        <Route exact path={"/viewPictures"} render={() => <ViewPictures />} />
+        <Route path={"/viewPictures/info"} render={() => <PictureInfo />} />
       </div>
     </div>
   );

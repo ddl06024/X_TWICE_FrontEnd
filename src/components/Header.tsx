@@ -20,9 +20,12 @@ const Header: React.FC<any> = (props) => {
     setSearch(e.target.value);
   };
   const handleSearch = () => {
-    props.setViewBy("search");
-    props.setSearchWord(search);
-    history.push("/viewPictures");
+    //props.setViewBy("search");
+    //props.setSearchWord(search);
+    history.push({
+      pathname: "/viewPictures",
+      state: { viewBy: "search", search: search },
+    });
   };
 
   const location = useLocation<any>();
