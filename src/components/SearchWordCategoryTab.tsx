@@ -10,24 +10,20 @@ import {
   Navbar,
   Row,
 } from "react-bootstrap";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
 const SearchWord: React.FC<any> = (props) => {
-  const nft = props.nft.nft;
   const history = useHistory();
-  const location = useLocation<any>();
   const [badge, setBadge] = useState(null);
 
   useEffect(() => {
-    if (location.state) {
-      setBadge(location.state.word);
-    }
-  }, [location]);
+    setBadge(props.searchWord);
+  }, [props.searchWord]);
   return (
     <Container style={{ marginTop: "1rem" }}>
       <Navbar style={{ padding: "0" }}>
         <Container>
           <span>
-            {nft.contents.length}개 결과
+            {props.count}개 결과
             {badge ? (
               <span style={{ marginLeft: "1rem" }}>
                 검색어 : <Badge bg="secondary">{badge}</Badge>{" "}
@@ -39,19 +35,16 @@ const SearchWord: React.FC<any> = (props) => {
             style={{ padding: "0" }}
           >
             <Form.Select
+              aria-label="Default select example"
               onChange={(e: any) => {
-                if (e.target.value === "3") {
-                  history.push("/viewPictures/category/1");
-                } else if (e.target.value === "1") {
-                  history.push("/viewPictures/popularity");
-                } else {
-                  history.push("/viewPictures/price");
-                }
+                props.setSearchWord(null);
+                props.setViewBy(e.target.value.toString());
+                history.push("/viewPictures");
               }}
             >
-              <option value="1">인기순</option>
-              <option value="2">가격순</option>
-              <option value="3">카테고리</option>
+              <option value="popularity">인기순</option>
+              <option value="price">가격순</option>
+              <option value="category">카테고리</option>
             </Form.Select>
           </Navbar>
         </Container>

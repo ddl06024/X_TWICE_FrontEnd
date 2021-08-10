@@ -16,9 +16,9 @@ function MyVerticallyCenteredModal(props: any) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>{props.title}</h4>
         <Image src={props.src} fluid />
-        <p>{props.desc}</p>
+        <h4>카테고리 : {props.category}</h4>
+        <p>설명 : {props.desc}</p>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>

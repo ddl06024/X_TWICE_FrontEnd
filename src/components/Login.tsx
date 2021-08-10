@@ -9,7 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { setCookie, getCookie } from "../hooks/cookie";
+import { setCookie, getCookie } from "../configs/cookie";
 import { useUsers } from "../hooks/useUsers";
 
 const Login: React.FC<any> = (props) => {
@@ -30,7 +30,7 @@ const Login: React.FC<any> = (props) => {
     setFormState({ [name]: value });
   };
   const history = useHistory();
-  const { loginUser, isUserLogin } = useUsers();
+  const { loginUser } = useUsers();
   async function login() {
     console.log(formState);
     const res = await loginUser({

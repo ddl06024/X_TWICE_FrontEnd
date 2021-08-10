@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -7,19 +7,33 @@ import {
   Form,
   FormControl,
   InputGroup,
+  ListGroup,
+  ListGroupItem,
   Row,
 } from "react-bootstrap";
-import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
+import { useHistory } from "react-router-dom";
+import MyVerticallyCenteredModalBuy from "./MyVerticallyCenteredModalBuy";
 const CardsBuy: React.FC<any> = (props) => {
-  const onClickHandle = () => {
-    props.value.onSale = false;
-    props.onClick(props.value);
+  const history = useHistory();
+  //const [modalShow, setModalShow] = React.useState(false);
+  const [src, setSrc] = useState(props.value.picture_url);
+  const imageErrorHandler = () => {
+    setSrc("../tempImages/noimage.png");
   };
-  const [modalShow, setModalShow] = React.useState(false);
+
   return (
-    <Col lg={3} md={4} xs={12} style={{ margin: "1rem auto" }}>
+    <Col
+      style={{
+        padding: "0.7rem",
+      }}
+    >
       <Card>
-        <Card.Img variant="bottom" src="../tempImages/big.jpg" />
+        <Card.Img
+          variant="bottom"
+          src={src}
+          onError={() => imageErrorHandler()}
+          style={{ width: "100%", height: "12rem" }}
+        />
         <Card.Body style={{ height: "210px" }}>
           <Card.Text
             style={{
@@ -29,42 +43,33 @@ const CardsBuy: React.FC<any> = (props) => {
             }}
             className="d-inline-block text-truncate"
           >
-            제목 : {props.value.title}
+            제목 : {props.value.picture_title}
           </Card.Text>
-          <br />
-          <span style={{ fontSize: "0.8rem" }}>사진 ID : 12</span>
-          <br />
+          <ListGroup className="list-group-flush">
+            <ListGroupItem>사진 ID : {props.value.token_id}</ListGroupItem>
+            <ListGroupItem>
+              가격 : {props.value.picture_price} klay
+            </ListGroupItem>
+          </ListGroup>
           <Button
             variant="dark"
-            onClick={() => setModalShow(true)}
+            onClick={() => {
+              //setModalShow(true);
+              history.push({
+                pathname: "/viewPictures/info",
+                state: { information: props.value },
+              });
+            }}
             style={{ marginTop: "0.8rem" }}
           >
             자세히 보기
           </Button>
-          <MyVerticallyCenteredModal
+          {/*  <MyVerticallyCenteredModalBuy
             show={modalShow}
             onHide={() => setModalShow(false)}
-            title={props.value.title}
-            desc={props.value.desc}
-            src="../tempImages/big.jpg"
-          />
-          <hr />
-          <InputGroup className="mb-3" style={{ marginTop: "1rem" }}>
-            <FormControl
-              placeholder={props.value.price + " klay"}
-              readOnly
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-              style={{ textAlign: "center" }}
-            />
-            <Button
-              variant="success"
-              id="button-addon2"
-              onClick={onClickHandle}
-            >
-              구매하기
-            </Button>
-          </InputGroup>
+            info={props}
+            //category={props.value.category}
+        /> */}
         </Card.Body>
       </Card>
     </Col>

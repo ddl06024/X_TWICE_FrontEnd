@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Carousel,
@@ -7,14 +7,58 @@ import {
   Nav,
   Row,
   Image,
+  Spinner,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
+import { usePictures } from "../hooks/usePictures";
 
-const CarouselMain: React.FC<{}> = () => {
+const CarouselMain: React.FC<any> = (props) => {
+  const { loading, setLoading, errors, setErrors } = useFetch();
+  useEffect(() => {
+    getFirstPictures();
+  }, []);
+  const [pictures, setPictures] = useState<Array<any>>([]);
+  const { fetchPicturesByPopularity } = usePictures();
+  async function getFirstPictures() {
+    try {
+      setLoading(true);
+      setErrors(undefined);
+      await setTimeout(() => {
+        console.log("wait");
+      }, 200000);
+      const { data } = await fetchPicturesByPopularity({ first: 0, last: 5 });
+      console.log(data);
+      // console.log(errors);
+      setPictures(data.items);
+      //setErrors(errors);
+    } catch (err) {
+      const isAxiosError = err?.isAxiosError ?? false;
+      if (isAxiosError) {
+        const {
+          response: { data },
+        } = err;
+        console.log(data);
+        setErrors(data);
+        console.log(err);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
   const history = useHistory();
-
+  /*const [src, setSrc] = useState(pictures[0].picture_url);*/
+  const imageErrorHandler = (e: any) => {
+    e.target.src = "../tempImages/noimage.png";
+  };
   return (
-    <Nav className="justify-content-center" style={{ marginTop: "4rem" }}>
+    <Nav
+      className="justify-content-center"
+      style={{
+        marginTop: "4rem",
+        //backgroundImage: "url(../tempImages/background.jpg)",
+      }}
+    >
       <Row style={{ width: "80%" }} className="align-items-center">
         <Col md="auto" style={{ marginRight: "1rem" }}>
           <div style={{ textAlign: "center" }}>
@@ -37,56 +81,53 @@ const CarouselMain: React.FC<{}> = () => {
               variant="outline-primary"
               style={{ margin: 10 }}
               onClick={() => {
-                history.push("/viewPictures/popularity");
+                history.push("/viewPictures");
               }}
             >
               보기
-            </Button>{" "}
+            </Button>
           </Nav>
         </Col>
 
-        <Col style={{ alignContent: "center" }}>
+        <Col style={{ alignContent: "center", overflow: "hidden" }}>
           <Carousel>
-            <Carousel.Item>
-              <Image
-                className="d-block w-100"
-                src="../tempImages/big.jpg"
-                alt="First slide"
-              />
-              <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>
-                  Nulla vitae elit libero, a pharetra augue mollis interdum.
-                </p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="../tempImages/big.jpg"
-                alt="Second slide"
-              />
-
-              <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="../tempImages/big.jpg"
-                alt="Third slide"
-              />
-
-              <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur.
-                </p>
-              </Carousel.Caption>
-            </Carousel.Item>
+            {errors && (
+              <p>
+                {" "}
+                {errors.name} {errors.status}{" "}
+              </p>
+            )}
+            {loading ? (
+              <Spinner
+                animation="border"
+                role="status"
+                style={{ margin: "auto" }}
+              >
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            ) : (
+              pictures.map((x: any, index) => {
+                return (
+                  <Carousel.Item>
+                    <Image
+                      className="d-block w-100"
+                      onError={imageErrorHandler}
+                      src={x.picture_url}
+                      alt="First slide"
+                      style={{
+                        width: "auto",
+                        height: "450px",
+                        maxHeight: "450px",
+                      }}
+                    />
+                    <Carousel.Caption>
+                      <h3>{x.picture_title}</h3>
+                      <p>{x.picture_info}</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                );
+              })
+            )}
           </Carousel>
         </Col>
       </Row>

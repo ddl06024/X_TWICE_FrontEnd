@@ -11,7 +11,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
-import { getCookie, removeCookie } from "../hooks/cookie";
+import { getCookie, removeCookie } from "../configs/cookie";
 const Header: React.FC<any> = (props) => {
   const history = useHistory();
   const [token, setToken] = useState(getCookie("myToken"));
@@ -20,9 +20,11 @@ const Header: React.FC<any> = (props) => {
     setSearch(e.target.value);
   };
   const handleSearch = () => {
+    //props.setViewBy("search");
+    //props.setSearchWord(search);
     history.push({
-      pathname: "/viewPictures/popularity",
-      state: { word: search },
+      pathname: "/viewPictures",
+      state: { viewBy: "search", search: search },
     });
   };
 
@@ -93,6 +95,7 @@ const Header: React.FC<any> = (props) => {
                 onClick={() => {
                   removeCookie("myToken");
                   setToken(getCookie("myToken"));
+                  console.log(getCookie("myToken"));
                 }}
               >
                 로그아웃

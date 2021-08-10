@@ -26,10 +26,23 @@ const CardsSell: React.FC<any> = (props) => {
     props.onClick(props.value);
   };
   const [modalShow, setModalShow] = React.useState(false);
+  const [src, setSrc] = useState("zzz");
+  const imageErrorHandler = () => {
+    setSrc("../tempImages/noimage.png");
+  };
   return (
-    <Col lg={3} md={4} xs={12} style={{ margin: "1rem auto" }}>
+    <Col
+      style={{
+        padding: "0.7rem",
+      }}
+    >
       <Card>
-        <Card.Img variant="bottom" src="../tempImages/big.jpg" />
+        <Card.Img
+          variant="bottom"
+          src={src}
+          onError={() => imageErrorHandler()}
+          style={{ width: "100%", height: "12rem" }}
+        />
         <Card.Body style={{ height: "210px" }}>
           <Card.Text
             style={{
@@ -57,6 +70,7 @@ const CardsSell: React.FC<any> = (props) => {
             title={props.value.title}
             desc={props.value.desc}
             src="../tempImages/big.jpg"
+            category={props.value.category}
           />
           <hr />
           <InputGroup className="mb-3" style={{ marginTop: "1rem" }}>
