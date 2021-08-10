@@ -29,30 +29,6 @@ const RegisterPicture: React.FC<any> = (props) => {
     setCategory(e.target.value);
   };
 
-  const onClickHandler = () => {
-    console.log(getCookie("myToken"));
-    let _contents = Array.from(props.nft.nft.contents);
-    _contents.push({
-      id: props.nft.nft.count,
-      onSale: false,
-      title: title,
-      desc: desc,
-      price: 0,
-      category: category,
-    });
-    const newNft = {
-      userId: props.nft.nft.userId,
-      count: props.nft.nft.count + 1,
-      contents: _contents,
-    };
-    props.onClick(newNft);
-    {
-      /*  setNft({
-                contents:_contents,
-                nftId : props.nft.nft.nftId+1,
-            });*/
-    }
-  };
   const { insertPicture } = usePictures();
 
   async function registerToBackend(
@@ -130,6 +106,7 @@ const RegisterPicture: React.FC<any> = (props) => {
     } catch (err) {
       alert(err.name + "/" + err.message);
     }
+    history.push("/");
   }
 
   return (

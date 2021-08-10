@@ -103,7 +103,7 @@ const Header: React.FC<any> = (props) => {
               <Nav.Link
                 eventKey={2}
                 onClick={() => {
-                  history.push("/myPage/myToken");
+                  history.push("/myPage");
                 }}
               >
                 마이페이지

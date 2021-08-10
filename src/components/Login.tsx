@@ -1,4 +1,5 @@
 import React, { useReducer, useState } from "react";
+import jwt_decode from "jwt-decode";
 import {
   Button,
   Col,
@@ -37,8 +38,17 @@ const Login: React.FC<any> = (props) => {
       user_id,
       user_password,
     });
+    console.log(res);
+
     if (res.data) {
       setCookie("myToken", res.data, {
+        path: "/",
+        secure: true,
+        sameSite: "none",
+      });
+      const decoded = jwt_decode(res.data);
+      console.log(decoded);
+      setCookie("userId", decoded, {
         path: "/",
         secure: true,
         sameSite: "none",

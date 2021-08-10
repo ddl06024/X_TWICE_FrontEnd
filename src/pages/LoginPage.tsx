@@ -12,7 +12,7 @@ import CategoryTab from "../components/CategoryTab";
 import { Route } from "react-router-dom";
 import SearchWord from "../components/SearchWordCategoryTab";
 import GridLayoutSell from "../components/GridLayoutSell";
-import GridLayoutMyTokenOnSale from "../components/GridLayoutMyTokenOnSale";
+
 import Footer from "../components/Footer";
 import Introduction from "../components/Introduction";
 import "../App.css";

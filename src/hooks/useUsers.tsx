@@ -9,13 +9,15 @@ export function useUsers() {
     const { data } = await instance1.post("/users", params);
     return data;
   }
-  async function isUserLogin(params: any) {
-    const res = await instance2.get("/users/login", params);
-    return res;
+  async function getUsers() {
+    const { data } = await instance2.get("/users");
+    console.log(data);
+    return data;
   }
+
   return {
     loginUser,
-    isUserLogin,
     signUpUser,
+    getUsers,
   };
 }

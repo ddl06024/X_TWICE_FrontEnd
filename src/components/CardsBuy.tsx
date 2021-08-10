@@ -75,8 +75,10 @@ const CardsBuy: React.FC<any> = (props) => {
             제목 : {props.value.picture_title}
           </Card.Text>
           <ListGroup className="list-group-flush">
-            <ListGroupItem>사진 ID : {props.value.token_id}</ListGroupItem>
-            <ListGroupItem>
+            <ListGroupItem className="d-inline-block text-truncate">
+              사진 ID : {props.value.token_id}
+            </ListGroupItem>
+            <ListGroupItem className="d-inline-block text-truncate">
               가격 : {props.value.picture_price} klay
             </ListGroupItem>
           </ListGroup>
@@ -84,6 +86,7 @@ const CardsBuy: React.FC<any> = (props) => {
             variant="dark"
             onClick={onClickHandler}
             style={{ marginTop: "0.8rem" }}
+            className="d-inline-block text-truncate"
           >
             자세히 보기
           </Button>

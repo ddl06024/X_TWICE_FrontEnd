@@ -3,8 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
-import MyToken from "./pages/MyToken";
-import MyTokenOnSale from "./pages/MyTokenOnSale";
+import MyPage from "./pages/MyPage";
+
 import RegisterAccountPage from "./pages/RegisterAccountPage";
 import RegisterPicturePage from "./pages/RegisterPicturePage";
 import Search from "./pages/Search";
@@ -21,9 +21,9 @@ const App: React.FC<{}> = () => {
         <Route path="/registerAccount" render={() => <RegisterAccountPage />} />
         <Route path="/search" render={() => <Search />} />
         <Route path="/registerPicture" render={() => <RegisterPicturePage />} />
-        <Route path="/myPage/myToken" render={() => <MyToken />} />
-        <Route path="/myPage/myTokenOnSale" render={() => <MyTokenOnSale />} />
-        <Route path="/myPage/transactions" render={() => <Transactions />} />
+        <Route path="/myPage" render={() => <MyPage />} />
+        {/*  <Route path="/myPage/myTokenOnSale" render={() => <MyTokenOnSale />} />*/}
+        {/* <Route path="/myPage/transactions" render={() => <Transactions />} />*/}
         <Route exact path={"/viewPictures"} render={() => <ViewPictures />} />
         <Route path={"/viewPictures/info"} render={() => <PictureInfo />} />
       </div>

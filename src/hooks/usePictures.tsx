@@ -55,13 +55,42 @@ export function usePictures() {
     return data;
   }
 
+  async function getUsersToken(params: any) {
+    console.log(params);
+    const { data } = await instance2.get("/pictures/mylist", {
+      params,
+    });
+    console.log(data);
+    return data;
+  }
+
+  async function setTokenOnSale(params: any) {
+    console.log(params);
+    const { data } = await instance2.put("/pictures/sale", params);
+    console.log(data);
+    return data;
+  }
+
+  async function cancleTokenOnSale(params: any) {
+    console.log(params);
+    const { data } = await instance2.put(
+      `/pictures/cancle/${params.token_id}`,
+      { params }
+    );
+    console.log(data);
+    return data;
+  }
+
   return {
     insertPicture,
+    setTokenOnSale,
     fetchPicturesByPrice,
     fetchPicturesByPopularity,
     fetchPicturesByCategory,
     fetchPictureInfo,
     fetchPicturesBySearch,
     increasePostsViews,
+    getUsersToken,
+    cancleTokenOnSale,
   };
 }

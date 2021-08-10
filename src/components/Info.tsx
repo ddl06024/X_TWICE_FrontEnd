@@ -25,7 +25,12 @@ const CardsBuy: React.FC<any> = (props) => {
     <Container style={{ height: "100%", marginTop: "2rem" }}>
       <Row>
         <Col style={{ display: "flex", alignItems: "center" }}>
-          <Image fluid src={src} onError={() => imageErrorHandler()} />
+          <Image
+            fluid
+            style={{ height: "auto", width: "100%" }}
+            src={src}
+            onError={() => imageErrorHandler()}
+          />
         </Col>
         <Col>
           <h2>제목 : {information.picture_title}</h2>
