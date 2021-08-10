@@ -11,9 +11,38 @@ import {
   ListGroupItem,
   Row,
 } from "react-bootstrap";
+import { usePictures } from "../hooks/usePictures";
 import { useHistory } from "react-router-dom";
 import MyVerticallyCenteredModalBuy from "./MyVerticallyCenteredModalBuy";
 const CardsBuy: React.FC<any> = (props) => {
+  const { increasePostsViews } = usePictures();
+  const [errors, setErrors] = useState<any>(undefined);
+  async function increaseViews() {
+    try {
+      setErrors(undefined);
+      const { data } = await increasePostsViews({
+        token_id: props.value.token_id,
+      });
+      console.log(data);
+    } catch (err) {
+      const isAxiosError = err?.isAxiosError ?? false;
+      if (isAxiosError) {
+        const {
+          response: { data },
+        } = err;
+        console.log(data);
+        setErrors(data);
+        console.log(err);
+      }
+    }
+  }
+  const onClickHandler = () => {
+    increaseViews();
+    history.push({
+      pathname: "/viewPictures/info",
+      state: { information: props.value },
+    });
+  };
   const history = useHistory();
   //const [modalShow, setModalShow] = React.useState(false);
   const [src, setSrc] = useState(props.value.picture_url);
@@ -53,13 +82,7 @@ const CardsBuy: React.FC<any> = (props) => {
           </ListGroup>
           <Button
             variant="dark"
-            onClick={() => {
-              //setModalShow(true);
-              history.push({
-                pathname: "/viewPictures/info",
-                state: { information: props.value },
-              });
-            }}
+            onClick={onClickHandler}
             style={{ marginTop: "0.8rem" }}
           >
             자세히 보기

@@ -47,6 +47,14 @@ export function usePictures() {
     return data;
   }
 
+  async function increasePostsViews(params: any) {
+    console.log(params);
+    const { data } = await instance2.put(`/pictures/count/${params.token_id}`, {
+      params,
+    });
+    return data;
+  }
+
   return {
     insertPicture,
     fetchPicturesByPrice,
@@ -54,5 +62,6 @@ export function usePictures() {
     fetchPicturesByCategory,
     fetchPictureInfo,
     fetchPicturesBySearch,
+    increasePostsViews,
   };
 }
