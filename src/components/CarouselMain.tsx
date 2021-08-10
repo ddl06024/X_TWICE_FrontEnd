@@ -89,7 +89,7 @@ const CarouselMain: React.FC<any> = (props) => {
           </Nav>
         </Col>
 
-        <Col style={{ alignContent: "center" }}>
+        <Col style={{ alignContent: "center", overflow: "hidden" }}>
           <Carousel>
             {errors && (
               <p>
@@ -114,6 +114,11 @@ const CarouselMain: React.FC<any> = (props) => {
                       onError={imageErrorHandler}
                       src={x.picture_url}
                       alt="First slide"
+                      style={{
+                        width: "auto",
+                        height: "450px",
+                        maxHeight: "450px",
+                      }}
                     />
                     <Carousel.Caption>
                       <h3>{x.picture_title}</h3>

@@ -46,8 +46,10 @@ const CardsBuy: React.FC<any> = (props) => {
             제목 : {props.value.picture_title}
           </Card.Text>
           <ListGroup className="list-group-flush">
-            <ListGroupItem>사진 ID : 12</ListGroupItem>
-            <ListGroupItem>가격 : {""}</ListGroupItem>
+            <ListGroupItem>사진 ID : {props.value.token_id}</ListGroupItem>
+            <ListGroupItem>
+              가격 : {props.value.picture_price} klay
+            </ListGroupItem>
           </ListGroup>
           <Button
             variant="dark"

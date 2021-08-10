@@ -60,7 +60,6 @@ const ViewByPopularity: React.FC<{}> = () => {
   }
 
   useEffect(() => {
-    console.log(searchWord);
     getFirstPictures();
   }, [first, viewBy, category, searchWord]);
 
