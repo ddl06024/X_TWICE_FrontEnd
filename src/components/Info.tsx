@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { getCookie } from "../configs/cookie";
 import {
   Container,
   Row,
@@ -10,7 +11,13 @@ import {
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 const CardsBuy: React.FC<any> = (props) => {
+  const [userId, setUserId] = useState(getCookie("userId"));
+  useEffect(() => {
+    const user = getCookie("userId");
+    setUserId(user);
+  }, []);
   const location = useLocation<any>();
+  console.log(location.state);
   const [information, setInformation] = useState(location.state.information);
   useEffect(() => {
     if (location.state) {
@@ -21,6 +28,7 @@ const CardsBuy: React.FC<any> = (props) => {
   const imageErrorHandler = () => {
     setSrc("../tempImages/noimage.png");
   };
+  console.log(userId);
   return (
     <Container style={{ height: "100%", marginTop: "2rem" }}>
       <Row>
@@ -52,7 +60,13 @@ const CardsBuy: React.FC<any> = (props) => {
                 {information.picture_price} Klay
               </Card.Title>
               {/*<Card.Text>구매하시겠습니까?</Card.Text>*/}
-              <Button variant="success">구매하기</Button>
+              {userId && userId.user_num == information.user_num ? (
+                <></>
+              ) : typeof userId == "undefined" ? (
+                <></>
+              ) : (
+                <Button variant="success">구매하기</Button>
+              )}
             </Card.Body>
           </Card>
           <Card style={{ marginTop: "2rem" }}>

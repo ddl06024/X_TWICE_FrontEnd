@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -11,8 +11,9 @@ import {
   ListGroupItem,
   Row,
 } from "react-bootstrap";
+import { getCookie } from "../configs/cookie";
 import { usePictures } from "../hooks/usePictures";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import MyVerticallyCenteredModalBuy from "./MyVerticallyCenteredModalBuy";
 const CardsBuy: React.FC<any> = (props) => {
   const { increasePostsViews } = usePictures();
@@ -23,7 +24,6 @@ const CardsBuy: React.FC<any> = (props) => {
       const { data } = await increasePostsViews({
         token_id: props.value.token_id,
       });
-      console.log(data);
     } catch (err) {
       const isAxiosError = err?.isAxiosError ?? false;
       if (isAxiosError) {
@@ -49,6 +49,29 @@ const CardsBuy: React.FC<any> = (props) => {
   const imageErrorHandler = () => {
     setSrc("../tempImages/noimage.png");
   };
+  const [userId, setUserId] = useState(getCookie("userId"));
+  const location = useLocation<any>();
+  useEffect(() => {
+    const user = getCookie("userId");
+    setUserId(user);
+  }, []);
+  console.log(location);
+  const owner = (
+    <ListGroupItem variant="success" className="d-inline-block text-truncate">
+      본인소유
+    </ListGroupItem>
+  );
+  const notOwner = (
+    <Card.Text
+      style={{
+        maxWidth: "100%",
+        paddingLeft: "1vw",
+      }}
+      className="d-inline-block text-truncate"
+    >
+      &nbsp;
+    </Card.Text>
+  );
 
   return (
     <Col
@@ -56,7 +79,8 @@ const CardsBuy: React.FC<any> = (props) => {
         padding: "0.7rem",
       }}
     >
-      <Card>
+      <Card style={{ borderColor: "green" }}>
+        {userId && userId.user_num == props.value.user_num ? owner : notOwner}
         <Card.Img
           variant="bottom"
           src={src}

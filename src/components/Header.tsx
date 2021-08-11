@@ -29,11 +29,19 @@ const Header: React.FC<any> = (props) => {
   };
 
   const location = useLocation<any>();
+  console.log(location);
   useEffect(() => {
     if (location.state) {
       setToken(location.state.tk);
     }
   }, [location]);
+  const onLogoutHandler = () => {
+    removeCookie("myToken");
+    removeCookie("userId");
+    setToken(getCookie("myToken"));
+    console.log(getCookie("myToken"));
+    history.push("/");
+  };
   return (
     <Navbar
       collapseOnSelect
@@ -91,15 +99,7 @@ const Header: React.FC<any> = (props) => {
           </Nav>
           {token ? (
             <Nav>
-              <Nav.Link
-                onClick={() => {
-                  removeCookie("myToken");
-                  setToken(getCookie("myToken"));
-                  console.log(getCookie("myToken"));
-                }}
-              >
-                로그아웃
-              </Nav.Link>
+              <Nav.Link onClick={onLogoutHandler}>로그아웃</Nav.Link>
               <Nav.Link
                 eventKey={2}
                 onClick={() => {

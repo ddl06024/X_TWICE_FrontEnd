@@ -62,7 +62,7 @@ const CardsSell: React.FC<any> = (props) => {
   const onClickHandler = () => {
     history.push({
       pathname: "/viewPictures/info",
-      state: { information: props.value },
+      state: { information: props.value, mypage: true },
     });
   };
   const [src, setSrc] = useState(props.value.picture_url);
