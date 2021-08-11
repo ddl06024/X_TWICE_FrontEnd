@@ -29,7 +29,6 @@ const Header: React.FC<any> = (props) => {
   };
 
   const location = useLocation<any>();
-  console.log(location);
   useEffect(() => {
     if (location.state) {
       setToken(location.state.tk);
@@ -39,7 +38,6 @@ const Header: React.FC<any> = (props) => {
     removeCookie("myToken");
     removeCookie("userId");
     setToken(getCookie("myToken"));
-    console.log(getCookie("myToken"));
     history.push("/");
   };
   return (

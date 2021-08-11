@@ -8,11 +8,13 @@ import { getCookie } from "../configs/cookie";
 import { usePictures } from "../hooks/usePictures";
 import { useFetch } from "../hooks/useFetch";
 import { usePagination } from "../hooks/usePagination";
-
+import { useTransactions } from "../hooks/useTransactions";
 import { Pagination } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import TransactionTable from "../components/TransactionTable";
 const MyToken: React.FC<{}> = () => {
+  const { fetchHistories } = useTransactions();
+
   const [updateToken, setUpdateToken] = useState<any>(null);
   const { loading, setLoading, errors, setErrors } = useFetch();
   const {
@@ -54,9 +56,7 @@ const MyToken: React.FC<{}> = () => {
   }
 
   useEffect(() => {
-    if (viewBy != "History") {
-      getPictures();
-    }
+    getPictures();
   }, [first, viewBy, updateToken]);
 
   const paginationBasic = (
@@ -87,15 +87,20 @@ const MyToken: React.FC<{}> = () => {
               first,
               last: offset,
             })
-          : await getUsersToken({
+          : viewBy == "myTokenOnSale"
+          ? await getUsersToken({
               state: "Y",
+              first,
+              last: offset,
+            })
+          : await fetchHistories({
               first,
               last: offset,
             });
 
       console.log(data);
-
       setCount(data.count);
+
       setPictures(data.items);
     } catch (err) {
       const isAxiosError = err?.isAxiosError ?? false;
@@ -117,7 +122,11 @@ const MyToken: React.FC<{}> = () => {
       value={{ errors, count, pictures, loading, paginationBasic }}
     />
   );
-  const historyTable = <TransactionTable />;
+  const historyTable = (
+    <TransactionTable
+      value={{ errors, count, pictures, loading, paginationBasic }}
+    />
+  );
 
   return (
     <main>

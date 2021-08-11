@@ -3,7 +3,7 @@ import { Container, Nav } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 const Tabs: React.FC<any> = (props) => {
   const history = useHistory();
-  console.log(props);
+
   return (
     <Container style={{ marginBottom: "1rem" }}>
       <Nav

@@ -23,9 +23,6 @@ const GridLayoutSell: React.FC<any> = (props) => {
       <span className="visually-hidden">Loading...</span>
     </Spinner>
   );
-  if (pictures[0]) {
-    console.log(pictures[0].picture_state);
-  }
 
   const picturesComp =
     pictures[0] && pictures[0].picture_state == "N"

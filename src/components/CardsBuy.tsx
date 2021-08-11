@@ -55,7 +55,7 @@ const CardsBuy: React.FC<any> = (props) => {
     const user = getCookie("userId");
     setUserId(user);
   }, []);
-  console.log(location);
+
   const owner = (
     <ListGroupItem variant="success" className="d-inline-block text-truncate">
       본인소유

@@ -10,7 +10,12 @@ import {
   Card,
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
+import { usePictures } from "../hooks/usePictures";
+import { useTransactions } from "../hooks/useTransactions";
 const CardsBuy: React.FC<any> = (props) => {
+  const history = useHistory();
+  const { insertHistory } = useTransactions();
+  const { BuyToken } = usePictures();
   const [userId, setUserId] = useState(getCookie("userId"));
   useEffect(() => {
     const user = getCookie("userId");
@@ -29,6 +34,39 @@ const CardsBuy: React.FC<any> = (props) => {
     setSrc("../tempImages/noimage.png");
   };
   console.log(userId);
+
+  const [erros, setErrors] = useState<any>(undefined);
+  async function onBuyHandler() {
+    try {
+      setErrors(undefined);
+      await setTimeout(() => {
+        console.log("wait");
+      }, 200000);
+      await insertHistory({
+        user_num2: information.user_num,
+        token_id: information.token_id,
+        picture_url: information.picture_url,
+        picture_title: information.picture_title,
+        picture_price: information.picture_price,
+        picture_info: information.picture_info,
+      });
+
+      const { data } = await BuyToken({ token_id: information.token_id });
+
+      console.log(data);
+    } catch (err) {
+      const isAxiosError = err?.isAxiosError ?? false;
+      if (isAxiosError) {
+        const {
+          response: { data },
+        } = err;
+        console.log(data);
+        setErrors(data);
+        console.log(err);
+      }
+    }
+    history.goBack();
+  }
   return (
     <Container style={{ height: "100%", marginTop: "2rem" }}>
       <Row>
@@ -65,7 +103,9 @@ const CardsBuy: React.FC<any> = (props) => {
               ) : typeof userId == "undefined" ? (
                 <></>
               ) : (
-                <Button variant="success">구매하기</Button>
+                <Button onClick={onBuyHandler} variant="success">
+                  구매하기
+                </Button>
               )}
             </Card.Body>
           </Card>

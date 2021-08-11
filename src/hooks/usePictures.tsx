@@ -81,6 +81,13 @@ export function usePictures() {
     return data;
   }
 
+  async function BuyToken(params: any) {
+    console.log(params);
+    const { data } = await instance2.put("/pictures", params);
+    console.log(data);
+    return data;
+  }
+
   return {
     insertPicture,
     setTokenOnSale,
@@ -92,5 +99,6 @@ export function usePictures() {
     increasePostsViews,
     getUsersToken,
     cancleTokenOnSale,
+    BuyToken,
   };
 }
