@@ -75,7 +75,10 @@ const CardsSell: React.FC<any> = (props) => {
         padding: "0.7rem",
       }}
     >
-      <Card>
+      <Card
+        style={{ borderColor: "green" }}
+        className="shadow p-3 mb-5 bg-white rounded"
+      >
         <Card.Img
           variant="bottom"
           src={src}

@@ -60,9 +60,7 @@ const MyToken: React.FC<{}> = () => {
   }, [first, viewBy, updateToken]);
 
   const paginationBasic = (
-    <div
-      style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
-    >
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <Pagination onClick={(event) => pagination(event)}>{items}</Pagination>
     </div>
   );

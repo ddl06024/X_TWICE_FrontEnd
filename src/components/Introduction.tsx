@@ -4,7 +4,10 @@ import { useHistory } from "react-router-dom";
 
 const Introduction: React.FC<{}> = () => {
   return (
-    <Card className=" text-black" style={{ border: "none", marginTop: "5rem" }}>
+    <Card
+      className=" text-black "
+      style={{ border: "none", marginTop: "5rem" }}
+    >
       <Card.Img src="../tempImages/square.png" alt="Card image" />
 
       <Card.ImgOverlay

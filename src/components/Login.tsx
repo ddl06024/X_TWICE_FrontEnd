@@ -39,7 +39,7 @@ const Login: React.FC<any> = (props) => {
       user_password,
     });
     console.log(res);
-
+    console.log(res.data);
     if (res.data) {
       setCookie("myToken", res.data, {
         path: "/",

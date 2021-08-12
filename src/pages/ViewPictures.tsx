@@ -87,7 +87,6 @@ const ViewByPopularity: React.FC<{}> = () => {
       await setTimeout(() => {
         console.log("wait");
       }, 200000);
-      console.log(first);
       const { data } =
         viewBy == "popularity"
           ? await fetchPicturesByPopularity({
@@ -110,7 +109,6 @@ const ViewByPopularity: React.FC<{}> = () => {
               first,
               last: offset,
             });
-      console.log(data);
       setCount(data.count);
       setPictures(data.items);
     } catch (err) {

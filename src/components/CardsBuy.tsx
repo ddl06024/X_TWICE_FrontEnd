@@ -57,20 +57,24 @@ const CardsBuy: React.FC<any> = (props) => {
   }, []);
 
   const owner = (
-    <ListGroupItem variant="success" className="d-inline-block text-truncate">
-      본인소유
-    </ListGroupItem>
-  );
-  const notOwner = (
-    <Card.Text
-      style={{
-        maxWidth: "100%",
-        paddingLeft: "1vw",
-      }}
+    <Button
+      variant="warning"
+      onClick={onClickHandler}
+      style={{ marginTop: "0.8rem" }}
       className="d-inline-block text-truncate"
     >
-      &nbsp;
-    </Card.Text>
+      내 사진 정보
+    </Button>
+  );
+  const notOwner = (
+    <Button
+      variant="primary"
+      onClick={onClickHandler}
+      style={{ marginTop: "0.8rem" }}
+      className="d-inline-block text-truncate"
+    >
+      자세히 보기
+    </Button>
   );
 
   return (
@@ -79,8 +83,10 @@ const CardsBuy: React.FC<any> = (props) => {
         padding: "0.7rem",
       }}
     >
-      <Card style={{ borderColor: "green" }}>
-        {userId && userId.user_num == props.value.user_num ? owner : notOwner}
+      <Card
+        style={{ borderColor: "green" }}
+        className="shadow p-3 mb-5 bg-white rounded"
+      >
         <Card.Img
           variant="bottom"
           src={src}
@@ -106,14 +112,7 @@ const CardsBuy: React.FC<any> = (props) => {
               가격 : {props.value.picture_price} klay
             </ListGroupItem>
           </ListGroup>
-          <Button
-            variant="dark"
-            onClick={onClickHandler}
-            style={{ marginTop: "0.8rem" }}
-            className="d-inline-block text-truncate"
-          >
-            자세히 보기
-          </Button>
+          {userId && userId.user_num == props.value.user_num ? owner : notOwner}
           {/*  <MyVerticallyCenteredModalBuy
             show={modalShow}
             onHide={() => setModalShow(false)}

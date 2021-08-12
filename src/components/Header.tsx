@@ -11,6 +11,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import { getCookie, removeCookie } from "../configs/cookie";
 const Header: React.FC<any> = (props) => {
   const history = useHistory();
@@ -19,6 +20,9 @@ const Header: React.FC<any> = (props) => {
   const handleSearchWords = (e: any) => {
     setSearch(e.target.value);
   };
+
+  const decoded = token && jwt_decode(token);
+
   const handleSearch = () => {
     //props.setViewBy("search");
     //props.setSearchWord(search);
@@ -40,14 +44,31 @@ const Header: React.FC<any> = (props) => {
     setToken(getCookie("myToken"));
     history.push("/");
   };
+  const userInfo = (
+    <span
+      style={{ marginLeft: "8px", marginRight: "8px" }}
+      className="d-inline-block text-truncate"
+    >
+      <span style={{ fontWeight: "bold" }}>
+        {decoded && (decoded as any).user_id}
+      </span>
+      {" 님 환영합니다."}
+      <br />
+      <span style={{ color: "green" }}>{"14klay"}</span>
+      {" 보유"}
+    </span>
+  );
   return (
     <Navbar
       collapseOnSelect
+      className="shadow p-3 mb-5 bg-white rounded"
       expand="lg"
       bg="light"
       variant="light"
       sticky="top"
-      style={{ minHeight: "75px" }}
+      style={{
+        minHeight: "75px",
+      }}
     >
       <Container>
         <Image
@@ -97,6 +118,7 @@ const Header: React.FC<any> = (props) => {
           </Nav>
           {token ? (
             <Nav>
+              {userInfo}
               <Nav.Link onClick={onLogoutHandler}>로그아웃</Nav.Link>
               <Nav.Link
                 eventKey={2}

@@ -3,6 +3,7 @@ import { Button, Table, Container, Spinner } from "react-bootstrap";
 //d
 const TransactionTable: React.FC<any> = (props) => {
   const { errors, count, pictures, loading, paginationBasic } = props.value;
+  console.log(count);
   const errorsComp =
     count == 0 ? (
       <p>검색하신 결과가 없습니다.</p>
@@ -30,8 +31,8 @@ const TransactionTable: React.FC<any> = (props) => {
   ];
 
   return (
-    <Container style={{ height: "100%" }}>
-      <Table responsive>
+    <Container style={{ height: "100%", borderColor: "green" }}>
+      <Table responsive className="shadow p-3 mb-5 bg-white rounded">
         <thead>
           <tr>
             {Array.from(tableHeadArray).map((x, index) => (
@@ -49,9 +50,9 @@ const TransactionTable: React.FC<any> = (props) => {
                   <td>{x.history_num}</td>
                   <td>{x.createdAt}</td>
                   <td>{x.picture_title}</td>
-                  <td>{x.user_num1}</td>
+                  <td>{x.user1?.user_id}</td>
                   <td>{"==>"}</td>
-                  <td>{x.user_num2}</td>
+                  <td>{x.user2?.user_id}</td>
                   <td>{x.picture_price}</td>
                 </tr>
               ))}

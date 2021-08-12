@@ -56,16 +56,17 @@ const CarouselMain: React.FC<any> = (props) => {
       className="justify-content-center"
       style={{
         marginTop: "4rem",
+        height: "100%",
         //backgroundImage: "url(../tempImages/background.jpg)",
       }}
     >
-      <Row style={{ width: "80%" }} className="align-items-center">
-        <Col md="auto" style={{ marginRight: "1rem" }}>
+      <Row style={{ width: "80%" }} className="align-items-center ">
+        <Col md="auto" className="" style={{ marginRight: "1rem" }}>
           <div style={{ textAlign: "center" }}>
             <h1 style={{ fontWeight: "bold" }}>NFT를 수집하고</h1>
             <h1 style={{ fontWeight: "bold" }}> 판매해보세요!</h1>
           </div>
-          <Nav className="justify-content-center">
+          <Nav className="justify-content-center ">
             <Button
               variant="primary"
               size="lg"
@@ -90,7 +91,7 @@ const CarouselMain: React.FC<any> = (props) => {
         </Col>
 
         <Col style={{ alignContent: "center", overflow: "hidden" }}>
-          <Carousel>
+          <Carousel className=" shadow p-3 mb-5 bg-white rounded">
             {errors && (
               <p>
                 {" "}
