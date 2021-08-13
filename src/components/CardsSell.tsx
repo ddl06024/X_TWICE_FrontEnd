@@ -56,7 +56,7 @@ const CardsSell: React.FC<any> = (props) => {
     }
     setOnSale();
     console.log(props);
-    props.setUpdateToken(props.value.token_id);
+    props.setUpdateToken(new Date().getMilliseconds());
   };
   const history = useHistory();
   const onClickHandler = () => {

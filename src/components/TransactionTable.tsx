@@ -3,7 +3,7 @@ import { Button, Table, Container, Spinner } from "react-bootstrap";
 //d
 const TransactionTable: React.FC<any> = (props) => {
   const { errors, count, pictures, loading, paginationBasic } = props.value;
-  console.log(count);
+
   const errorsComp =
     count == 0 ? (
       <p>검색하신 결과가 없습니다.</p>

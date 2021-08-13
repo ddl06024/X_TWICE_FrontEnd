@@ -42,6 +42,7 @@ const Header: React.FC<any> = (props) => {
     removeCookie("myToken");
     removeCookie("userId");
     setToken(getCookie("myToken"));
+
     history.push("/");
   };
   const userInfo = (

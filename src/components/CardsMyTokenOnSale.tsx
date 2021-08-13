@@ -46,7 +46,7 @@ const CardsMyTokenOnSale: React.FC<any> = (props) => {
   }
   const cancleHandler = () => {
     setOnSale();
-    props.setUpdateToken(props.value.token_id);
+    props.setUpdateToken(new Date().getMilliseconds());
   };
   const history = useHistory();
   const onClickHandler = () => {

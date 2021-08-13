@@ -36,25 +36,29 @@ const CardsBuy: React.FC<any> = (props) => {
       }
     }
   }
-  const onClickHandler = () => {
-    increaseViews();
-    history.push({
-      pathname: "/viewPictures/info",
-      state: { information: props.value },
-    });
-  };
   const history = useHistory();
   //const [modalShow, setModalShow] = React.useState(false);
   const [src, setSrc] = useState(props.value.picture_url);
+
   const imageErrorHandler = () => {
     setSrc("../tempImages/noimage.png");
   };
   const [userId, setUserId] = useState(getCookie("userId"));
+
   const location = useLocation<any>();
+
   useEffect(() => {
     const user = getCookie("userId");
     setUserId(user);
   }, []);
+
+  const onClickHandler = () => {
+    increaseViews();
+    history.push({
+      pathname: "/viewPictures/info",
+      state: { information: props.value, user_num2: userId },
+    });
+  };
 
   const owner = (
     <Button

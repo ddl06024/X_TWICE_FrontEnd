@@ -7,8 +7,6 @@ import MyPage from "./pages/MyPage";
 
 import RegisterAccountPage from "./pages/RegisterAccountPage";
 import RegisterPicturePage from "./pages/RegisterPicturePage";
-import Search from "./pages/Search";
-import Transactions from "./pages/Transactions";
 import ViewPictures from "./pages/ViewPictures";
 import PictureInfo from "./pages/PictureInfo";
 
@@ -19,7 +17,6 @@ const App: React.FC<{}> = () => {
         <Route exact path="/" render={() => <MainPage />}></Route>
         <Route path="/login" render={() => <LoginPage />} />
         <Route path="/registerAccount" render={() => <RegisterAccountPage />} />
-        <Route path="/search" render={() => <Search />} />
         <Route path="/registerPicture" render={() => <RegisterPicturePage />} />
         <Route path="/myPage" render={() => <MyPage />} />
         {/*  <Route path="/myPage/myTokenOnSale" render={() => <MyTokenOnSale />} />*/}
