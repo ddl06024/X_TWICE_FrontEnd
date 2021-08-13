@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Container } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
 
 const Introduction: React.FC<{}> = () => {
   return (

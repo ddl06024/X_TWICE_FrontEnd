@@ -22,7 +22,6 @@ const CardsBuy: React.FC<any> = (props) => {
     setUserId(user);
   }, []);
   const location = useLocation<any>();
-  console.log(location.state);
   const [information, setInformation] = useState(location.state.information);
   const [usernum2, setUsernum2] = useState(location.state.user_num2);
   useEffect(() => {
@@ -35,7 +34,6 @@ const CardsBuy: React.FC<any> = (props) => {
   const imageErrorHandler = () => {
     setSrc("../tempImages/noimage.png");
   };
-  console.log(userId);
 
   const [erros, setErrors] = useState<any>(undefined);
   async function onBuyHandler() {
@@ -44,7 +42,7 @@ const CardsBuy: React.FC<any> = (props) => {
       await setTimeout(() => {
         console.log("wait");
       }, 200000);
-      console.log(usernum2.user_num);
+
       await insertHistory({
         user_num2: usernum2.user_num,
         token_id: information.token_id,

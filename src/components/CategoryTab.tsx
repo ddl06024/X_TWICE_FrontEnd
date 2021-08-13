@@ -1,9 +1,7 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
 
 const CategoryTab: React.FC<any> = (props) => {
-  console.log(props);
   return (
     <div style={{ width: "85%", margin: "1rem auto" }}>
       <Nav justify variant="pills" defaultActiveKey="link-0">

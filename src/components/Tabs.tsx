@@ -8,7 +8,6 @@ const Tabs: React.FC<any> = (props) => {
     <Container style={{ marginBottom: "1rem" }}>
       <Nav
         onSelect={(e) => {
-          console.log(e);
           props.setViewBy && props.setViewBy(e);
         }}
         justify

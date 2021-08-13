@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   Button,
-  Col,
   Container,
   Form,
   FormControl,
   Nav,
   Navbar,
   Image,
-  Row,
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";

@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Container, Pagination, Row, Spinner } from "react-bootstrap";
+import React from "react";
+import { Container, Row, Spinner } from "react-bootstrap";
 import CardsBuy from "../components/CardsBuy";
-import { useFetch } from "../hooks/useFetch";
-import { usePagination } from "../hooks/usePagination";
-import { usePictures } from "../hooks/usePictures";
 
 const GridLayoutBuy: React.FC<any> = (props) => {
   const { errors, count, pictures, loading, paginationBasic } = props.value;

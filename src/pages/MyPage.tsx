@@ -10,7 +10,6 @@ import { useFetch } from "../hooks/useFetch";
 import { usePagination } from "../hooks/usePagination";
 import { useTransactions } from "../hooks/useTransactions";
 import { Pagination } from "react-bootstrap";
-import { useHistory, useLocation } from "react-router-dom";
 import TransactionTable from "../components/TransactionTable";
 const MyToken: React.FC<{}> = () => {
   const { fetchHistories } = useTransactions();

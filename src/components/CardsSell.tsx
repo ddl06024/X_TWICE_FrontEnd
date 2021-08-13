@@ -3,17 +3,13 @@ import {
   Button,
   Card,
   Col,
-  FloatingLabel,
-  Form,
   FormControl,
   InputGroup,
   ListGroup,
   ListGroupItem,
-  Row,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { usePictures } from "../hooks/usePictures";
-import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 
 const CardsSell: React.FC<any> = (props) => {
   const { setTokenOnSale } = usePictures();

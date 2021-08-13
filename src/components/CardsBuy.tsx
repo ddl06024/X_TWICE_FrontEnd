@@ -1,20 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  FloatingLabel,
-  Form,
-  FormControl,
-  InputGroup,
-  ListGroup,
-  ListGroupItem,
-  Row,
-} from "react-bootstrap";
+import { Button, Card, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import { getCookie } from "../configs/cookie";
 import { usePictures } from "../hooks/usePictures";
 import { useHistory, useLocation } from "react-router-dom";
-import MyVerticallyCenteredModalBuy from "./MyVerticallyCenteredModalBuy";
 const CardsBuy: React.FC<any> = (props) => {
   const { increasePostsViews } = usePictures();
   const [errors, setErrors] = useState<any>(undefined);
@@ -37,7 +25,6 @@ const CardsBuy: React.FC<any> = (props) => {
     }
   }
   const history = useHistory();
-  //const [modalShow, setModalShow] = React.useState(false);
   const [src, setSrc] = useState(props.value.picture_url);
 
   const imageErrorHandler = () => {
@@ -117,12 +104,6 @@ const CardsBuy: React.FC<any> = (props) => {
             </ListGroupItem>
           </ListGroup>
           {userId && userId.user_num == props.value.user_num ? owner : notOwner}
-          {/*  <MyVerticallyCenteredModalBuy
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            info={props}
-            //category={props.value.category}
-        /> */}
         </Card.Body>
       </Card>
     </Col>

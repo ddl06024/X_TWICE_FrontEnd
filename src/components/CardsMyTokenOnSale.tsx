@@ -4,18 +4,10 @@ import {
   Button,
   Card,
   Col,
-  FloatingLabel,
-  Form,
-  FormControl,
   InputGroup,
   ListGroup,
   ListGroupItem,
-  Navbar,
-  OverlayTrigger,
-  Popover,
-  Row,
 } from "react-bootstrap";
-import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 import { usePictures } from "../hooks/usePictures";
 const CardsMyTokenOnSale: React.FC<any> = (props) => {
   const { cancleTokenOnSale } = usePictures();

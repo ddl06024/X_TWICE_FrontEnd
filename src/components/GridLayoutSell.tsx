@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
+import React from "react";
+import { Container, Row, Spinner } from "react-bootstrap";
 import CardsSell from "../components/CardsSell";
-import CardsBuy from "../components/CardsBuy";
 import CardsMyTokenOnSale from "./CardsMyTokenOnSale";
 
 const GridLayoutSell: React.FC<any> = (props) => {

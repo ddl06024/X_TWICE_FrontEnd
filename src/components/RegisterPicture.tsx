@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Button, Col, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { usePictures } from "../hooks/usePictures";
-import { getCookie } from "../configs/cookie";
 import storage from "../firebase";
 import { HttpError, ImageError } from "../errors/error";
 const RegisterPicture: React.FC<any> = (props) => {

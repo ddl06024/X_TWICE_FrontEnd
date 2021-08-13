@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Button, Table, Container, Spinner } from "react-bootstrap";
-//d
+import React from "react";
+import { Table, Container, Spinner } from "react-bootstrap";
+import moment from "moment";
 const TransactionTable: React.FC<any> = (props) => {
   const { errors, count, pictures, loading, paginationBasic } = props.value;
 
@@ -19,7 +19,6 @@ const TransactionTable: React.FC<any> = (props) => {
       <span className="visually-hidden">Loading...</span>
     </Spinner>
   );
-  console.log(pictures);
   const tableHeadArray = [
     "트랜잭션 번호",
     "거래시간",
@@ -48,7 +47,7 @@ const TransactionTable: React.FC<any> = (props) => {
             : Array.from(pictures).map((x: any, index: any) => (
                 <tr key={index}>
                   <td>{x.history_num}</td>
-                  <td>{x.createdAt}</td>
+                  <td>{moment(x.createdAt).format("YYYY-MM-DD HH:mm:ss")}</td>
                   <td>{x.picture_title}</td>
                   <td>{x.user1?.user_id}</td>
                   <td>{"==>"}</td>
