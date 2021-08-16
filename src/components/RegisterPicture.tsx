@@ -4,7 +4,22 @@ import { useHistory } from "react-router-dom";
 import { usePictures } from "../hooks/usePictures";
 import storage from "../firebase";
 import { HttpError, ImageError } from "../errors/error";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 const RegisterPicture: React.FC<any> = (props) => {
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required("제목을 입력해주세요."),
+    desc: Yup.string().required("사진에 대해 설명해주세요."),
+    category: Yup.string().required("카테고리를 설정해주세요."),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
   const history = useHistory();
   const [title, setTitle] = useState<any>("");
   const [desc, setDesc] = useState<any>("");
@@ -89,7 +104,6 @@ const RegisterPicture: React.FC<any> = (props) => {
         `img${nowTime}.jpg`
       );
       console.log(url);
-
       if (!url) {
         throw new ImageError("이미지가 등록되지 못했습니다.");
       }
@@ -102,10 +116,10 @@ const RegisterPicture: React.FC<any> = (props) => {
         `img${nowTime}.jpg`
       );
       console.log(data);
+      history.push("/");
     } catch (err) {
       alert(err.name + "/" + err.message);
     }
-    history.push("/");
   }
 
   return (
@@ -126,25 +140,31 @@ const RegisterPicture: React.FC<any> = (props) => {
             </Form.Group>
           </Row>
 
-          <Form.Group
-            className="mb-3"
-            controlId="formGridAddress1"
-            onChange={handleChange}
-          >
+          <Form.Group controlId="formGridAddress1" onChange={handleChange}>
             <Form.Label>제목</Form.Label>
-            <Form.Control placeholder="입력" />
+            <Form.Control
+              placeholder="입력"
+              {...register("title", {
+                required: "Required",
+              })}
+              className={`${errors.title ? "is-invalid" : ""}`}
+            />
+            <div className="invalid-feedback">{errors.title?.message}</div>
           </Form.Group>
 
           <FloatingLabel
-            className="mb-3"
             controlId="floatingSelect"
             label="카테고리선택"
+            onChange={handleCategory}
           >
             <Form.Select
               aria-label="Floating label select example"
-              onChange={handleCategory}
+              {...register("category", {
+                required: "Required",
+              })}
+              className={`mt-3  ${errors.category ? "is-invalid" : ""}`}
             >
-              <option>Open this select menu</option>
+              <option value="">Open this select menu</option>
               <option value="One">One</option>
               <option value="Two">Two</option>
               <option value="Three">Three</option>
@@ -153,9 +173,10 @@ const RegisterPicture: React.FC<any> = (props) => {
               <option value="Six">Six</option>
               <option value="Seven">Seven</option>
             </Form.Select>
+            <div className="invalid-feedback">{errors.category?.message}</div>
           </FloatingLabel>
 
-          <Row className="mb-3">
+          <Row className="mb-3 mt-3">
             <FloatingLabel
               controlId="floatingTextarea2"
               label="설명"
@@ -164,13 +185,18 @@ const RegisterPicture: React.FC<any> = (props) => {
               <Form.Control
                 as="textarea"
                 placeholder="Leave a comment here"
+                {...register("desc", {
+                  required: "Required",
+                })}
+                className={` ${errors.desc ? "is-invalid" : ""}`}
                 style={{ height: "100px" }}
               />
+              <div className="invalid-feedback">{errors.desc?.message}</div>
             </FloatingLabel>
           </Row>
           <Button
             variant="primary"
-            onClick={registerPicture}
+            onClick={handleSubmit(registerPicture)}
             style={{ margin: "1rem" }}
           >
             제출
