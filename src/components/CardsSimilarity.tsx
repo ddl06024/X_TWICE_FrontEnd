@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Card,
-  Col,
-  FloatingLabel,
-  Form,
-  Nav,
-  Row,
-} from "react-bootstrap";
+import { Button, Card, Col, Nav, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 const CardsSimilarity: React.FC<{}> = () => {
   const history = useHistory();

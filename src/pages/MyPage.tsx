@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import GridLayoutBuy from "../components/GridLayoutBuy";
-import SearchWordCategoryTab from "../components/SearchWordCategoryTab";
+import Tabs from "../components/Tabs";
+import GridLayoutSell from "../components/GridLayoutSell";
 import Footer from "../components/Footer";
 import "../App.css";
+import { getCookie } from "../configs/cookie";
+import { usePictures } from "../hooks/usePictures";
 import { useFetch } from "../hooks/useFetch";
 import { usePagination } from "../hooks/usePagination";
-import { usePictures } from "../hooks/usePictures";
+import { useTransactions } from "../hooks/useTransactions";
 import { Pagination } from "react-bootstrap";
-import { useHistory, useLocation } from "react-router-dom";
-import CategoryTab from "../components/CategoryTab";
-const ViewByPopularity: React.FC<{}> = () => {
+import TransactionTable from "../components/TransactionTable";
+const MyToken: React.FC<{}> = () => {
+  const { fetchHistories } = useTransactions();
+
+  const [updateToken, setUpdateToken] = useState<any>(null);
   const { loading, setLoading, errors, setErrors } = useFetch();
   const {
     first,
@@ -24,17 +28,8 @@ const ViewByPopularity: React.FC<{}> = () => {
     pageCount,
     setPageCount,
   } = usePagination();
-  const location = useLocation<any>();
+  const [viewBy, setViewBy] = useState("myToken");
 
-  const [searchWord, setSearchWord] = useState(null);
-  const [viewBy, setViewBy] = useState("popularity");
-  const [category, setCategory] = useState("One");
-  useEffect(() => {
-    if (location.state) {
-      setViewBy(location.state.viewBy);
-      setSearchWord(location.state.search);
-    }
-  }, [location]);
   useEffect(() => {
     setOffset(12);
     setPageCount(Math.ceil(count / offset));
@@ -60,56 +55,49 @@ const ViewByPopularity: React.FC<{}> = () => {
   }
 
   useEffect(() => {
-    getFirstPictures();
-  }, [first, viewBy, category, searchWord]);
+    getPictures();
+  }, [first, viewBy, updateToken]);
 
   const paginationBasic = (
-    <div
-      style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
-    >
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <Pagination onClick={(event) => pagination(event)}>{items}</Pagination>
     </div>
   );
 
   const [pictures, setPictures] = useState<Array<any>>([]);
-  const {
-    fetchPicturesByCategory,
-    fetchPicturesByPopularity,
-    fetchPicturesByPrice,
-    fetchPicturesBySearch,
-  } = usePictures();
-  const history = useHistory();
-
-  async function getFirstPictures() {
+  const userId = getCookie("userId");
+  const { getUsersToken } = usePictures();
+  async function getPictures() {
     try {
       setLoading(true);
       setErrors(undefined);
       await setTimeout(() => {
         console.log("wait");
       }, 200000);
+
+      console.log(first, offset, userId.user_id, viewBy);
+
       const { data } =
-        viewBy == "popularity"
-          ? await fetchPicturesByPopularity({
+        viewBy == "myToken"
+          ? await getUsersToken({
+              state: "N",
               first,
               last: offset,
             })
-          : viewBy == "price"
-          ? await fetchPicturesByPrice({
+          : viewBy == "myTokenOnSale"
+          ? await getUsersToken({
+              state: "Y",
               first,
               last: offset,
             })
-          : viewBy == "search"
-          ? await fetchPicturesBySearch({
-              keyword: searchWord,
-              first,
-              last: offset,
-            })
-          : await fetchPicturesByCategory({
-              category: category,
+          : await fetchHistories({
               first,
               last: offset,
             });
+
+      console.log(data);
       setCount(data.count);
+
       setPictures(data.items);
     } catch (err) {
       const isAxiosError = err?.isAxiosError ?? false;
@@ -125,23 +113,26 @@ const ViewByPopularity: React.FC<{}> = () => {
       setLoading(false);
     }
   }
-  const loadingComp = <CategoryTab setCategory={setCategory} />;
+  const tokens = (
+    <GridLayoutSell
+      setUpdateToken={setUpdateToken}
+      value={{ errors, count, pictures, loading, paginationBasic }}
+    />
+  );
+  const historyTable = (
+    <TransactionTable
+      value={{ errors, count, pictures, loading, paginationBasic }}
+    />
+  );
+
   return (
     <main>
       <Header />
-      <SearchWordCategoryTab
-        count={count}
-        searchWord={searchWord}
-        setViewBy={setViewBy}
-        setSearchWord={setSearchWord}
-      />
-      {viewBy === "category" && loadingComp}
-      <GridLayoutBuy
-        value={{ errors, count, pictures, loading, paginationBasic }}
-      />
+      <Tabs setViewBy={setViewBy} />
+      {viewBy != "History" ? tokens : historyTable}
       <Footer />
     </main>
   );
 };
 
-export default ViewByPopularity;
+export default MyToken;

@@ -3,7 +3,8 @@ import { Button, Card, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import { getCookie } from "../configs/cookie";
 import { usePictures } from "../hooks/usePictures";
 import { useHistory, useLocation } from "react-router-dom";
-const CardsBuy: React.FC<any> = (props) => {
+import "../assets/css/CardsBuyMain.css";
+const CardsBuyMain: React.FC<any> = (props) => {
   const { increasePostsViews } = usePictures();
   const [errors, setErrors] = useState<any>(undefined);
   async function increaseViews() {
@@ -72,17 +73,24 @@ const CardsBuy: React.FC<any> = (props) => {
     <Col
       style={{
         padding: "0.7rem",
+        overflow: "hidden",
       }}
     >
       <Card
-        style={{ borderColor: "green" }}
-        className="shadow p-3 mb-5 bg-white rounded"
+        className="cardShadow"
+        border="dark"
+        style={{ width: "300px", borderRadius: "5px" }}
       >
         <Card.Img
           variant="bottom"
           src={src}
           onError={() => imageErrorHandler()}
-          style={{ width: "100%", height: "12rem" }}
+          style={{
+            width: "100%",
+            height: "12rem",
+            borderTopLeftRadius: "5px",
+            borderTopRightRadius: "5px",
+          }}
         />
         <Card.Body style={{ height: "210px" }}>
           <Card.Text
@@ -109,4 +117,4 @@ const CardsBuy: React.FC<any> = (props) => {
     </Col>
   );
 };
-export default CardsBuy;
+export default CardsBuyMain;

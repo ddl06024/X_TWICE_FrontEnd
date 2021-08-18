@@ -4,7 +4,6 @@ import CardsSell from "../components/CardsSell";
 import "../assets/css/Footer.css";
 
 const Footer: React.FC<any> = () => {
-  console.log("wow");
   return (
     <div className="main-footer">
       <div className="container">

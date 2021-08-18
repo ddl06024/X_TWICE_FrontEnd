@@ -1,9 +1,6 @@
 import axios from "axios";
 import { getCookie } from "./cookie";
-import { useHistory } from "react-router-dom";
 import { removeCookie } from "./cookie";
-import { useDispatch } from "react-redux";
-import { connect } from "react-redux";
 import history from "./history";
 
 //const history = useHistory();

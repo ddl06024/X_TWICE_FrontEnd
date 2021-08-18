@@ -1,17 +1,42 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useRef, useEffect } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import caver from "../configs/klaytn";
 import { useUsers } from "../hooks/useUsers";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const RegisterAccount: React.FC<{}> = () => {
+  const validationSchema = Yup.object().shape({
+    user_id: Yup.string().required("ID는 필수항목 입니다."),
+    user_password: Yup.string()
+      .min(4, "패스워드는 6자 이상이여야 합니다.")
+      .required("패스워드는 필수항목입니다."),
+    user_passwordcheck: Yup.string()
+      .oneOf([Yup.ref("user_password"), null], "패스워드와 동일해야 합니다.")
+      .required("패스워드 확인은 필수항목입니다."),
+    user_privatekey: Yup.string().required(
+      "필수항목입니다. 프라이빗 키를 생성해주세요."
+    ),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+  const [isGenerated, setIsGenerated] = useState(false);
   const [user_privatekey, setPrivateKey] = useState(null);
-
+  const inputRef = useRef<any>(null);
   const generatePrivateKey = () => {
     const { privateKey: pk } = caver.klay.accounts.create();
     setPrivateKey(pk);
     console.log(pk);
     console.log(pk.length);
+    inputRef.current?.focus();
+    setIsGenerated(true);
   };
 
   const initialFormStates = {
@@ -36,6 +61,7 @@ const RegisterAccount: React.FC<{}> = () => {
   const history = useHistory();
 
   const { signUpUser } = useUsers();
+
   async function signup() {
     const res = await signUpUser({
       user_id,
@@ -49,46 +75,83 @@ const RegisterAccount: React.FC<{}> = () => {
   return (
     <Container style={{ marginTop: "4rem", height: "100%" }}>
       <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicEmail"
+          onChange={handleFormChange}
+        >
           <Form.Label> ID</Form.Label>
           <Form.Control
-            type="id"
+            type="text"
             placeholder="아이디"
-            name="user_id"
-            onChange={handleFormChange}
+            {...register("user_id", {
+              required: "Required",
+            })}
+            className={` ${errors.user_id ? "is-invalid" : ""}`}
             value={user_id}
           />
+          <div className="invalid-feedback">{errors.user_id?.message}</div>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword1">
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicPassword1"
+          onChange={handleFormChange}
+        >
           <Form.Label>비밀번호</Form.Label>
           <Form.Control
             type="password"
             placeholder="비밀번호"
-            name="user_password"
-            onChange={handleFormChange}
+            {...register("user_password", {
+              required: "Required",
+            })}
+            className={`${errors.user_password ? "is-invalid" : ""}`}
             value={user_password}
           />
+          <div className="invalid-feedback">
+            {errors.user_password?.message}
+          </div>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword2">
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicPassword2"
+          onChange={handleFormChange}
+        >
           <Form.Label>비밀번호 확인</Form.Label>
           <Form.Control
             type="password"
             placeholder="비밀번호 확인"
-            name="user_passwordcheck"
+            {...register("user_passwordcheck", {
+              required: "Required",
+            })}
+            className={`${errors.user_passwordcheck ? "is-invalid" : ""}`}
             value={user_passwordcheck}
-            onChange={handleFormChange}
           />
+          <div className="invalid-feedback">
+            {errors.user_passwordcheck?.message}
+          </div>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword3">
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicPassword3"
+          onChange={handleFormChange}
+        >
           <Form.Label>프라이빗 키</Form.Label>
           <Form.Control
             type="password"
             placeholder="Private Key 생성을 누르세요"
-            name="user_privatekey"
+            {...register("user_privatekey", {
+              required: "Required",
+            })}
+            ref={inputRef}
             value={user_privatekey || ""}
-            onChange={handleFormChange}
+            className={`${
+              !isGenerated && errors.user_privatekey ? "is-invalid" : ""
+            }`}
           />
+          <div className="invalid-feedback">
+            {!isGenerated && errors.user_privatekey?.message}
+          </div>
         </Form.Group>
         <Form.Text className="text-muted" style={{ marginRight: "0.5rem" }}>
           We'll never share your PrivateKey with anyone else.
@@ -102,7 +165,8 @@ const RegisterAccount: React.FC<{}> = () => {
           Private Key 생성
         </Button>
         <br />
-        <Button variant="success" type="button" onClick={signup}>
+
+        <Button variant="success" type="button" onClick={handleSubmit(signup)}>
           회원가입
         </Button>
       </Form>

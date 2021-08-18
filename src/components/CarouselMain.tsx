@@ -3,21 +3,74 @@ import {
   Button,
   Carousel,
   Col,
-  Container,
   Nav,
   Row,
   Image,
   Spinner,
+  Pagination,
+  Card,
 } from "react-bootstrap";
+import "../assets/css/CarouselMain.css";
 import { useHistory } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { usePictures } from "../hooks/usePictures";
+import { usePagination } from "../hooks/usePagination";
+import GridLayoutMain from "./GridLayoutMain";
 
 const CarouselMain: React.FC<any> = (props) => {
   const { loading, setLoading, errors, setErrors } = useFetch();
+  const {
+    first,
+    setFirst,
+    offset,
+    setOffset,
+    pageNum,
+    setPageNum,
+    count,
+    setCount,
+    pageCount,
+    setPageCount,
+  } = usePagination();
   useEffect(() => {
     getFirstPictures();
   }, []);
+  useEffect(() => {
+    setOffset(3);
+    setPageCount(Math.ceil(count / offset));
+  }, [count]);
+  let items = [];
+  for (let number = 1; number <= pageCount; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === pageNum}>
+        {number}
+      </Pagination.Item>
+    );
+  }
+
+  function pagination(event: any) {
+    const text = event?.target?.text;
+    const num = Number(text);
+    if (num) {
+      setPageNum(num);
+      const firstNum = (num - 1) * offset;
+      setFirst(firstNum);
+    }
+  }
+  useEffect(() => {
+    getFirstPictures();
+  }, [first]);
+  const paginationBasic = (
+    <div
+      style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
+    >
+      <Pagination
+        className="whiteShadow"
+        onClick={(event) => pagination(event)}
+      >
+        {items}
+      </Pagination>
+    </div>
+  );
   const [pictures, setPictures] = useState<Array<any>>([]);
   const { fetchPicturesByPopularity } = usePictures();
   async function getFirstPictures() {
@@ -27,9 +80,13 @@ const CarouselMain: React.FC<any> = (props) => {
       await setTimeout(() => {
         console.log("wait");
       }, 200000);
-      const { data } = await fetchPicturesByPopularity({ first: 0, last: 5 });
+      const { data } = await fetchPicturesByPopularity({
+        first: first,
+        last: 3,
+      });
       console.log(data);
       // console.log(errors);
+      setCount(data.count);
       setPictures(data.items);
       //setErrors(errors);
     } catch (err) {
@@ -52,86 +109,128 @@ const CarouselMain: React.FC<any> = (props) => {
     e.target.src = "../tempImages/noimage.png";
   };
   return (
-    <Nav
+    //
+    /* <Nav
       className="justify-content-center"
       style={{
         marginTop: "4rem",
+        height: "100%",
         //backgroundImage: "url(../tempImages/background.jpg)",
       }}
     >
-      <Row style={{ width: "80%" }} className="align-items-center">
-        <Col md="auto" style={{ marginRight: "1rem" }}>
-          <div style={{ textAlign: "center" }}>
-            <h1 style={{ fontWeight: "bold" }}>NFT를 수집하고</h1>
-            <h1 style={{ fontWeight: "bold" }}> 판매해보세요!</h1>
-          </div>
-          <Nav className="justify-content-center">
-            <Button
-              variant="primary"
-              size="lg"
-              style={{ margin: 10 }}
-              onClick={() => {
-                history.push("/registerPicture");
-              }}
+      <Row style={{ width: "80%" }} className="align-items-center "> */
+    <div>
+      <Col style={{ alignContent: "center", overflow: "hidden" }}>
+        <Carousel>
+          {errors && (
+            <p>
+              {" "}
+              {errors.name} {errors.status}{" "}
+            </p>
+          )}
+          {loading ? (
+            <Spinner
+              animation="border"
+              role="status"
+              style={{ margin: "auto" }}
             >
-              만들기
-            </Button>{" "}
-            <Button
-              size="lg"
-              variant="outline-primary"
-              style={{ margin: 10 }}
-              onClick={() => {
-                history.push("/viewPictures");
-              }}
-            >
-              보기
-            </Button>
-          </Nav>
-        </Col>
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          ) : (
+            pictures.map((x: any, index) => {
+              return (
+                <Carousel.Item>
+                  <Image
+                    className="d-block w-100 mainBottomShadow"
+                    onError={imageErrorHandler}
+                    src={x.picture_url}
+                    alt="First slide"
+                    style={{
+                      width: "auto",
+                      height: "100vh",
+                    }}
+                  />
 
-        <Col style={{ alignContent: "center", overflow: "hidden" }}>
-          <Carousel>
-            {errors && (
-              <p>
-                {" "}
-                {errors.name} {errors.status}{" "}
-              </p>
-            )}
-            {loading ? (
-              <Spinner
-                animation="border"
-                role="status"
-                style={{ margin: "auto" }}
+                  <div className="zkzkzk"> </div>
+
+                  <Carousel.Caption>
+                    <h3>{x.picture_title}</h3>
+                    <p>{x.picture_info}</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              );
+            })
+          )}
+        </Carousel>
+      </Col>
+      <Card border="dark" bg="dark">
+        <Col
+          md="auto"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            width: "100wh",
+          }}
+        >
+          <div
+            style={{
+              textAlign: "center",
+
+              width: "100vh",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <h1
+              className="textWhiteShadow"
+              style={{ fontWeight: "bold", color: "white" }}
+            >
+              NFT를 수집하고
+            </h1>
+            <h1
+              className="textWhiteShadow"
+              style={{ fontWeight: "bold", color: "white" }}
+            >
+              {" "}
+              판매해보세요!
+            </h1>
+            <Nav className="justify-content-center ">
+              <Button
+                className="whiteShadow"
+                variant="primary"
+                size="lg"
+                style={{ margin: 10 }}
+                onClick={() => {
+                  history.push("/registerPicture");
+                }}
               >
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-            ) : (
-              pictures.map((x: any, index) => {
-                return (
-                  <Carousel.Item>
-                    <Image
-                      className="d-block w-100"
-                      onError={imageErrorHandler}
-                      src={x.picture_url}
-                      alt="First slide"
-                      style={{
-                        width: "auto",
-                        height: "450px",
-                        maxHeight: "450px",
-                      }}
-                    />
-                    <Carousel.Caption>
-                      <h3>{x.picture_title}</h3>
-                      <p>{x.picture_info}</p>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                );
-              })
-            )}
-          </Carousel>
+                만들기
+              </Button>{" "}
+              <Button
+                className="whiteShadow"
+                size="lg"
+                variant="outline-primary"
+                style={{ margin: 10 }}
+                onClick={() => {
+                  history.push("/viewPictures");
+                }}
+              >
+                보기
+              </Button>
+            </Nav>
+          </div>
+
+          <GridLayoutMain
+            value={{ errors, count, pictures, loading, paginationBasic }}
+          />
         </Col>
-      </Row>
-    </Nav>
+      </Card>
+    </div>
+    /*    </Row>
+    </Nav>*/
   );
 };
 

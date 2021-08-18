@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Badge,
-  Container,
-  Dropdown,
-  DropdownButton,
-  Form,
-  FormSelect,
-  Nav,
-  Navbar,
-  Row,
-} from "react-bootstrap";
+import { Badge, Container, Form, Navbar } from "react-bootstrap";
 import { useHistory } from "react-router";
 const SearchWord: React.FC<any> = (props) => {
   const history = useHistory();

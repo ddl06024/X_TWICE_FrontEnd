@@ -1,37 +1,63 @@
-import React, { useState } from "react";
-import { Button, Table, Container } from "react-bootstrap";
-//d
-const TransactionTable: React.FC<{}> = () => {
-  const [Transactions, setTransactions] = useState(8);
-  const loadMoreTransactions = () => {
-    setTransactions(Transactions + 8);
-  };
+import React from "react";
+import { Table, Container, Spinner } from "react-bootstrap";
+import moment from "moment";
+const TransactionTable: React.FC<any> = (props) => {
+  const { errors, count, pictures, loading, paginationBasic } = props.value;
+
+  const errorsComp =
+    count == 0 ? (
+      <p>검색하신 결과가 없습니다.</p>
+    ) : (
+      errors && (
+        <p>
+          {errors.name} {errors.status}{" "}
+        </p>
+      )
+    );
+  const loadingComp = (
+    <Spinner animation="border" role="status" style={{ margin: "auto" }}>
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+  );
+  const tableHeadArray = [
+    "트랜잭션 번호",
+    "거래시간",
+    "사진 제목",
+    "From",
+    "==>",
+    "To",
+    "거래 금액",
+  ];
+
   return (
-    <Container style={{ height: "100%" }}>
-      <Table responsive>
+    <Container style={{ height: "100%", borderColor: "green" }}>
+      <Table responsive className="shadow p-3 mb-5 bg-white rounded">
         <thead>
           <tr>
-            <th>#</th>
-            {Array.from({ length: 8 }).map((_, index) => (
-              <th key={index}>Table heading</th>
+            {Array.from(tableHeadArray).map((x, index) => (
+              <th key={index}>{x}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {Array.from({ length: Transactions }).map((_, index) => (
-            <tr key={index}>
-              <td key={index}>{index}</td>
-              {Array.from({ length: 8 }).map((_, index) => (
-                <td key={index}>Table cell {index}</td>
+          {loading
+            ? loadingComp
+            : errors
+            ? errorsComp
+            : Array.from(pictures).map((x: any, index: any) => (
+                <tr key={index}>
+                  <td>{x.history_num}</td>
+                  <td>{moment(x.createdAt).format("YYYY-MM-DD HH:mm:ss")}</td>
+                  <td>{x.picture_title}</td>
+                  <td>{x.user1?.user_id}</td>
+                  <td>{"==>"}</td>
+                  <td>{x.user2?.user_id}</td>
+                  <td>{x.picture_price}</td>
+                </tr>
               ))}
-            </tr>
-          ))}
         </tbody>
       </Table>
-
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Button onClick={loadMoreTransactions}>더보기</Button>
-      </div>
+      {paginationBasic}
     </Container>
   );
 };

@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, Row, Spinner } from "react-bootstrap";
-import CardsBuy from "../components/CardsBuy";
+import CardsBuyMain from "./CardsBuyMain";
 
-const GridLayoutBuy: React.FC<any> = (props) => {
+const GridLayoutMain: React.FC<any> = (props) => {
   const { errors, count, pictures, loading, paginationBasic } = props.value;
 
   const errorsComp =
@@ -23,12 +23,17 @@ const GridLayoutBuy: React.FC<any> = (props) => {
   );
 
   const picturesComp = pictures.map((x: any, index: any) => (
-    <CardsBuy key={index} value={x} />
+    <CardsBuyMain key={index} value={x} />
   ));
 
   return (
-    <Container style={{ height: "100%" }}>
-      <Row lg={{ cols: 4 }} md={{ cols: 3 }} xs={{ cols: 2 }}>
+    <Container
+      style={{
+        height: "100%",
+        overflow: "hidden",
+      }}
+    >
+      <Row style={{ height: "100%", paddingTop: "8vh" }}>
         {loading ? loadingComp : errors ? errorsComp : picturesComp}
       </Row>
       {paginationBasic}
@@ -36,4 +41,4 @@ const GridLayoutBuy: React.FC<any> = (props) => {
   );
 };
 
-export default GridLayoutBuy;
+export default GridLayoutMain;

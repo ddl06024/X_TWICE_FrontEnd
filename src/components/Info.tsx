@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { getCookie } from "../configs/cookie";
 import {
   Container,
   Row,
@@ -9,23 +10,74 @@ import {
   Card,
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
+import { usePictures } from "../hooks/usePictures";
+import { useTransactions } from "../hooks/useTransactions";
 const CardsBuy: React.FC<any> = (props) => {
+  const history = useHistory();
+  const { insertHistory } = useTransactions();
+  const { BuyToken } = usePictures();
+  const [userId, setUserId] = useState(getCookie("userId"));
+  useEffect(() => {
+    const user = getCookie("userId");
+    setUserId(user);
+  }, []);
   const location = useLocation<any>();
   const [information, setInformation] = useState(location.state.information);
+  const [usernum2, setUsernum2] = useState(location.state.user_num2);
+  console.log(information);
   useEffect(() => {
     if (location.state) {
       setInformation(location.state.information);
+      setUsernum2(location.state.user_num2);
     }
   }, [location]);
   const [src, setSrc] = useState(information.picture_url);
   const imageErrorHandler = () => {
     setSrc("../tempImages/noimage.png");
   };
+
+  const [erros, setErrors] = useState<any>(undefined);
+  async function onBuyHandler() {
+    try {
+      setErrors(undefined);
+      await setTimeout(() => {
+        console.log("wait");
+      }, 200000);
+
+      await insertHistory({
+        user_num1: information.user_num,
+        token_id: information.token_id,
+        picture_url: information.picture_url,
+        picture_title: information.picture_title,
+        picture_price: information.picture_price,
+      });
+
+      const { data } = await BuyToken({ token_id: information.token_id });
+
+      console.log(data);
+    } catch (err) {
+      const isAxiosError = err?.isAxiosError ?? false;
+      if (isAxiosError) {
+        const {
+          response: { data },
+        } = err;
+        console.log(data);
+        setErrors(data);
+        console.log(err);
+      }
+    }
+    history.goBack();
+  }
   return (
     <Container style={{ height: "100%", marginTop: "2rem" }}>
       <Row>
         <Col style={{ display: "flex", alignItems: "center" }}>
-          <Image fluid src={src} onError={() => imageErrorHandler()} />
+          <Image
+            fluid
+            style={{ height: "auto", width: "100%" }}
+            src={src}
+            onError={() => imageErrorHandler()}
+          />
         </Col>
         <Col>
           <h2>제목 : {information.picture_title}</h2>
@@ -47,7 +99,15 @@ const CardsBuy: React.FC<any> = (props) => {
                 {information.picture_price} Klay
               </Card.Title>
               {/*<Card.Text>구매하시겠습니까?</Card.Text>*/}
-              <Button variant="success">구매하기</Button>
+              {userId && userId.user_num == information.user_num ? (
+                <></>
+              ) : typeof userId == "undefined" ? (
+                <></>
+              ) : (
+                <Button onClick={onBuyHandler} variant="success">
+                  구매하기
+                </Button>
+              )}
             </Card.Body>
           </Card>
           <Card style={{ marginTop: "2rem" }}>
