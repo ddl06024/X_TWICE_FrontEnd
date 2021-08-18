@@ -1,8 +1,73 @@
 import React from "react";
-import { Card, Container } from "react-bootstrap";
+import { Card, CardGroup, Container, Image } from "react-bootstrap";
+import { BsFillInfoCircleFill } from "react-icons/bs";
 
 const Introduction: React.FC<{}> = () => {
   return (
+    <CardGroup
+      style={{
+        marginTop: "5rem",
+        padding: "1rem",
+        textAlign: "center",
+      }}
+    >
+      <Card
+        style={{
+          margin: "1rem",
+          borderRadius: "30px",
+          padding: "1rem",
+        }}
+        border="light"
+        bg="light"
+        text="dark"
+      >
+        <BsFillInfoCircleFill
+          style={{
+            color: "black",
+            fontSize: "2rem",
+          }}
+        />
+        {/* <Card.Img variant="top" src="../tempImages/klaytn.png" />*/}
+        <Card.Body>
+          <Card.Title>Card title</Card.Title>
+          <Card.Text>
+            This is a wider card with supporting text below as a natural lead-in
+            to additional content. This content is a little bit longer.
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <small className="text-muted">Last updated 3 mins ago</small>
+        </Card.Footer>
+      </Card>
+      <Card style={{ margin: "1rem" }} border="light" bg="light" text="dark">
+        {/*<Card.Img variant="top" src="../tempImages/deeplearning.jpg" />*/}
+        <Card.Body>
+          <Card.Title>Card title</Card.Title>
+          <Card.Text>
+            This card has supporting text below as a natural lead-in to
+            additional content.{" "}
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <small className="text-muted">Last updated 3 mins ago</small>
+        </Card.Footer>
+      </Card>
+      <Card style={{ margin: "1rem" }} border="light" bg="light" text="dark">
+        {/*<Card.Img variant="top" src="../tempImages/background.jpg" />*/}
+        <Card.Body>
+          <Card.Title>Card title</Card.Title>
+          <Card.Text>
+            This is a wider card with supporting text below as a natural lead-in
+            to additional content. This card has even longer content than the
+            first to show that equal height action.
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <small className="text-muted">Last updated 3 mins ago</small>
+        </Card.Footer>
+      </Card>
+    </CardGroup>
+    /*
     <Card
       className=" text-black "
       style={{ border: "none", marginTop: "5rem" }}
@@ -49,7 +114,7 @@ const Introduction: React.FC<{}> = () => {
           </Card.Text>
         </Container>
       </Card.ImgOverlay>
-    </Card>
+    </Card>*/
   );
 };
 

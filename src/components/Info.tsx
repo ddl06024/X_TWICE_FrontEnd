@@ -24,6 +24,7 @@ const CardsBuy: React.FC<any> = (props) => {
   const location = useLocation<any>();
   const [information, setInformation] = useState(location.state.information);
   const [usernum2, setUsernum2] = useState(location.state.user_num2);
+  console.log(information);
   useEffect(() => {
     if (location.state) {
       setInformation(location.state.information);
@@ -44,12 +45,11 @@ const CardsBuy: React.FC<any> = (props) => {
       }, 200000);
 
       await insertHistory({
-        user_num2: usernum2.user_num,
+        user_num1: information.user_num,
         token_id: information.token_id,
         picture_url: information.picture_url,
         picture_title: information.picture_title,
         picture_price: information.picture_price,
-        picture_info: information.picture_info,
       });
 
       const { data } = await BuyToken({ token_id: information.token_id });

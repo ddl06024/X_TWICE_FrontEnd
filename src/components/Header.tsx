@@ -60,7 +60,7 @@ const Header: React.FC<any> = (props) => {
   return (
     <Navbar
       collapseOnSelect
-      className="shadow p-3 mb-5 bg-white rounded"
+      className="shadow p-3 bg-white rounded"
       expand="lg"
       bg="light"
       variant="light"
@@ -95,22 +95,27 @@ const Header: React.FC<any> = (props) => {
             history.push("/");
           }}
         >
-          사진 거래소
+          {/*사진 거래소 */}
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Form className="d-flex">
+        <Navbar.Collapse id="responsive-navbar-nav ">
+          <Nav className="me-auto d-flex flex-fill ">
+            <Form className="d-flex  flex-grow-1 ">
               <FormControl
                 type="search"
                 placeholder="Search"
-                className="mr-2"
+                className="mr-2 "
                 aria-label="Search"
-                style={{ width: "40vw" }}
+                //style={{ width: "40vw" }}
+
                 onChange={handleSearchWords}
               />
-              <Button variant="outline-success" onClick={handleSearch}>
+              <Button
+                variant="outline-success "
+                style={{ marginRight: "3rem" }}
+                onClick={handleSearch}
+              >
                 Search
               </Button>
             </Form>
