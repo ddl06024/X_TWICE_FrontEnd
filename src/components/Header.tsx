@@ -7,7 +7,7 @@ import {
   Nav,
   Navbar,
   Image,
-} from "react-bootstrap";
+} from "react-bootstrap"; //
 import { useHistory, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { getCookie, removeCookie } from "../configs/cookie";
