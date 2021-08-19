@@ -5,6 +5,7 @@ import caver from "../configs/klaytn";
 import { useUsers } from "../hooks/useUsers";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
+import { setCookie } from "../configs/cookie";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const RegisterAccount: React.FC<{}> = () => {
@@ -28,11 +29,21 @@ const RegisterAccount: React.FC<{}> = () => {
     resolver: yupResolver(validationSchema),
   });
   const [isGenerated, setIsGenerated] = useState(false);
+  const [user_account, setUserAccount] = useState(null);
   const [user_privatekey, setPrivateKey] = useState(null);
   const inputRef = useRef<any>(null);
   const generatePrivateKey = () => {
     const { privateKey: pk } = caver.klay.accounts.create();
     setPrivateKey(pk);
+    const walletInstance = caver.klay.accounts.privateKeyToAccount(pk);
+    setUserAccount(walletInstance.address);
+    caver.klay.accounts.wallet.add(walletInstance);
+    setCookie("walletInstance", walletInstance, {
+      path: "/",
+      secure: true,
+      sameSite: "none",
+    });
+    console.log(walletInstance.address);
     console.log(pk);
     console.log(pk.length);
     inputRef.current?.focus();
@@ -65,8 +76,10 @@ const RegisterAccount: React.FC<{}> = () => {
   async function signup() {
     const res = await signUpUser({
       user_id,
-      // user_password,
-      user_account: user_privatekey,
+      //user_password,
+      //user_account: user_account,
+      user_account: user_account,
+      user_privatekey: user_privatekey,
     });
     console.log(res.data);
     const token = res.data;

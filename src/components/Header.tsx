@@ -20,7 +20,7 @@ const Header: React.FC<any> = (props) => {
   };
 
   const decoded = token && jwt_decode(token);
-
+  console.log(decoded);
   const handleSearch = () => {
     //props.setViewBy("search");
     //props.setSearchWord(search);

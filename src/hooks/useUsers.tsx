@@ -6,6 +6,7 @@ export function useUsers() {
     return data;
   }
   async function signUpUser(params: any) {
+    console.log(params);
     const { data } = await instance1.post("/users", params);
     return data;
   }
