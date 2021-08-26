@@ -1,7 +1,9 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpack = require("webpack");
-
+const { DefinePlugin, ProvidePlugin } = require("webpack");
+const fs = require("fs");
+const GitRevisionPlugin = require("git-revision-webpack-plugin");
+const gitRevisionPlugin = new GitRevisionPlugin();
 module.exports = {
   entry: "./src/index.tsx",
   output: {
@@ -11,7 +13,7 @@ module.exports = {
   },
   mode: process.env.NODE_ENV || "development",
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js", ".jsx"],
     fallback: {
       fs: false,
       tls: false,
@@ -25,6 +27,7 @@ module.exports = {
       os: require.resolve("os-browserify/browser"),
     },
   },
+
   devServer: {
     contentBase: path.join(__dirname, "src"),
     historyApiFallback: true,
@@ -52,10 +55,29 @@ module.exports = {
     ],
   },
   plugins: [
+    new DefinePlugin({
+      DEV: true,
+      "process.versions": JSON.stringify(
+        gitRevisionPlugin.commithash().slice(0, 7)
+      ),
+      DEPLOYED_ADDRESS: JSON.stringify(
+        fs.readFileSync("deployedAddress", "utf8").replace(/\n|\r/g, "")
+      ),
+      DEPLOYED_ABI:
+        fs.existsSync("deployedABI") && fs.readFileSync("deployedABI", "utf8"),
+      DEPLOYED_ADDRESS_TOKENSALES: JSON.stringify(
+        fs
+          .readFileSync("deployedAddress_TokenSales", "utf8")
+          .replace(/\n|\r/g, "")
+      ),
+      DEPLOYED_ABI_TOKENSALES:
+        fs.existsSync("deployedABI_TokenSales") &&
+        fs.readFileSync("deployedABI_TokenSales", "utf8"),
+    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.html"),
     }),
-    new webpack.ProvidePlugin({
+    new ProvidePlugin({
       Buffer: ["buffer", "Buffer"],
     }),
   ],

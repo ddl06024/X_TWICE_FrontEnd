@@ -35,7 +35,10 @@ const RegisterAccount: React.FC<{}> = () => {
   const generatePrivateKey = () => {
     const { privateKey: pk } = caver.klay.accounts.create();
     setPrivateKey(pk);
+    console.log("privatekey : " + pk);
     const walletInstance = caver.klay.accounts.privateKeyToAccount(pk);
+
+    console.log(walletInstance);
     setUserAccount(walletInstance.address);
     caver.klay.accounts.wallet.add(walletInstance);
     setCookie("walletInstance", walletInstance, {

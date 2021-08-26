@@ -8,6 +8,7 @@ import {
   Navbar,
   Image,
 } from "react-bootstrap"; //
+import caver from "../configs/klaytn";
 import { useHistory, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { getCookie, removeCookie } from "../configs/cookie";
@@ -39,6 +40,8 @@ const Header: React.FC<any> = (props) => {
   const onLogoutHandler = () => {
     removeCookie("myToken");
     removeCookie("userId");
+    removeCookie("walletInstance");
+    caver.klay.accounts.wallet.clear();
     setToken(getCookie("myToken"));
 
     history.push("/");

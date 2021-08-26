@@ -10,6 +10,8 @@ import { usePictures } from "../hooks/usePictures";
 import { Pagination } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import CategoryTab from "../components/CategoryTab";
+import { useKlaytn } from "../hooks/useKlaytn";
+import { getCookie } from "../configs/cookie";
 const ViewByPopularity: React.FC<{}> = () => {
   const { loading, setLoading, errors, setErrors } = useFetch();
   const {
@@ -25,7 +27,8 @@ const ViewByPopularity: React.FC<{}> = () => {
     setPageCount,
   } = usePagination();
   const location = useLocation<any>();
-
+  const { displayMyTokensAndSale } = useKlaytn();
+  displayMyTokensAndSale(getCookie("walletInstance"));
   const [searchWord, setSearchWord] = useState(null);
   const [viewBy, setViewBy] = useState("popularity");
   const [category, setCategory] = useState("One");

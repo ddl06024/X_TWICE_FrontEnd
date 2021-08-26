@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Button, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { usePictures } from "../hooks/usePictures";
+import { useKlaytn } from "../hooks/useKlaytn";
 import storage from "../firebase";
 import { HttpError, ImageError } from "../errors/error";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { getCookie } from "../configs/cookie";
+
 const RegisterPicture: React.FC<any> = (props) => {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("제목을 입력해주세요."),
@@ -44,6 +47,7 @@ const RegisterPicture: React.FC<any> = (props) => {
   };
 
   const { insertPicture } = usePictures();
+  const { checkTokenExists, mintNFT, uploadNFT } = useKlaytn();
 
   async function registerToBackend(
     url1: string,
@@ -108,17 +112,27 @@ const RegisterPicture: React.FC<any> = (props) => {
         throw new ImageError("이미지가 등록되지 못했습니다.");
       }
 
-      const data = await registerToBackend(
+      const userInfo = getCookie("userId");
+      mintNFT(
+        title.toString(),
+        userInfo.user_num.toString(),
+        new Date().toString(),
+        url.toString()
+      );
+      //uploadNFT("wow", title.toString(), desc.toString(), "images");
+
+      /*  const data = await registerToBackend(
         url,
         title,
         desc,
         "images",
         `img${nowTime}.jpg`
       );
-      console.log(data);
-      history.push("/");
+      console.log(data);*/
+      // history.push("/");
     } catch (err) {
       alert(err.name + "/" + err.message);
+      // console.log(JSON.stringify(err, null, 2));
     }
   }
 
