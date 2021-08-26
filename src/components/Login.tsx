@@ -41,13 +41,11 @@ const Login: React.FC<any> = (props) => {
   const history = useHistory();
   const { loginUser } = useUsers();
   async function login() {
-    console.log(formState);
     const res = await loginUser({
       user_id,
       user_password,
     });
-    console.log(res);
-    console.log(res.data);
+
     if (res.data) {
       setCookie("myToken", res.data, {
         path: "/",
@@ -55,14 +53,14 @@ const Login: React.FC<any> = (props) => {
         sameSite: "none",
       });
       const decoded = jwt_decode(res.data);
-      console.log(decoded);
+
       setCookie("userId", decoded, {
         path: "/",
         secure: true,
         sameSite: "none",
       });
     }
-    console.log(res.data);
+
     history.push({
       pathname: "/",
       state: { tk: getCookie("myToken") },

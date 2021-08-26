@@ -1,6 +1,7 @@
 import pTContract from "../configs/pTContract";
 import cav from "../configs/klaytn";
 import Caver from "caver-js";
+import { setCookie, getCookie } from "../configs/cookie";
 // import Caver from "caver-js";
 /* import { readFileSync } from "fs";
 
@@ -12,7 +13,20 @@ export function useKlaytn() {
   function isTokenAlreadyCreated(pictureId) {
     return pTContract.methods.isTokenAlreadyCreated(pictureId).call();
   }
+  function handleLogin(pk) {
+    const walletInstance = cav.klay.accounts.privateKeyToAccount(pk);
+    cav.klay.accounts.wallet.add(walletInstance);
 
+    setCookie("walletInstance", walletInstance, {
+      path: "/",
+      secure: true,
+      sameSite: "none",
+    });
+    return walletInstance;
+  }
+  function handleLogout() {
+    cav.klay.accounts.wallet.clear();
+  }
   function checkTokenExists(pictureId) {
     var result = isTokenAlreadyCreated(pictureId);
 
@@ -78,7 +92,7 @@ export function useKlaytn() {
     const sender = getWallet(); //로그인한 계정
     console.log("sender.address :  " + sender.address);
     const feePayer = cav.klay.accounts.wallet.add(
-      "0x893f5e30f7751613b1692dde0303afac8c332b3261b39b671c3eca9ac610f55c"
+      "0x085aae883a661f84e8ec9953949828e157a9829202625f44be3982bd5e347bac"
     ); //대납 계정
 
     console.log(cav.klay.accounts);
@@ -172,5 +186,12 @@ export function useKlaytn() {
     return pTContract.methods.getNFT(tokenId).call();
   }
 
-  return { checkTokenExists, mintNFT, uploadNFT, displayMyTokensAndSale };
+  return {
+    handleLogin,
+    checkTokenExists,
+    mintNFT,
+    uploadNFT,
+    displayMyTokensAndSale,
+    handleLogout,
+  };
 }

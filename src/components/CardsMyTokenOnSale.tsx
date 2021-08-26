@@ -22,8 +22,6 @@ const CardsMyTokenOnSale: React.FC<any> = (props) => {
       const { data } = await cancleTokenOnSale({
         token_id: props.value.token_id,
       });
-      console.log("------------");
-      console.log(data);
     } catch (err) {
       const isAxiosError = err?.isAxiosError ?? false;
       if (isAxiosError) {

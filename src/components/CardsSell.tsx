@@ -30,8 +30,6 @@ const CardsSell: React.FC<any> = (props) => {
         token_id: props.value.token_id,
         picture_price: parseInt(price),
       });
-      console.log("------------");
-      console.log(data);
     } catch (err) {
       const isAxiosError = err?.isAxiosError ?? false;
       if (isAxiosError) {
@@ -51,7 +49,6 @@ const CardsSell: React.FC<any> = (props) => {
       return;
     }
     setOnSale();
-    console.log(props);
     props.setUpdateToken(new Date().getMilliseconds());
   };
   const history = useHistory();

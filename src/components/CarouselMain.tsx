@@ -84,7 +84,6 @@ const CarouselMain: React.FC<any> = (props) => {
         first: first,
         last: 3,
       });
-      console.log(data);
       // console.log(errors);
       setCount(data.count);
       setPictures(data.items);

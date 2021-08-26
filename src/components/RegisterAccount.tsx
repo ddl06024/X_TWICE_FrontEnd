@@ -5,10 +5,11 @@ import caver from "../configs/klaytn";
 import { useUsers } from "../hooks/useUsers";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import { setCookie } from "../configs/cookie";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useKlaytn } from "../hooks/useKlaytn";
 
 const RegisterAccount: React.FC<{}> = () => {
+  const { handleLogin } = useKlaytn();
   const validationSchema = Yup.object().shape({
     user_id: Yup.string().required("ID는 필수항목 입니다."),
     user_password: Yup.string()
@@ -35,20 +36,11 @@ const RegisterAccount: React.FC<{}> = () => {
   const generatePrivateKey = () => {
     const { privateKey: pk } = caver.klay.accounts.create();
     setPrivateKey(pk);
-    console.log("privatekey : " + pk);
-    const walletInstance = caver.klay.accounts.privateKeyToAccount(pk);
+    const walletInstance = handleLogin(pk);
 
-    console.log(walletInstance);
     setUserAccount(walletInstance.address);
-    caver.klay.accounts.wallet.add(walletInstance);
-    setCookie("walletInstance", walletInstance, {
-      path: "/",
-      secure: true,
-      sameSite: "none",
-    });
     console.log(walletInstance.address);
-    console.log(pk);
-    console.log(pk.length);
+
     inputRef.current?.focus();
     setIsGenerated(true);
   };
@@ -84,7 +76,7 @@ const RegisterAccount: React.FC<{}> = () => {
       user_account: user_account,
       user_privatekey: user_privatekey,
     });
-    console.log(res.data);
+
     const token = res.data;
   }
 

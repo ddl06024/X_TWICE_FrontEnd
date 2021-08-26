@@ -8,11 +8,13 @@ import {
   Navbar,
   Image,
 } from "react-bootstrap"; //
+import { useKlaytn } from "../hooks/useKlaytn";
 import caver from "../configs/klaytn";
 import { useHistory, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { getCookie, removeCookie } from "../configs/cookie";
 const Header: React.FC<any> = (props) => {
+  const { handleLogout } = useKlaytn();
   const history = useHistory();
   const [token, setToken] = useState(getCookie("myToken"));
   const [search, setSearch] = useState("");
@@ -21,7 +23,6 @@ const Header: React.FC<any> = (props) => {
   };
 
   const decoded = token && jwt_decode(token);
-  console.log(decoded);
   const handleSearch = () => {
     //props.setViewBy("search");
     //props.setSearchWord(search);
@@ -43,7 +44,7 @@ const Header: React.FC<any> = (props) => {
     removeCookie("walletInstance");
     caver.klay.accounts.wallet.clear();
     setToken(getCookie("myToken"));
-
+    handleLogout();
     history.push("/");
   };
   const userInfo = (

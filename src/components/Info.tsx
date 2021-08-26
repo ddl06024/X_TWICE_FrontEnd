@@ -24,7 +24,6 @@ const CardsBuy: React.FC<any> = (props) => {
   const location = useLocation<any>();
   const [information, setInformation] = useState(location.state.information);
   const [usernum2, setUsernum2] = useState(location.state.user_num2);
-  console.log(information);
   useEffect(() => {
     if (location.state) {
       setInformation(location.state.information);
@@ -53,8 +52,6 @@ const CardsBuy: React.FC<any> = (props) => {
       });
 
       const { data } = await BuyToken({ token_id: information.token_id });
-
-      console.log(data);
     } catch (err) {
       const isAxiosError = err?.isAxiosError ?? false;
       if (isAxiosError) {

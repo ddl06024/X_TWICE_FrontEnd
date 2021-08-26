@@ -37,12 +37,10 @@ const RegisterPicture: React.FC<any> = (props) => {
     setDesc(e.target.value);
   };
   const handleFiles = (e: any) => {
-    console.log(e.target.files[0]);
     setFiles(e.target.files[0]);
   };
 
   const handleCategory = (e: any) => {
-    console.log(e.target.value);
     setCategory(e.target.value);
   };
 
@@ -92,7 +90,7 @@ const RegisterPicture: React.FC<any> = (props) => {
       const imageRef = storage.ref(imageName);
       await imageRef.put(files, { contentType: "image/jpg" });
       const imageUrl = await imageRef.getDownloadURL();
-      console.log(imageUrl);
+
       return imageUrl;
     } catch (err) {
       throw new ImageError(err.message);
@@ -107,7 +105,7 @@ const RegisterPicture: React.FC<any> = (props) => {
         "images",
         `img${nowTime}.jpg`
       );
-      console.log(url);
+
       if (!url) {
         throw new ImageError("이미지가 등록되지 못했습니다.");
       }
