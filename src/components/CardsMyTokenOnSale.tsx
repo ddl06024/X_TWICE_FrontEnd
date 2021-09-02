@@ -9,7 +9,9 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 import { usePictures } from "../hooks/usePictures";
+import { useKlaytn } from "../hooks/useKlaytn.js";
 const CardsMyTokenOnSale: React.FC<any> = (props) => {
+  const { onCancelsellToken } = useKlaytn();
   const { cancleTokenOnSale } = usePictures();
   const [errors, setErrors] = useState<any>(undefined);
   async function setOnSale() {
@@ -35,6 +37,7 @@ const CardsMyTokenOnSale: React.FC<any> = (props) => {
     }
   }
   const cancleHandler = () => {
+    onCancelsellToken(props.value.token_id);
     setOnSale();
     props.setUpdateToken(new Date().getMilliseconds());
   };
@@ -74,7 +77,7 @@ const CardsMyTokenOnSale: React.FC<any> = (props) => {
             }}
             className="d-inline-block text-truncate"
           >
-            제목 : {props.value.title}
+            제목 : {props.value.picture_title}
           </Card.Text>
           <ListGroup className="list-group-flush">
             <ListGroupItem className="d-inline-block text-truncate">

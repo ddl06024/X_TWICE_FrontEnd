@@ -9,7 +9,6 @@ import {
   Image,
 } from "react-bootstrap"; //
 import { useKlaytn } from "../hooks/useKlaytn";
-import caver from "../configs/klaytn";
 import { useHistory, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { getCookie, removeCookie } from "../configs/cookie";
@@ -42,7 +41,7 @@ const Header: React.FC<any> = (props) => {
     removeCookie("myToken");
     removeCookie("userId");
     removeCookie("walletInstance");
-    caver.klay.accounts.wallet.clear();
+
     setToken(getCookie("myToken"));
     handleLogout();
     history.push("/");

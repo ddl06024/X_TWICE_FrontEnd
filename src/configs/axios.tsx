@@ -2,7 +2,8 @@ import axios from "axios";
 import { getCookie } from "./cookie";
 import { removeCookie } from "./cookie";
 import history from "./history";
-
+import { useKlaytn } from "../hooks/useKlaytn";
+const { handleLogout } = useKlaytn();
 //const history = useHistory();
 
 const instance1 = axios.create({
@@ -41,6 +42,9 @@ instance2.interceptors.response.use(
       console.log("error401");
       if (confirm("인증이 만료되었습니다. 이동하시겠습니까?")) {
         removeCookie("myToken");
+        removeCookie("userId");
+        removeCookie("walletInstance");
+        handleLogout();
         history.push("/login");
 
         //(location.href = "/login");

@@ -1,15 +1,14 @@
 import React, { useState, useReducer, useRef, useEffect } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import caver from "../configs/klaytn";
 import { useUsers } from "../hooks/useUsers";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useKlaytn } from "../hooks/useKlaytn";
+import { useKlaytn } from "../hooks/useKlaytn.js";
 
 const RegisterAccount: React.FC<{}> = () => {
-  const { handleLogin } = useKlaytn();
+  const { pkToAddress, createPrivateKey } = useKlaytn();
   const validationSchema = Yup.object().shape({
     user_id: Yup.string().required("ID는 필수항목 입니다."),
     user_password: Yup.string()
@@ -34,9 +33,9 @@ const RegisterAccount: React.FC<{}> = () => {
   const [user_privatekey, setPrivateKey] = useState(null);
   const inputRef = useRef<any>(null);
   const generatePrivateKey = () => {
-    const { privateKey: pk } = caver.klay.accounts.create();
+    const { privateKey: pk } = createPrivateKey();
     setPrivateKey(pk);
-    const walletInstance = handleLogin(pk);
+    const walletInstance = pkToAddress(pk);
 
     setUserAccount(walletInstance.address);
     console.log(walletInstance.address);

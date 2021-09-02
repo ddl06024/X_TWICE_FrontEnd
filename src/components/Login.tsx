@@ -7,8 +7,10 @@ import { Button, Container, Form, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { setCookie, getCookie } from "../configs/cookie";
 import { useUsers } from "../hooks/useUsers";
+import { useKlaytn } from "../hooks/useKlaytn.js";
 
 const Login: React.FC<any> = (props) => {
+  const { handleLogin, approve } = useKlaytn();
   const validationSchema = Yup.object().shape({
     user_id: Yup.string().required("ID는 필수항목 입니다."),
     user_password: Yup.string()
@@ -52,7 +54,8 @@ const Login: React.FC<any> = (props) => {
         secure: true,
         sameSite: "none",
       });
-      const decoded = jwt_decode(res.data);
+      const decoded: any = jwt_decode(res.data);
+      handleLogin(decoded.user_privatekey);
 
       setCookie("userId", decoded, {
         path: "/",
@@ -60,6 +63,7 @@ const Login: React.FC<any> = (props) => {
         sameSite: "none",
       });
     }
+    approve();
 
     history.push({
       pathname: "/",

@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { usePictures } from "../hooks/usePictures";
-import { useKlaytn } from "../hooks/useKlaytn";
+import { useImageCompress } from "../hooks/useImageCompress";
+import { useKlaytn } from "../hooks/useKlaytn.js";
 import storage from "../firebase";
 import { HttpError, ImageError } from "../errors/error";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { getCookie } from "../configs/cookie";
+import jwt_decode from "jwt-decode";
+
+declare const Buffer: any;
+const MAX_IMAGE_SIZE = 30000; // 30KB
+const MAX_IMAGE_SIZE_MB = 0.03; // 30KB
 
 const RegisterPicture: React.FC<any> = (props) => {
   const validationSchema = Yup.object().shape({
@@ -28,16 +34,54 @@ const RegisterPicture: React.FC<any> = (props) => {
   const [desc, setDesc] = useState<any>("");
   const [files, setFiles] = useState<any>(null);
   const [category, setCategory] = useState<any>(null);
-  const [Url, setUrl] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [tokId, setTokId] = useState("");
 
+  const {
+    checkTokenExists,
+    getTotalSupply,
+    mintNFT,
+    getBalanceOf,
+    getTokenOfOwnerByIndex,
+  } = useKlaytn();
+  useEffect(() => {
+    const decoded = jwt_decode(getCookie("myToken")) as any;
+    const address = decoded.user_account;
+    console.log(address);
+    getTotalSupply().then(function (totalSupply) {
+      console.log(totalSupply);
+      const totalplusone = parseInt(totalSupply) + 1;
+      console.log(totalplusone);
+      setTokId(String(totalplusone));
+    });
+  }, [photo]);
   const handleChange = (e: any) => {
     setTitle(e.target.value);
   };
   const descHandleChange = (e: any) => {
     setDesc(e.target.value);
   };
+  const { imageCompression } = useImageCompress();
+  const compressImage = async (imageFile: any) => {
+    try {
+      const compressedFile = await imageCompression(
+        imageFile,
+        MAX_IMAGE_SIZE_MB,
+        undefined
+      );
+      console.log(compressedFile);
+      setPhoto(compressedFile);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const handleFiles = (e: any) => {
-    setFiles(e.target.files[0]);
+    const file = e.target.files[0];
+    setFiles(file);
+    if (file.size > MAX_IMAGE_SIZE) {
+      return compressImage(file);
+    }
+    setPhoto(file);
   };
 
   const handleCategory = (e: any) => {
@@ -45,9 +89,9 @@ const RegisterPicture: React.FC<any> = (props) => {
   };
 
   const { insertPicture } = usePictures();
-  const { checkTokenExists, mintNFT, uploadNFT } = useKlaytn();
 
   async function registerToBackend(
+    tkId: any,
     url1: string,
     title1: string,
     desc1: string,
@@ -56,19 +100,18 @@ const RegisterPicture: React.FC<any> = (props) => {
   ) {
     try {
       const { data, errors } = await insertPicture({
-        token_id: "2343" + new Date().getMilliseconds().toString(),
+        token_id: tkId,
         picture_url: url1,
+        picture_directory: directoryName1,
+        picture_name: fileName1,
         picture_title: title1,
         picture_category: category.toString(),
         picture_info: desc1,
-        picture_directory: directoryName1,
-        picture_name: fileName1,
       });
 
       if (errors) {
         throw new HttpError("HTTP 오류가 발생했습니다.", errors);
       }
-
       return data;
     } catch (err) {
       throw new HttpError(err.message, err.extensions);
@@ -96,6 +139,31 @@ const RegisterPicture: React.FC<any> = (props) => {
       throw new ImageError(err.message);
     }
   }
+  function uploadFile(photo: any) {
+    return new Promise(function (resolve, reject) {
+      let reader = new window.FileReader();
+      reader.readAsArrayBuffer(photo);
+      reader.onload = function () {
+        const buffer = Buffer.from(reader.result);
+        const hexString = "0x" + buffer.toString("hex");
+        resolve(hexString);
+      };
+    });
+  }
+  function mint(
+    title: any,
+    author: any,
+    dateCreated: any,
+    hash: any,
+    photo: any,
+    category: any,
+    description: any
+  ) {
+    return new Promise(function (resolve, reject) {
+      mintNFT(title, author, dateCreated, hash, photo, category, description);
+      resolve("success");
+    });
+  }
 
   async function registerPicture() {
     try {
@@ -111,26 +179,65 @@ const RegisterPicture: React.FC<any> = (props) => {
       }
 
       const userInfo = getCookie("userId");
-      mintNFT(
-        title.toString(),
-        userInfo.user_num.toString(),
-        new Date().toString(),
-        url.toString()
-      );
-      //uploadNFT("wow", title.toString(), desc.toString(), "images");
+      //if (!checkTokenExists(title.toString())) {
+      const reader = new window.FileReader();
 
-      /*  const data = await registerToBackend(
+      const hexStrings: string[] = [];
+      reader.readAsArrayBuffer(photo as any);
+      reader.onloadend = async () => {
+        const buffer = await Buffer.from(reader.result);
+        hexStrings.push("0x" + buffer.toString("hex"));
+      };
+
+      uploadFile(photo).then(async function (hexString) {
+        mint(
+          title.toString(),
+          userInfo.user_num.toString(),
+          new Date().toString(),
+          url.toString(),
+          String(hexString),
+          category.toString(),
+          desc.toString()
+        ).then(async function () {
+          const data = await registerToBackend(
+            String(tokId),
+            url,
+            title,
+            desc,
+            "images",
+            `img${nowTime}.jpg`
+          );
+          console.log(data);
+          history.push("/");
+        });
+      });
+      /*
+        const tokId = await mintNFT(
+          title.toString(),
+          userInfo.user_num.toString(),
+          new Date().toString(),
+          url.toString(),
+          String(hexString),
+          category.toString(),
+          desc.toString()
+        );
+      });
+      console.log(tokId);
+      const data = await registerToBackend(
+        String(tokId),
         url,
         title,
         desc,
         "images",
         `img${nowTime}.jpg`
       );
-      console.log(data);*/
-      // history.push("/");
+      console.log(data);
+      history.push("/");
+*/
+      //}]
     } catch (err) {
-      alert(err.name + "/" + err.message);
-      // console.log(JSON.stringify(err, null, 2));
+      console.log(err.name + "/" + err.message);
+      console.log(JSON.stringify(err, null, 2));
     }
   }
 
@@ -213,24 +320,6 @@ const RegisterPicture: React.FC<any> = (props) => {
           >
             제출
           </Button>
-          <p>
-            <a href={Url}>{Url}</a>
-          </p>
-          {/* <Button
-            variant="primary"
-            onClick={onClickHandler}
-            style={{ margin: "1rem" }}
-          >
-            리덕스 등록
-          </Button>
-          <Button
-            variant="primary"
-            type="button"
-            style={{ margin: "1rem" }}
-            onClick={register}
-          >
-            백엔드 업로드
-          </Button> */}
         </Form>
       </div>
     </Nav>

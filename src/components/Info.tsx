@@ -9,10 +9,12 @@ import {
   Button,
   Card,
 } from "react-bootstrap";
+import { useKlaytn } from "../hooks/useKlaytn.js";
 import { useHistory, useLocation } from "react-router-dom";
 import { usePictures } from "../hooks/usePictures";
 import { useTransactions } from "../hooks/useTransactions";
 const CardsBuy: React.FC<any> = (props) => {
+  const { buyToken } = useKlaytn();
   const history = useHistory();
   const { insertHistory } = useTransactions();
   const { BuyToken } = usePictures();
@@ -36,22 +38,25 @@ const CardsBuy: React.FC<any> = (props) => {
   };
 
   const [erros, setErrors] = useState<any>(undefined);
+
   async function onBuyHandler() {
     try {
       setErrors(undefined);
       await setTimeout(() => {
         console.log("wait");
       }, 200000);
+      console.log(information.token_id.toString());
 
       await insertHistory({
         user_num1: information.user_num,
-        token_id: information.token_id,
-        picture_url: information.picture_url,
-        picture_title: information.picture_title,
+        token_id: information.token_id.toString(),
+        picture_url: information.picture_url.toString(),
+        picture_title: information.picture_title.toString(),
         picture_price: information.picture_price,
       });
 
       const { data } = await BuyToken({ token_id: information.token_id });
+      await buyToken(information.token_id.toString());
     } catch (err) {
       const isAxiosError = err?.isAxiosError ?? false;
       if (isAxiosError) {
@@ -101,9 +106,11 @@ const CardsBuy: React.FC<any> = (props) => {
               ) : typeof userId == "undefined" ? (
                 <></>
               ) : (
-                <Button onClick={onBuyHandler} variant="success">
-                  구매하기
-                </Button>
+                <div>
+                  <Button onClick={onBuyHandler} variant="success">
+                    구매하기
+                  </Button>
+                </div>
               )}
             </Card.Body>
           </Card>

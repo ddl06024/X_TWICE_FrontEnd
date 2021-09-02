@@ -10,8 +10,10 @@ import {
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { usePictures } from "../hooks/usePictures";
+import { useKlaytn } from "../hooks/useKlaytn.js";
 
 const CardsSell: React.FC<any> = (props) => {
+  const { sellToken } = useKlaytn();
   const { setTokenOnSale } = usePictures();
   //console.log(props);
   const [price, setPrice] = useState<any>(null);
@@ -25,11 +27,14 @@ const CardsSell: React.FC<any> = (props) => {
       await setTimeout(() => {
         console.log("wait");
       }, 200000);
-
+      const amount = price.toString();
+      console.log(parseFloat(price));
+      console.log(parseFloat(price));
       const { data } = await setTokenOnSale({
         token_id: props.value.token_id,
-        picture_price: parseInt(price),
+        picture_price: parseFloat(price),
       });
+      await sellToken(props.value.token_id, amount);
     } catch (err) {
       const isAxiosError = err?.isAxiosError ?? false;
       if (isAxiosError) {
@@ -48,6 +53,7 @@ const CardsSell: React.FC<any> = (props) => {
       alert("값을 입력하세요");
       return;
     }
+
     setOnSale();
     props.setUpdateToken(new Date().getMilliseconds());
   };
