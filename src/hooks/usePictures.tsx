@@ -3,6 +3,7 @@ import { getCookie } from "../configs/cookie";
 
 export function usePictures() {
   async function insertPicture(params: any) {
+    console.log(params);
     const { data } = await instance2.post("/pictures", params);
     return data;
   }

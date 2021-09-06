@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, FloatingLabel, Form, Nav, Row } from "react-bootstrap";
+import { Button, FloatingLabel, Form, Nav, Row, Image } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { usePictures } from "../hooks/usePictures";
 import { useImageCompress } from "../hooks/useImageCompress";
@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { getCookie } from "../configs/cookie";
+import { useVGG16 } from "../hooks/useVGG16";
 import jwt_decode from "jwt-decode";
 
 declare const Buffer: any;
@@ -17,6 +18,8 @@ const MAX_IMAGE_SIZE = 30000; // 30KB
 const MAX_IMAGE_SIZE_MB = 0.03; // 30KB
 
 const RegisterPicture: React.FC<any> = (props) => {
+  const { computeSimilarity, sendVectorNorm } = useVGG16();
+  const [disabled, setDisabled] = useState(true);
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("제목을 입력해주세요."),
     desc: Yup.string().required("사진에 대해 설명해주세요."),
@@ -36,6 +39,8 @@ const RegisterPicture: React.FC<any> = (props) => {
   const [category, setCategory] = useState<any>(null);
   const [photo, setPhoto] = useState("");
   const [tokId, setTokId] = useState("");
+  const [vector, setVector] = useState("");
+  const [norm, setNorm] = useState("");
 
   const {
     checkTokenExists,
@@ -61,13 +66,36 @@ const RegisterPicture: React.FC<any> = (props) => {
   const descHandleChange = (e: any) => {
     setDesc(e.target.value);
   };
+  const computeSim = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", files as any);
+      const { data, errors } = await computeSimilarity(formData);
+      console.log(data);
+      if (errors) {
+        throw new HttpError("HTTP 오류가 발생했습니다.", errors);
+      }
+      //console.log(data.picture_norm, data.picture_vector);
+      setVector(data.picture_vector);
+      setNorm(data.picture_norm);
+      if (data.picture_vector && data.picture_norm) {
+        setDisabled(false);
+        alert("사진 등록이 가능합니다.");
+      } else {
+        alert("다른 사진과 유사하여 등록하지 못합니다.");
+      }
+      //return data;
+    } catch (err) {
+      throw new HttpError(err.message, err.extensions);
+    }
+  };
   const { imageCompression } = useImageCompress();
   const compressImage = async (imageFile: any) => {
     try {
       const compressedFile = await imageCompression(
         imageFile,
         MAX_IMAGE_SIZE_MB,
-        undefined
+        45
       );
       console.log(compressedFile);
       setPhoto(compressedFile);
@@ -100,6 +128,8 @@ const RegisterPicture: React.FC<any> = (props) => {
   ) {
     try {
       const { data, errors } = await insertPicture({
+        picture_vector: vector.toString(),
+        picture_norm: parseFloat(norm),
         token_id: tkId,
         picture_url: url1,
         picture_directory: directoryName1,
@@ -139,11 +169,12 @@ const RegisterPicture: React.FC<any> = (props) => {
       throw new ImageError(err.message);
     }
   }
+
   function uploadFile(photo: any) {
     return new Promise(function (resolve, reject) {
       let reader = new window.FileReader();
       reader.readAsArrayBuffer(photo);
-      reader.onload = function () {
+      reader.onload = function (e: any) {
         const buffer = Buffer.from(reader.result);
         const hexString = "0x" + buffer.toString("hex");
         resolve(hexString);
@@ -189,28 +220,46 @@ const RegisterPicture: React.FC<any> = (props) => {
         hexStrings.push("0x" + buffer.toString("hex"));
       };
 
-      uploadFile(photo).then(async function (hexString) {
-        mint(
-          title.toString(),
-          userInfo.user_num.toString(),
-          new Date().toString(),
-          url.toString(),
-          String(hexString),
-          category.toString(),
-          desc.toString()
-        ).then(async function () {
-          const data = await registerToBackend(
-            String(tokId),
-            url,
-            title,
-            desc,
-            "images",
-            `img${nowTime}.jpg`
-          );
-          console.log(data);
-          history.push("/");
+      uploadFile(photo)
+        .then(async function (hexString) {
+          mint(
+            title.toString(),
+            userInfo.user_num.toString(),
+            new Date().toString(),
+            url.toString(),
+            String(hexString),
+            category.toString(),
+            desc.toString()
+          )
+            .then(async function (receipt: any) {
+              if (receipt === "success") {
+                console.log("success");
+              } else {
+                alert("블록체인 등록 실패");
+                return;
+              }
+              const data = await registerToBackend(
+                String(tokId),
+                url,
+                title,
+                desc,
+                "images",
+                `img${nowTime}.jpg`
+              );
+              console.log(data);
+              history.push("/");
+            })
+            .catch((error) => {
+              console.log("error1 : " + error);
+              alert("error1 : " + error);
+              return;
+            });
+        })
+        .catch((error) => {
+          console.log("error2 : " + error);
+          alert("error2 : " + error);
+          return;
         });
-      });
       /*
         const tokId = await mintNFT(
           title.toString(),
@@ -237,6 +286,7 @@ const RegisterPicture: React.FC<any> = (props) => {
       //}]
     } catch (err) {
       console.log(err.name + "/" + err.message);
+      alert(err.name + "/" + err.message);
       console.log(JSON.stringify(err, null, 2));
     }
   }
@@ -249,15 +299,18 @@ const RegisterPicture: React.FC<any> = (props) => {
       <div style={{ width: 860, height: "auto" }}>
         <Form>
           <Row className="mb-3">
-            <Form.Group
-              controlId="formFile"
-              className="mb-3"
-              onChange={handleFiles}
-            >
+            <Form.Group controlId="formFile" onChange={handleFiles}>
               <Form.Label>사진</Form.Label>
               <Form.Control type="file" />
             </Form.Group>
           </Row>
+          <Button
+            variant="outline-primary"
+            onClick={computeSim}
+            style={{ marginBottom: "2rem", marginLeft: "1rem" }}
+          >
+            유사도 검사
+          </Button>
 
           <Form.Group controlId="formGridAddress1" onChange={handleChange}>
             <Form.Label>제목</Form.Label>
@@ -284,13 +337,13 @@ const RegisterPicture: React.FC<any> = (props) => {
               className={`mt-3  ${errors.category ? "is-invalid" : ""}`}
             >
               <option value="">Open this select menu</option>
-              <option value="One">One</option>
-              <option value="Two">Two</option>
-              <option value="Three">Three</option>
-              <option value="Four">Four</option>
-              <option value="Five">Five</option>
-              <option value="Six">Six</option>
-              <option value="Seven">Seven</option>
+              <option value="산">산</option>
+              <option value="바다">바다</option>
+              <option value="나무">나무</option>
+              <option value="꽃">꽃</option>
+              <option value="구름">구름</option>
+              <option value="건물">건물</option>
+              <option value="동물">동물</option>
             </Form.Select>
             <div className="invalid-feedback">{errors.category?.message}</div>
           </FloatingLabel>
@@ -317,6 +370,7 @@ const RegisterPicture: React.FC<any> = (props) => {
             variant="primary"
             onClick={handleSubmit(registerPicture)}
             style={{ margin: "1rem" }}
+            disabled={disabled}
           >
             제출
           </Button>

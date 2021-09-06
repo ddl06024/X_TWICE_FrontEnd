@@ -34,6 +34,7 @@ const CardsSell: React.FC<any> = (props) => {
         token_id: props.value.token_id,
         picture_price: parseFloat(price),
       });
+      props.setUpdateToken(new Date().getMilliseconds());
       await sellToken(props.value.token_id, amount);
     } catch (err) {
       const isAxiosError = err?.isAxiosError ?? false;

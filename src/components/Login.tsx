@@ -3,14 +3,17 @@ import jwt_decode from "jwt-decode";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Container, Form, Row } from "react-bootstrap";
+import { Button, Container, Form, Modal, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { setCookie, getCookie } from "../configs/cookie";
 import { useUsers } from "../hooks/useUsers";
 import { useKlaytn } from "../hooks/useKlaytn.js";
+import ModalLogin from "./ModalLogin";
 
 const Login: React.FC<any> = (props) => {
-  const { handleLogin, approve } = useKlaytn();
+  const [modalShow, setModalShow] = React.useState(false);
+  const { handleLogin, approve, getBalance } = useKlaytn();
+
   const validationSchema = Yup.object().shape({
     user_id: Yup.string().required("ID는 필수항목 입니다."),
     user_password: Yup.string()
@@ -40,12 +43,27 @@ const Login: React.FC<any> = (props) => {
     const { name, value } = e.target;
     setFormState({ [name]: value });
   };
+  const text =
+    "An obscure body in the S-K System, your majesty. The inhabitants refer to it as the planet Earth.";
+
+  async function digestMessage(message: any) {
+    const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
+    const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
+    const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+    const hashHex = hashArray
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join(""); // convert bytes to hex string
+    return hashHex;
+  }
+
   const history = useHistory();
   const { loginUser } = useUsers();
+
   async function login() {
+    const hashed = await digestMessage(user_password);
     const res = await loginUser({
       user_id,
-      user_password,
+      user_password: hashed,
     });
 
     if (res.data) {
@@ -63,12 +81,9 @@ const Login: React.FC<any> = (props) => {
         sameSite: "none",
       });
     }
-    approve();
+    setModalShow(true);
+    //approve();
 
-    history.push({
-      pathname: "/",
-      state: { tk: getCookie("myToken") },
-    });
     //const token = res.data;
     //const res2 = await isUserLogin({
     //  token,
@@ -138,6 +153,16 @@ const Login: React.FC<any> = (props) => {
           회원가입
         </Button>
       </p>
+      <ModalLogin
+        show={modalShow}
+        onHide={() => {
+          setModalShow(false);
+          history.push({
+            pathname: "/",
+            state: { tk: getCookie("myToken") },
+          });
+        }}
+      />
     </Container>
   );
 };

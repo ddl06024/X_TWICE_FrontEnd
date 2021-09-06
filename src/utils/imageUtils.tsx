@@ -49,7 +49,7 @@ export function loadImage(src: any) {
 export function drawImageInCanvas(img: any, maxWidthOrHeight: any) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
-
+  console.log(maxWidthOrHeight);
   if (
     Number.isInteger(maxWidthOrHeight) &&
     (img.width > maxWidthOrHeight || img.height > maxWidthOrHeight)

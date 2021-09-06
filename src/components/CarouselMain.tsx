@@ -11,13 +11,19 @@ import {
   Card,
 } from "react-bootstrap";
 import "../assets/css/CarouselMain.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { usePictures } from "../hooks/usePictures";
 import { usePagination } from "../hooks/usePagination";
 import GridLayoutMain from "./GridLayoutMain";
+import { getCookie } from "../configs/cookie";
 
 const CarouselMain: React.FC<any> = (props) => {
+  const [token, setToken] = useState(getCookie("myToken"));
+  const location = useLocation<any>();
+  useEffect(() => {
+    setToken(getCookie("myToken"));
+  }, [location]);
   const { loading, setLoading, errors, setErrors } = useFetch();
   const {
     first,
@@ -162,7 +168,19 @@ const CarouselMain: React.FC<any> = (props) => {
           )}
         </Carousel>
       </Col>
-      <Card border="dark" bg="dark">
+      <Card
+        border="dark"
+        bg="dark"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          overflowX: "hidden",
+          whiteSpace: "nowrap",
+          width: "100wh",
+          borderRadius: "0px",
+        }}
+      >
         <Col
           md="auto"
           style={{
@@ -172,15 +190,13 @@ const CarouselMain: React.FC<any> = (props) => {
             overflow: "hidden",
             whiteSpace: "nowrap",
             width: "100wh",
+            paddingTop: "4rem",
           }}
         >
           <div
             style={{
               textAlign: "center",
-
               width: "100vh",
-              overflow: "hidden",
-              whiteSpace: "nowrap",
             }}
           >
             <h1
@@ -203,7 +219,11 @@ const CarouselMain: React.FC<any> = (props) => {
                 size="lg"
                 style={{ margin: 10 }}
                 onClick={() => {
-                  history.push("/registerPicture");
+                  if (token) {
+                    history.push("/registerPicture");
+                  } else {
+                    alert("로그인 하세요");
+                  }
                 }}
               >
                 만들기
@@ -221,11 +241,18 @@ const CarouselMain: React.FC<any> = (props) => {
               </Button>
             </Nav>
           </div>
-
+        </Col>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <GridLayoutMain
             value={{ errors, count, pictures, loading, paginationBasic }}
           />
-        </Col>
+        </div>
       </Card>
     </div>
     /*    </Row>

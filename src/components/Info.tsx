@@ -17,7 +17,7 @@ const CardsBuy: React.FC<any> = (props) => {
   const { buyToken } = useKlaytn();
   const history = useHistory();
   const { insertHistory } = useTransactions();
-  const { BuyToken } = usePictures();
+  const { BuyToken, cancleTokenOnSale } = usePictures();
   const [userId, setUserId] = useState(getCookie("userId"));
   useEffect(() => {
     const user = getCookie("userId");
@@ -47,6 +47,7 @@ const CardsBuy: React.FC<any> = (props) => {
       }, 200000);
       console.log(information.token_id.toString());
 
+      await buyToken(information.token_id.toString());
       await insertHistory({
         user_num1: information.user_num,
         token_id: information.token_id.toString(),
@@ -54,16 +55,20 @@ const CardsBuy: React.FC<any> = (props) => {
         picture_title: information.picture_title.toString(),
         picture_price: information.picture_price,
       });
-
       const { data } = await BuyToken({ token_id: information.token_id });
-      await buyToken(information.token_id.toString());
+      await cancleTokenOnSale({
+        token_id: information.token_id,
+      });
     } catch (err) {
+      alert(err);
+
       const isAxiosError = err?.isAxiosError ?? false;
       if (isAxiosError) {
         const {
           response: { data },
         } = err;
         console.log(data);
+        alert(data);
         setErrors(data);
         console.log(err);
       }

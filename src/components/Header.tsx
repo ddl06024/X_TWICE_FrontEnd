@@ -12,7 +12,9 @@ import { useKlaytn } from "../hooks/useKlaytn";
 import { useHistory, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { getCookie, removeCookie } from "../configs/cookie";
+import ModalWallet from "./ModalWallet";
 const Header: React.FC<any> = (props) => {
+  const [modalShow, setModalShow] = React.useState(false);
   const { handleLogout } = useKlaytn();
   const history = useHistory();
   const [token, setToken] = useState(getCookie("myToken"));
@@ -33,9 +35,10 @@ const Header: React.FC<any> = (props) => {
 
   const location = useLocation<any>();
   useEffect(() => {
-    if (location.state) {
-      setToken(location.state.tk);
-    }
+    //if (location.state) {
+    //  setToken(location.state.tk);
+    //}
+    setToken(getCookie("myToken"));
   }, [location]);
   const onLogoutHandler = () => {
     removeCookie("myToken");
@@ -48,16 +51,23 @@ const Header: React.FC<any> = (props) => {
   };
   const userInfo = (
     <span
-      style={{ marginLeft: "8px", marginRight: "8px" }}
+      style={{
+        paddingRight: "8px",
+        marginTop: "auto",
+        marginBottom: "auto",
+        marginRight: "8px",
+      }}
       className="d-inline-block text-truncate"
     >
       <span style={{ fontWeight: "bold" }}>
         {decoded && (decoded as any).user_id}
       </span>
-      {" 님 환영합니다."}
+
+      {"님 환영합니다."}
+      {/*
       <br />
-      <span style={{ color: "green" }}>{"14klay"}</span>
-      {" 보유"}
+       <span style={{ color: "green" }}>{"14klay"}</span>
+      {" 보유"} */}
     </span>
   );
   return (
@@ -126,6 +136,13 @@ const Header: React.FC<any> = (props) => {
           {token ? (
             <Nav>
               {userInfo}
+              <Nav.Link onClick={() => setModalShow(true)}>지갑정보</Nav.Link>
+              <ModalWallet
+                show={modalShow}
+                onHide={() => {
+                  setModalShow(false);
+                }}
+              />
               <Nav.Link onClick={onLogoutHandler}>로그아웃</Nav.Link>
               <Nav.Link
                 eventKey={2}

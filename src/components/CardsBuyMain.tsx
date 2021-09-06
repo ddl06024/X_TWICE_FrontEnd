@@ -79,7 +79,7 @@ const CardsBuyMain: React.FC<any> = (props) => {
       <Card
         className="cardShadow"
         border="dark"
-        style={{ width: "300px", borderRadius: "5px" }}
+        style={{ width: "300px", borderRadius: "0px" }}
       >
         <Card.Img
           variant="bottom"
@@ -88,8 +88,8 @@ const CardsBuyMain: React.FC<any> = (props) => {
           style={{
             width: "100%",
             height: "12rem",
-            borderTopLeftRadius: "5px",
-            borderTopRightRadius: "5px",
+            borderTopLeftRadius: "0px",
+            borderTopRightRadius: "0px",
           }}
         />
         <Card.Body style={{ height: "210px" }}>

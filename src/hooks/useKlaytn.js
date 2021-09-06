@@ -47,10 +47,16 @@ export function useKlaytn() {
     //  if (cav.klay.accounts.wallet.length) {
     //   return cav.klay.accounts.wallet[0];
     // } else {
+
     cav.klay.accounts.wallet.clear();
+
     const walletInstance = cav.klay.accounts.privateKeyToAccount(pk);
     console.log(walletInstance);
+
     cav.klay.accounts.wallet.add(walletInstance);
+    const feePayer = cav.klay.accounts.wallet.add(
+      "0x893f5e30f7751613b1692dde0303afac8c332b3261b39b671c3eca9ac610f55c"
+    );
     return cav.klay.accounts.wallet[0];
     // }
   }
@@ -89,9 +95,7 @@ export function useKlaytn() {
   ) {
     const decoded = jwt_decode(getCookie("myToken"));
     const sender = getWallet(decoded.user_privatekey); //로그인한 계정
-    const feePayer = cav.klay.accounts.wallet.add(
-      "0x893f5e30f7751613b1692dde0303afac8c332b3261b39b671c3eca9ac610f55c"
-    ); //대납 계정
+    //대납 계정
 
     cav.klay.accounts
       .signTransaction(
@@ -116,21 +120,37 @@ export function useKlaytn() {
         sender.privateKey
       )
       .then(function (data) {
+        if (!data) {
+          alert("블록체인 등록 실패");
+          return;
+        }
         const { rawTransaction: senderRawTransaction } = data;
+
         cav.klay
           .sendTransaction({
             senderRawTransaction: senderRawTransaction,
-            feePayer: sender.address,
+            feePayer: "0x4541e43e9ceaaea64abf92449b0a876038365a14",
           })
           .then(function (receipt) {
             console.log(receipt);
             if (receipt.transactionHash) {
               //alert(receipt.transactionHash);
+            } else {
+              alert("블록체인 등록 실패2");
+              return;
             }
           })
-          .catch((error) => console.log("error2 : " + error));
+          .catch((error) => {
+            console.log("useKlaytn : error2 : " + error);
+            alert("useKlaytn : error2 : " + error);
+            return;
+          });
       })
-      .catch((error) => console.log("error1 : " + error));
+      .catch((error) => {
+        console.log("useKlaytn : error1 : " + error);
+        alert("useKlaytn : error1 : " + error);
+        return;
+      });
   }
 
   function displayMyTokensAndSale(walletInstance) {
@@ -154,13 +174,25 @@ export function useKlaytn() {
       }
     });
   }
+  async function getBalance() {
+    if (getCookie("myToken")) {
+      const decoded = jwt_decode(getCookie("myToken"));
+      const sender = getWallet(decoded.user_privatekey);
+      const address = sender.address;
+      if (!address) return;
+      const balance = await cav.klay.getBalance(address);
+      return await cav.utils.fromWei(balance, "ether");
+    }
+  }
   async function sellToken(tokenId, amount) {
     console.log(tokenId, amount);
     if (amount <= 0) return;
     try {
       const decoded = jwt_decode(getCookie("myToken"));
       const sender = getWallet(decoded.user_privatekey); //로그인한 계정
-
+      const feePayer = cav.klay.accounts.wallet.add(
+        "0x893f5e30f7751613b1692dde0303afac8c332b3261b39b671c3eca9ac610f55c"
+      );
       // using the promise
       const { rawTransaction: senderRawTransaction } =
         await cav.klay.accounts.signTransaction(
@@ -225,6 +257,11 @@ export function useKlaytn() {
     console.log(typeof tokenId);
     try {
       const decoded = jwt_decode(getCookie("myToken"));
+      if (getCookie("myToken") == null) {
+        alert("로그인 정보가 없습니다");
+        console.log("로그인 정보가 없습니다.");
+        return;
+      }
       const sender = getWallet(decoded.user_privatekey); //로그인한 계정
       const feePayer = cav.klay.accounts.wallet.add(
         "0x893f5e30f7751613b1692dde0303afac8c332b3261b39b671c3eca9ac610f55c"
@@ -233,7 +270,10 @@ export function useKlaytn() {
       console.log(sender.address);
       getTokenPrice(tokenId).then(function (price) {
         console.log(price);
-        if (price <= 0) return;
+        if (price <= 0) {
+          console.log("price가 0입니다.");
+          return;
+        }
         cav.klay.accounts
           .signTransaction(
             {
@@ -252,7 +292,7 @@ export function useKlaytn() {
             cav.klay
               .sendTransaction({
                 senderRawTransaction: senderRawTransaction,
-                feePayer: feePayer.address,
+                feePayer: sender.address,
               })
               .then(function (receipt) {
                 if (receipt.transactionHash) {
@@ -265,6 +305,7 @@ export function useKlaytn() {
       });
       //.catch((error) => console.log("error3 : " + error));
     } catch (err) {
+      alert(err);
       console.error(err);
     }
   }
@@ -289,6 +330,7 @@ export function useKlaytn() {
   }
 
   return {
+    getBalance,
     approve,
     getTotalSupply,
     onCancelsellToken,

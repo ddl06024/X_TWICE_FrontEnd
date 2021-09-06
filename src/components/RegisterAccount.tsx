@@ -67,16 +67,42 @@ const RegisterAccount: React.FC<{}> = () => {
 
   const { signUpUser } = useUsers();
 
+  async function digestMessage(message: any) {
+    const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
+    const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
+    const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+    const hashHex = hashArray
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join(""); // convert bytes to hex string
+    return hashHex;
+  }
   async function signup() {
-    const res = await signUpUser({
-      user_id,
-      //user_password,
-      //user_account: user_account,
-      user_account: user_account,
-      user_privatekey: user_privatekey,
-    });
+    const hashed = await digestMessage(user_password);
+    console.log(hashed);
 
-    const token = res.data;
+    try {
+      const res = await signUpUser({
+        user_id,
+        user_password: hashed,
+        //user_account: user_account,
+        user_account: user_account,
+        user_privatekey: user_privatekey,
+      });
+    } catch (err) {
+      const isAxiosError = err?.isAxiosError ?? false;
+      if (isAxiosError) {
+        const {
+          response: { data },
+        } = err;
+        console.log(data);
+        alert(data.message);
+        console.log(err);
+      }
+    }
+    history.push({
+      //state: state,
+      pathname: "/",
+    });
   }
 
   return (
