@@ -93,7 +93,7 @@ export function useKlaytn() {
     category,
     description
   ) {
-    const decoded = jwt_decode(getCookie("myToken"));
+    const decoded = jwt_decode(getCookie("myToken").toString());
     const sender = getWallet(decoded.user_privatekey); //로그인한 계정
     //대납 계정
 
@@ -176,7 +176,7 @@ export function useKlaytn() {
   }
   async function getBalance() {
     if (getCookie("myToken")) {
-      const decoded = jwt_decode(getCookie("myToken"));
+      const decoded = jwt_decode(getCookie("myToken").toString());
       const sender = getWallet(decoded.user_privatekey);
       const address = sender.address;
       if (!address) return;
@@ -188,7 +188,7 @@ export function useKlaytn() {
     console.log(tokenId, amount);
     if (amount <= 0) return;
     try {
-      const decoded = jwt_decode(getCookie("myToken"));
+      const decoded = jwt_decode(getCookie("myToken").toString());
       const sender = getWallet(decoded.user_privatekey); //로그인한 계정
 
       // using the promise
@@ -221,7 +221,7 @@ export function useKlaytn() {
     }
   }
   function approve() {
-    const decoded = jwt_decode(getCookie("myToken"));
+    const decoded = jwt_decode(getCookie("myToken").toString());
     const walletInstance = getWallet(decoded.user_privatekey);
     pTContract.methods
       .setApprovalForAll(DEPLOYED_ADDRESS_TOKENSALES, true)
@@ -236,7 +236,7 @@ export function useKlaytn() {
       });
   }
   async function onCancelsellToken(tokenId) {
-    const decoded = jwt_decode(getCookie("myToken"));
+    const decoded = jwt_decode(getCookie("myToken").toString());
     const walletInstance = getWallet(decoded.user_privatekey);
     const tokensOnSale = [];
     tokensOnSale.push(tokenId);
@@ -254,7 +254,7 @@ export function useKlaytn() {
     console.log(tokenId);
     console.log(typeof tokenId);
     try {
-      const decoded = jwt_decode(getCookie("myToken"));
+      const decoded = jwt_decode(getCookie("myToken").toString());
       const sender = getWallet(decoded.user_privatekey);
       if (getCookie("myToken") == null) {
         alert("로그인 정보가 없습니다");

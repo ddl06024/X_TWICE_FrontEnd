@@ -54,7 +54,7 @@ const CardsBuy: React.FC<any> = (props) => {
   async function onBuyHandler() {
     setModalShow(true);
   }
-  const decoded = jwt_decode(getCookie("myToken"));
+  const decoded = jwt_decode(getCookie("myToken").toString());
   const [tokenUserAccount, setTokenUserAccount] = useState("");
   const ac = information.token_id.toString();
   console.log(ac);

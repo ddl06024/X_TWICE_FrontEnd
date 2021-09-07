@@ -23,7 +23,7 @@ const Header: React.FC<any> = (props) => {
     setSearch(e.target.value);
   };
 
-  const decoded = token && jwt_decode(token);
+  const decoded = token && jwt_decode(token.toString());
   const handleSearch = () => {
     //props.setViewBy("search");
     //props.setSearchWord(search);

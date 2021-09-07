@@ -50,7 +50,7 @@ const RegisterPicture: React.FC<any> = (props) => {
     getTokenOfOwnerByIndex,
   } = useKlaytn();
   useEffect(() => {
-    const decoded = jwt_decode(getCookie("myToken")) as any;
+    const decoded = jwt_decode(getCookie("myToken").toString()) as any;
     const address = decoded.user_account;
     console.log(address);
     getTotalSupply().then(function (totalSupply) {
