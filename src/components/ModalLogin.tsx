@@ -15,7 +15,8 @@ const ModalLogin: React.FC<any> = (props) => {
 
   const [privateKey, setPrivateKey] = useState(undefined);
   const pkHandler = () => {
-    const decoded: any = jwt_decode(String(getCookie("myToken")));
+    const dd = String(getCookie("myToken"));
+    const decoded: any = jwt_decode(dd);
     setPrivateKey(decoded.user_privatekey);
     const pk = String(decoded.user_privatekey);
     navigator.clipboard.writeText(pk);
