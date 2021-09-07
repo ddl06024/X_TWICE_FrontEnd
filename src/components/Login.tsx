@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Container, Form, Modal, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { setCookie, getCookie } from "../configs/cookie";
+import { setCookie, getCookie, removeCookie } from "../configs/cookie";
 import { useUsers } from "../hooks/useUsers";
 import { useKlaytn } from "../hooks/useKlaytn.js";
 import ModalLogin from "./ModalLogin";
@@ -61,6 +61,9 @@ const Login: React.FC<any> = (props) => {
   const { loginUser } = useUsers();
 
   async function login() {
+    removeCookie("myToken");
+    removeCookie("userId");
+    removeCookie("walletInstance");
     //const hashed = await digestMessage(user_password);
     //const cr = crypto.SHA256 as any;
     //const hashed = cr.encrypt(user_password, "SECRETKEY").toString();
