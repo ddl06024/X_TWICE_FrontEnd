@@ -70,6 +70,7 @@ const Login: React.FC<any> = (props) => {
         user_id,
         user_password: hashed,
       });
+      console.log(res.data);
       if (res.data) {
         setCookie("myToken", res.data, {
           path: "/",

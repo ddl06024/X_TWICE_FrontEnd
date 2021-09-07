@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useKlaytn } from "../hooks/useKlaytn.js";
-
+import * as CryptoJS from "crypto-js";
 const RegisterAccount: React.FC<{}> = () => {
   const { pkToAddress, createPrivateKey } = useKlaytn();
   const validationSchema = Yup.object().shape({
@@ -67,17 +67,8 @@ const RegisterAccount: React.FC<{}> = () => {
 
   const { signUpUser } = useUsers();
 
-  async function digestMessage(message: any) {
-    const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
-    const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
-    const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-    const hashHex = hashArray
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join(""); // convert bytes to hex string
-    return hashHex;
-  }
   async function signup() {
-    const hashed = await digestMessage(user_password);
+    const hashed = CryptoJS.SHA256(user_password).toString();
     console.log(hashed);
 
     try {
