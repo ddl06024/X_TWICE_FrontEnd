@@ -224,7 +224,7 @@ const RegisterPicture: React.FC<any> = (props) => {
         .then(async function (hexString) {
           mint(
             title.toString(),
-            userInfo.user_num.toString(),
+            userInfo.toString(),
             new Date().toString(),
             url.toString(),
             String(hexString),

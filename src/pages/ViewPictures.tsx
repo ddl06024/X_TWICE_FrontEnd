@@ -64,8 +64,8 @@ const ViewByPopularity: React.FC<{}> = () => {
 
   useEffect(() => {
     getFirstPictures();
-    console.log(getCookie("walletInstance"));
-    displayMyTokensAndSale(getCookie("walletInstance"));
+    //console.log(getCookie("walletInstance"));
+    //displayMyTokensAndSale(getCookie("walletInstance"));
   }, [first, viewBy, category, searchWord]);
 
   const paginationBasic = (

@@ -72,7 +72,7 @@ const Login: React.FC<any> = (props) => {
       });
       console.log(res.data);
       if (res.data) {
-        setCookie("myToken", res.data, {
+        setCookie("myToken", res.data.toString(), {
           path: "/",
           secure: true,
           sameSite: "none",
@@ -80,7 +80,12 @@ const Login: React.FC<any> = (props) => {
         const decoded: any = jwt_decode(res.data);
         handleLogin(decoded.user_privatekey);
 
-        setCookie("userId", decoded, {
+        setCookie("userId", decoded.user_num.toString(), {
+          path: "/",
+          secure: true,
+          sameSite: "none",
+        });
+        setCookie("userPK", decoded.user_privatekey.toString(), {
           path: "/",
           secure: true,
           sameSite: "none",

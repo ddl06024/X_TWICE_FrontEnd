@@ -25,7 +25,7 @@ export function useKlaytn() {
     cav.klay.accounts.wallet.clear();
     cav.klay.accounts.wallet.add(walletInstance);
 
-    setCookie("walletInstance", walletInstance, {
+    setCookie("walletInstance", walletInstance.toString(), {
       path: "/",
       secure: true,
       sameSite: "none",

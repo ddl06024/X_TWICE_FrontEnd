@@ -96,7 +96,7 @@ const CardsBuy: React.FC<any> = (props) => {
                 {information.picture_price} Klay
               </Card.Title>
               {/*<Card.Text>구매하시겠습니까?</Card.Text>*/}
-              {userId && userId.user_num == information.user_num ? (
+              {userId && userId == information.user_num ? (
                 <></>
               ) : typeof userId == "undefined" ? (
                 <></>

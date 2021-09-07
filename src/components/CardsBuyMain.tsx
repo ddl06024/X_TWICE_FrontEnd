@@ -111,7 +111,7 @@ const CardsBuyMain: React.FC<any> = (props) => {
               가격 : {props.value.picture_price} klay
             </ListGroupItem>
           </ListGroup>
-          {userId && userId.user_num == props.value.user_num ? owner : notOwner}
+          {userId && userId == props.value.user_num ? owner : notOwner}
         </Card.Body>
       </Card>
     </Col>
