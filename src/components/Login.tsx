@@ -9,6 +9,7 @@ import { setCookie, getCookie } from "../configs/cookie";
 import { useUsers } from "../hooks/useUsers";
 import { useKlaytn } from "../hooks/useKlaytn.js";
 import ModalLogin from "./ModalLogin";
+import * as CryptoJS from "crypto-js";
 
 const Login: React.FC<any> = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -46,7 +47,7 @@ const Login: React.FC<any> = (props) => {
   const text =
     "An obscure body in the S-K System, your majesty. The inhabitants refer to it as the planet Earth.";
 
-  async function digestMessage(message: any) {
+  /* async function digestMessage(message: any) {
     const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
     const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
     const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
@@ -54,14 +55,16 @@ const Login: React.FC<any> = (props) => {
       .map((b) => b.toString(16).padStart(2, "0"))
       .join(""); // convert bytes to hex string
     return hashHex;
-  }
+  }*/
 
   const history = useHistory();
   const { loginUser } = useUsers();
 
   async function login() {
-    const hashed = await digestMessage(user_password);
-
+    //const hashed = await digestMessage(user_password);
+    //const cr = crypto.SHA256 as any;
+    //const hashed = cr.encrypt(user_password, "SECRETKEY").toString();
+    const hashed = CryptoJS.SHA256(user_password).toString();
     try {
       const res = await loginUser({
         user_id,
