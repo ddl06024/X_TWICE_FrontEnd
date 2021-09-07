@@ -12,6 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { getCookie } from "../configs/cookie";
 import { useVGG16 } from "../hooks/useVGG16";
 import jwt_decode from "jwt-decode";
+import RegisterTokenModal from "./RegisterTokenModal";
 
 declare const Buffer: any;
 const MAX_IMAGE_SIZE = 30000; // 30KB
@@ -41,7 +42,7 @@ const RegisterPicture: React.FC<any> = (props) => {
   const [tokId, setTokId] = useState("");
   const [vector, setVector] = useState("");
   const [norm, setNorm] = useState("");
-
+  const [modalShow, setModalShow] = React.useState(false);
   const {
     checkTokenExists,
     getTotalSupply,
@@ -103,8 +104,11 @@ const RegisterPicture: React.FC<any> = (props) => {
       console.error(error);
     }
   };
+  const [preImage, setPreImage] = useState<any>(null);
   const handleFiles = (e: any) => {
     const file = e.target.files[0];
+    setPreImage(URL.createObjectURL(file));
+
     setFiles(file);
     if (file.size > MAX_IMAGE_SIZE) {
       return compressImage(file);
@@ -195,7 +199,9 @@ const RegisterPicture: React.FC<any> = (props) => {
       resolve("success");
     });
   }
-
+  const onSubmitkHandler = () => {
+    setModalShow(true);
+  };
   async function registerPicture() {
     try {
       const nowTime = new Date().getTime();
@@ -368,7 +374,7 @@ const RegisterPicture: React.FC<any> = (props) => {
           </Row>
           <Button
             variant="primary"
-            onClick={handleSubmit(registerPicture)}
+            onClick={handleSubmit(onSubmitkHandler)}
             style={{ margin: "1rem" }}
             disabled={disabled}
           >
@@ -376,6 +382,16 @@ const RegisterPicture: React.FC<any> = (props) => {
           </Button>
         </Form>
       </div>
+      <RegisterTokenModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        registerPicture={handleSubmit(registerPicture)}
+        title={String(title)}
+        date={String(new Date())}
+        category={String(category)}
+        desc={String(desc)}
+        preImage={preImage}
+      />
     </Nav>
   );
 };

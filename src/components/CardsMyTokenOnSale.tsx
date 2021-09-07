@@ -37,9 +37,12 @@ const CardsMyTokenOnSale: React.FC<any> = (props) => {
     }
   }
   const cancleHandler = () => {
-    onCancelsellToken(props.value.token_id);
-    setOnSale();
-    props.setUpdateToken(new Date().getMilliseconds());
+    if (window.confirm("판매 취소 하시겠습니까?")) {
+      onCancelsellToken(props.value.token_id);
+      setOnSale();
+      props.setUpdateToken(new Date().getMilliseconds());
+    } else {
+    }
   };
   const history = useHistory();
   const onClickHandler = () => {

@@ -8,11 +8,13 @@ import {
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
+import SellTokenModal from "./SellTokenModal";
 import { useHistory } from "react-router-dom";
 import { usePictures } from "../hooks/usePictures";
 import { useKlaytn } from "../hooks/useKlaytn.js";
 
 const CardsSell: React.FC<any> = (props) => {
+  const [modalShow, setModalShow] = React.useState(false);
   const { sellToken } = useKlaytn();
   const { setTokenOnSale } = usePictures();
   //console.log(props);
@@ -54,9 +56,7 @@ const CardsSell: React.FC<any> = (props) => {
       alert("값을 입력하세요");
       return;
     }
-
-    setOnSale();
-    props.setUpdateToken(new Date().getMilliseconds());
+    setModalShow(true);
   };
   const history = useHistory();
   const onClickHandler = () => {
@@ -132,6 +132,16 @@ const CardsSell: React.FC<any> = (props) => {
           </InputGroup>
         </Card.Body>
       </Card>
+      <SellTokenModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        setOnSale={setOnSale}
+        setUpdateToken={props.setUpdateToken}
+        token_id={props.value.token_id}
+        picture_title={props.value.picture_title}
+        picture_price={props.value.picture_price}
+        sell_price={parseFloat(price)}
+      />
     </Col>
   );
 };

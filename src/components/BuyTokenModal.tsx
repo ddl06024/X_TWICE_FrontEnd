@@ -2,7 +2,6 @@ import React, { useRef, useReducer, useEffect, useState } from "react";
 
 import { Button, Container, Form, Modal, Row } from "react-bootstrap";
 
-
 const BuyTokenModal: React.FC<any> = ({
   setErrors,
   information,
@@ -77,9 +76,9 @@ const BuyTokenModal: React.FC<any> = ({
           }}
         >
           <h5>토큰 정보</h5>
-          <div style={{ display: "flex" }}>
+          <div className="text-truncate" style={{ display: "flex" }}>
             <div style={{ minWidth: "90px" }}>
-              현 주소 :
+              현 지갑 주소 :
               <br />
               NFT 아이디 :
               <br />
@@ -103,9 +102,9 @@ const BuyTokenModal: React.FC<any> = ({
           </div>
           <hr />
           <h5>내 정보</h5>
-          <div style={{ display: "flex" }}>
+          <div className="text-truncate" style={{ display: "flex" }}>
             <div style={{ minWidth: "90px" }}>
-              내 주소 :
+              내 지갑 주소 :
               <br />
               보유 클레이 :
             </div>
