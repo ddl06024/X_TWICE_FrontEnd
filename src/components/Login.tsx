@@ -75,20 +75,20 @@ const Login: React.FC<any> = (props) => {
       });
       console.log(res.data);
       if (res.data) {
-        setCookie("myToken", res.data.toString(), {
+        setCookie("myToken", res.data, {
           path: "/",
           secure: true,
           sameSite: "none",
         });
-        const decoded: any = jwt_decode(res.data.toString());
+        const decoded: any = jwt_decode(res.data);
         handleLogin(decoded.user_privatekey);
 
-        setCookie("userId", decoded.user_num.toString(), {
+        setCookie("userId", decoded.user_num, {
           path: "/",
           secure: true,
           sameSite: "none",
         });
-        setCookie("userPK", decoded.user_privatekey.toString(), {
+        setCookie("userPK", decoded.user_privatekey, {
           path: "/",
           secure: true,
           sameSite: "none",
