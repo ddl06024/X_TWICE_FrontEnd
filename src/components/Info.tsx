@@ -24,6 +24,7 @@ const CardsBuy: React.FC<any> = (props) => {
   const [userId, setUserId] = useState(getCookie("userId"));
   useEffect(() => {
     const user = getCookie("userId");
+    console.log(user);
     setUserId(user);
   }, []);
   const [balance, setBalance] = useState("");

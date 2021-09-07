@@ -12,16 +12,44 @@ import Input from "./Input";
 
 const ModalLogin: React.FC<any> = (props) => {
   const [success, setSuccess] = useState(false);
-
+  function copyToClipboard(textToCopy:any) {
+    // navigator clipboard api needs a secure context (https)
+    if (navigator.clipboard && window.isSecureContext) {
+        // navigator clipboard api method'
+        return navigator.clipboard.writeText(textToCopy);
+    } else {
+        // text area method
+        let textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        // make the textarea out of viewport
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        return new Promise((res, rej) => {
+            // here the magic happens
+            document.execCommand('copy') ? res("fail") : rej();
+            textArea.remove();
+        });
+    }
+}
   const [privateKey, setPrivateKey] = useState(undefined);
   const pkHandler = () => {
     console.log(getCookie("myToken"));
     console.log(String(getCookie("myToken")));
-    const decoded: any = jwt_decode(String(getCookie("myToken")));
+    const decoded: any = jwt_decode(getCookie("myToken"));
     setPrivateKey(decoded.user_privatekey);
-    const pk = String(decoded.user_privatekey);
-    navigator.clipboard.writeText(pk);
-    document.execCommand("copy");
+    console.log(decoded);
+    console.log(String(decoded.user_privatekey));
+    //const pk = String(decoded.user_privatekey);
+    //navigator.clipboard.writeText(String(decoded.user_privatekey));
+    //document.execCommand("copy");
+    copyToClipboard(String(decoded.user_privatekey))
+    .then(() => console.log('text copied !'))
+    .catch(() => console.log('error'));
+
     setSuccess(true);
   };
   const { handleLogin, approve, getBalance } = useKlaytn();

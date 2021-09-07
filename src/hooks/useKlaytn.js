@@ -27,8 +27,7 @@ export function useKlaytn() {
 
     setCookie("walletInstance", walletInstance.toString(), {
       path: "/",
-      secure: true,
-      sameSite: "none",
+     
     });
     return walletInstance;
   }
