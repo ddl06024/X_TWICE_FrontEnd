@@ -77,7 +77,7 @@ const Login: React.FC<any> = (props) => {
           secure: true,
           sameSite: "none",
         });
-        const decoded: any = jwt_decode(res.data);
+        const decoded: any = jwt_decode(res.data.toString());
         handleLogin(decoded.user_privatekey);
 
         setCookie("userId", decoded.user_num.toString(), {
