@@ -83,9 +83,7 @@ const CarouselMain: React.FC<any> = (props) => {
     try {
       setLoading(true);
       setErrors(undefined);
-      await setTimeout(() => {
-        console.log("wait");
-      }, 200000);
+
       const { data } = await fetchPicturesByPopularity({
         first: first,
         last: 3,

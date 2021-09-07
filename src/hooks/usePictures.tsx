@@ -56,6 +56,15 @@ export function usePictures() {
     return data;
   }
 
+  async function getUserAccount(params: any) {
+    console.log(params.token_id);
+    const { data } = await instance2.get(`/pictures/${params.token_id}`, {
+      params,
+    });
+
+    return data;
+  }
+
   async function getUsersToken(params: any) {
     console.log(params);
     const { data } = await instance2.get("/pictures/mylist", {
@@ -101,5 +110,6 @@ export function usePictures() {
     getUsersToken,
     cancleTokenOnSale,
     BuyToken,
+    getUserAccount,
   };
 }

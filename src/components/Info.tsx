@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCookie } from "../configs/cookie";
+import jwt_decode from "jwt-decode";
+import BuyTokenModal from "./BuyTokenModal";
 import {
   Container,
   Row,
@@ -14,15 +16,24 @@ import { useHistory, useLocation } from "react-router-dom";
 import { usePictures } from "../hooks/usePictures";
 import { useTransactions } from "../hooks/useTransactions";
 const CardsBuy: React.FC<any> = (props) => {
-  const { buyToken } = useKlaytn();
+  const [modalShow, setModalShow] = React.useState(false);
+  const { buyToken, getBalance } = useKlaytn();
   const history = useHistory();
   const { insertHistory } = useTransactions();
-  const { BuyToken, cancleTokenOnSale } = usePictures();
+  const { BuyToken, getUserAccount, cancleTokenOnSale } = usePictures();
   const [userId, setUserId] = useState(getCookie("userId"));
   useEffect(() => {
     const user = getCookie("userId");
     setUserId(user);
   }, []);
+  const [balance, setBalance] = useState("");
+
+  useEffect(() => {
+    getBalance().then(function (balance) {
+      setBalance(balance);
+    });
+  }, [modalShow]);
+
   const location = useLocation<any>();
   const [information, setInformation] = useState(location.state.information);
   const [usernum2, setUsernum2] = useState(location.state.user_num2);
@@ -30,6 +41,7 @@ const CardsBuy: React.FC<any> = (props) => {
     if (location.state) {
       setInformation(location.state.information);
       setUsernum2(location.state.user_num2);
+      console.log(location.state.information.picture_price);
     }
   }, [location]);
   const [src, setSrc] = useState(information.picture_url);
@@ -40,41 +52,19 @@ const CardsBuy: React.FC<any> = (props) => {
   const [erros, setErrors] = useState<any>(undefined);
 
   async function onBuyHandler() {
-    try {
-      setErrors(undefined);
-      await setTimeout(() => {
-        console.log("wait");
-      }, 200000);
-      console.log(information.token_id.toString());
-
-      await buyToken(information.token_id.toString());
-      await insertHistory({
-        user_num1: information.user_num,
-        token_id: information.token_id.toString(),
-        picture_url: information.picture_url.toString(),
-        picture_title: information.picture_title.toString(),
-        picture_price: information.picture_price,
-      });
-      const { data } = await BuyToken({ token_id: information.token_id });
-      await cancleTokenOnSale({
-        token_id: information.token_id,
-      });
-    } catch (err) {
-      alert(err);
-
-      const isAxiosError = err?.isAxiosError ?? false;
-      if (isAxiosError) {
-        const {
-          response: { data },
-        } = err;
-        console.log(data);
-        alert(data);
-        setErrors(data);
-        console.log(err);
-      }
-    }
-    history.goBack();
+    setModalShow(true);
   }
+  const decoded = jwt_decode(getCookie("myToken"));
+  const [tokenUserAccount, setTokenUserAccount] = useState("");
+  const ac = information.token_id.toString();
+  console.log(ac);
+  getUserAccount({
+    token_id: ac,
+  }).then(function ({ data }) {
+    console.log(data[0].user.user_account);
+    setTokenUserAccount(data[0].user.user_account);
+  });
+
   return (
     <Container style={{ height: "100%", marginTop: "2rem" }}>
       <Row>
@@ -115,6 +105,20 @@ const CardsBuy: React.FC<any> = (props) => {
                   <Button onClick={onBuyHandler} variant="success">
                     구매하기
                   </Button>
+                  <BuyTokenModal
+                    setErrors={setErrors}
+                    information={information}
+                    insertHistory={insertHistory}
+                    buyToken={buyToken}
+                    BuyToken={BuyToken}
+                    cancleTokenOnSale={cancleTokenOnSale}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    history={history}
+                    decoded={decoded}
+                    balance={balance}
+                    tokenUserAccount={tokenUserAccount}
+                  />
                 </div>
               )}
             </Card.Body>

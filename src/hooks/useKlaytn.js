@@ -22,6 +22,7 @@ export function useKlaytn() {
   }
   function handleLogin(pk) {
     const walletInstance = cav.klay.accounts.privateKeyToAccount(pk);
+    cav.klay.accounts.wallet.clear();
     cav.klay.accounts.wallet.add(walletInstance);
 
     setCookie("walletInstance", walletInstance, {
@@ -49,7 +50,6 @@ export function useKlaytn() {
     // } else {
 
     cav.klay.accounts.wallet.clear();
-
     const walletInstance = cav.klay.accounts.privateKeyToAccount(pk);
     console.log(walletInstance);
 
@@ -190,9 +190,7 @@ export function useKlaytn() {
     try {
       const decoded = jwt_decode(getCookie("myToken"));
       const sender = getWallet(decoded.user_privatekey); //로그인한 계정
-      const feePayer = cav.klay.accounts.wallet.add(
-        "0x893f5e30f7751613b1692dde0303afac8c332b3261b39b671c3eca9ac610f55c"
-      );
+
       // using the promise
       const { rawTransaction: senderRawTransaction } =
         await cav.klay.accounts.signTransaction(
@@ -257,15 +255,14 @@ export function useKlaytn() {
     console.log(typeof tokenId);
     try {
       const decoded = jwt_decode(getCookie("myToken"));
+      const sender = getWallet(decoded.user_privatekey);
       if (getCookie("myToken") == null) {
         alert("로그인 정보가 없습니다");
         console.log("로그인 정보가 없습니다.");
         return;
       }
-      const sender = getWallet(decoded.user_privatekey); //로그인한 계정
-      const feePayer = cav.klay.accounts.wallet.add(
-        "0x893f5e30f7751613b1692dde0303afac8c332b3261b39b671c3eca9ac610f55c"
-      ); //대납 계정
+      //로그인한 계정
+      //대납 계정
       // using the promise
       console.log(sender.address);
       getTokenPrice(tokenId).then(function (price) {

@@ -78,12 +78,12 @@ const RegisterPicture: React.FC<any> = (props) => {
       //console.log(data.picture_norm, data.picture_vector);
       setVector(data.picture_vector);
       setNorm(data.picture_norm);
-      if (data.picture_vector && data.picture_norm) {
-        setDisabled(false);
-        alert("사진 등록이 가능합니다.");
-      } else {
-        alert("다른 사진과 유사하여 등록하지 못합니다.");
-      }
+      //if (data.picture_vector && data.picture_norm) {
+      setDisabled(false);
+      alert("사진 등록이 가능합니다.");
+      //} else {
+      //alert("다른 사진과 유사하여 등록하지 못합니다.");
+      // }
       //return data;
     } catch (err) {
       throw new HttpError(err.message, err.extensions);

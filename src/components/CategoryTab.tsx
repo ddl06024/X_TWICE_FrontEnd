@@ -9,20 +9,20 @@ const CategoryTab: React.FC<any> = (props) => {
           <Nav.Link
             eventKey="link-0"
             onSelect={() => {
-              props.setCategory("One");
+              props.setCategory("산");
             }}
           >
-            Option 1
+            산
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link
             eventKey="link-1"
             onSelect={() => {
-              props.setCategory("Two");
+              props.setCategory("바다");
             }}
           >
-            Option 2
+            바다
           </Nav.Link>
         </Nav.Item>
 
@@ -30,50 +30,50 @@ const CategoryTab: React.FC<any> = (props) => {
           <Nav.Link
             eventKey="link-2"
             onSelect={() => {
-              props.setCategory("Three");
+              props.setCategory("나무");
             }}
           >
-            Option 3
+            나무
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link
             eventKey="link-3"
             onSelect={() => {
-              props.setCategory("Four");
+              props.setCategory("꽃");
             }}
           >
-            Option 4
+            꽃
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link
             eventKey="link-4"
             onSelect={() => {
-              props.setCategory("Five");
+              props.setCategory("구름");
             }}
           >
-            Option 5
+            구름
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link
             eventKey="link-5"
             onSelect={() => {
-              props.setCategory("Six");
+              props.setCategory("건물");
             }}
           >
-            Option 6
+            건물
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link
             eventKey="link-6"
             onSelect={() => {
-              props.setCategory("Seven");
+              props.setCategory("동물");
             }}
           >
-            Option 7
+            동물
           </Nav.Link>
         </Nav.Item>
       </Nav>

@@ -38,6 +38,7 @@ instance2.interceptors.response.use(
   (error) => {
     // Return any error which is not due to authentication back to the calling service
     console.log(error.response);
+
     if (error.response.status === 401) {
       console.log("error401");
       if (confirm("인증이 만료되었습니다. 이동하시겠습니까?")) {

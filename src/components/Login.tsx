@@ -17,7 +17,7 @@ const Login: React.FC<any> = (props) => {
   const validationSchema = Yup.object().shape({
     user_id: Yup.string().required("ID는 필수항목 입니다."),
     user_password: Yup.string()
-      .min(4, "패스워드는 6자 이상이여야 합니다.")
+      .min(4, "패스워드는 4자 이상이여야 합니다.")
       .required("패스워드는 필수항목입니다."),
   });
   const {
@@ -61,27 +61,40 @@ const Login: React.FC<any> = (props) => {
 
   async function login() {
     const hashed = await digestMessage(user_password);
-    const res = await loginUser({
-      user_id,
-      user_password: hashed,
-    });
 
-    if (res.data) {
-      setCookie("myToken", res.data, {
-        path: "/",
-        secure: true,
-        sameSite: "none",
+    try {
+      const res = await loginUser({
+        user_id,
+        user_password: hashed,
       });
-      const decoded: any = jwt_decode(res.data);
-      handleLogin(decoded.user_privatekey);
+      if (res.data) {
+        setCookie("myToken", res.data, {
+          path: "/",
+          secure: true,
+          sameSite: "none",
+        });
+        const decoded: any = jwt_decode(res.data);
+        handleLogin(decoded.user_privatekey);
 
-      setCookie("userId", decoded, {
-        path: "/",
-        secure: true,
-        sameSite: "none",
-      });
+        setCookie("userId", decoded, {
+          path: "/",
+          secure: true,
+          sameSite: "none",
+        });
+      }
+      setModalShow(true);
+    } catch (err) {
+      const isAxiosError = err?.isAxiosError ?? false;
+      if (isAxiosError) {
+        const {
+          response: { data },
+        } = err;
+        console.log(data);
+        alert(data.message + " 회원정보가 일치하지 않습니다.");
+        console.log(err);
+      }
     }
-    setModalShow(true);
+
     //approve();
 
     //const token = res.data;

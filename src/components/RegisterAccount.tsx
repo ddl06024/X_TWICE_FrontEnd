@@ -12,7 +12,7 @@ const RegisterAccount: React.FC<{}> = () => {
   const validationSchema = Yup.object().shape({
     user_id: Yup.string().required("ID는 필수항목 입니다."),
     user_password: Yup.string()
-      .min(4, "패스워드는 6자 이상이여야 합니다.")
+      .min(4, "패스워드는 4자 이상이여야 합니다.")
       .required("패스워드는 필수항목입니다."),
     user_passwordcheck: Yup.string()
       .oneOf([Yup.ref("user_password"), null], "패스워드와 동일해야 합니다.")

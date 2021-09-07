@@ -31,7 +31,7 @@ const ViewByPopularity: React.FC<{}> = () => {
 
   const [searchWord, setSearchWord] = useState(null);
   const [viewBy, setViewBy] = useState("popularity");
-  const [category, setCategory] = useState("One");
+  const [category, setCategory] = useState("산");
   useEffect(() => {
     if (location.state) {
       setViewBy(location.state.viewBy);
