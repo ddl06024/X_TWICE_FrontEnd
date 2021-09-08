@@ -1,6 +1,6 @@
 # react-with-webpack-typescript
 
-# X*TWICE*프로젝트명 개발 명세
+# X*TWICE*FrontEnd 개발 명세
 
 ## 개발 환경
 
