@@ -79,6 +79,7 @@ const RegisterPicture: React.FC<any> = (props) => {
       //const { data, errors } = await computeSimilarity(formData);
 
       computeSimilarity(formData).then(function ({ data, errors }) {
+        console.log(data);
         if (data.picture_url) {
           setSimilarUrl(String(data.picture_url));
         }
@@ -196,6 +197,7 @@ const RegisterPicture: React.FC<any> = (props) => {
       reader.onload = function (e: any) {
         const buffer = Buffer.from(reader.result);
         const hexString = "0x" + buffer.toString("hex");
+
         resolve(hexString);
       };
     });
@@ -210,7 +212,9 @@ const RegisterPicture: React.FC<any> = (props) => {
     description: any
   ) {
     return new Promise(function (resolve, reject) {
-      mintNFT(title, author, dateCreated, hash, photo, category, description);
+      const stitle =
+        String(new Date()) + String(new Date().getMilliseconds()) + title;
+      mintNFT(stitle, author, dateCreated, hash, photo, category, description);
       resolve("success");
     });
   }
@@ -309,6 +313,7 @@ const RegisterPicture: React.FC<any> = (props) => {
       console.log(err.name + "/" + err.message);
       alert(err.name + "/" + err.message);
       console.log(JSON.stringify(err, null, 2));
+      return;
     }
   }
 

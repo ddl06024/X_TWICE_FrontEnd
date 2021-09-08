@@ -47,7 +47,7 @@ const CompareTokenModal: React.FC<any> = ({
               <Card>
                 <Card.Img
                   variant="bottom"
-                  style={{ maxHeight: "400px" }}
+                  style={{ maxHeight: "500px" }}
                   src={preImage}
                 />
                 <Card.Body>
@@ -61,7 +61,7 @@ const CompareTokenModal: React.FC<any> = ({
               <Card>
                 <Card.Img
                   variant="bottom"
-                  style={{ maxHeight: "400px" }}
+                  style={{ maxHeight: "500px" }}
                   src={similarUrl}
                 />
                 <Card.Body>

@@ -30,7 +30,7 @@ const RegisterTokenModal: React.FC<any> = ({
           id="contained-modal-title-vcenter"
           style={{ fontWeight: "bold" }}
         >
-          판매정보입니다.
+          등록정보입니다.
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -41,7 +41,7 @@ const RegisterTokenModal: React.FC<any> = ({
           }}
         >
           <div className="text-truncate" style={{ display: "flex" }}>
-            <div style={{ minWidth: "90px" }}>판매 할 그림 :</div>
+            <div style={{ minWidth: "90px" }}>등록 할 그림 :</div>
 
             <div style={{ marginLeft: "4.35rem" }}>
               <img style={{ maxHeight: "400px" }} src={preImage} />
