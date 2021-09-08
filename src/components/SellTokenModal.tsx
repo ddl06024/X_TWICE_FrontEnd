@@ -74,7 +74,7 @@ const SellTokenModal: React.FC<any> = ({
       </Modal.Body>
       <Modal.Footer>
         <Button variant="success" onClick={clickHandler}>
-          결제하기
+          판매하기
         </Button>
       </Modal.Footer>
     </Modal>

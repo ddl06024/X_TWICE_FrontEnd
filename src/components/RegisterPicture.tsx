@@ -13,6 +13,7 @@ import { getCookie } from "../configs/cookie";
 import { useVGG16 } from "../hooks/useVGG16";
 import jwt_decode from "jwt-decode";
 import RegisterTokenModal from "./RegisterTokenModal";
+import CompareTokenModal from "./CompareTokenModal";
 
 declare const Buffer: any;
 const MAX_IMAGE_SIZE = 30000; // 30KB
@@ -42,7 +43,8 @@ const RegisterPicture: React.FC<any> = (props) => {
   const [tokId, setTokId] = useState("");
   const [vector, setVector] = useState("");
   const [norm, setNorm] = useState("");
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [compareModalShow, setCompareModalShow] = useState(false);
   const {
     checkTokenExists,
     getTotalSupply,
@@ -67,7 +69,9 @@ const RegisterPicture: React.FC<any> = (props) => {
   const descHandleChange = (e: any) => {
     setDesc(e.target.value);
   };
+
   const computeSim = async () => {
+    setDisabled(true);
     try {
       const formData = new FormData();
       formData.append("file", files as any);
@@ -76,16 +80,17 @@ const RegisterPicture: React.FC<any> = (props) => {
       if (errors) {
         throw new HttpError("HTTP 오류가 발생했습니다.", errors);
       }
-      //console.log(data.picture_norm, data.picture_vector);
+      console.log(data.picture_norm, data.picture_vector);
       setVector(data.picture_vector);
       setNorm(data.picture_norm);
-      //if (data.picture_vector && data.picture_norm) {
-      setDisabled(false);
-      alert("사진 등록이 가능합니다.");
-      //} else {
-      //alert("다른 사진과 유사하여 등록하지 못합니다.");
-      // }
-      //return data;
+      if (data.picture_vector && data.picture_norm) {
+        setDisabled(false);
+        alert("사진 등록이 가능합니다.");
+      } else {
+        setDisabled(true);
+        setCompareModalShow(true);
+        alert("다른 사진과 유사하여 등록하지 못합니다.");
+      }
     } catch (err) {
       throw new HttpError(err.message, err.extensions);
     }
@@ -114,6 +119,7 @@ const RegisterPicture: React.FC<any> = (props) => {
       return compressImage(file);
     }
     setPhoto(file);
+    setDisabled(true);
   };
 
   const handleCategory = (e: any) => {
@@ -390,6 +396,11 @@ const RegisterPicture: React.FC<any> = (props) => {
         date={String(new Date())}
         category={String(category)}
         desc={String(desc)}
+        preImage={preImage}
+      />
+      <CompareTokenModal
+        show={compareModalShow}
+        onHide={() => setCompareModalShow(false)}
         preImage={preImage}
       />
     </Nav>

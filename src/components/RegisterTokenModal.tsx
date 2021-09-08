@@ -40,13 +40,11 @@ const RegisterTokenModal: React.FC<any> = ({
             flexDirection: "column",
           }}
         >
-          <h5>토큰 정보</h5>
-
           <div className="text-truncate" style={{ display: "flex" }}>
             <div style={{ minWidth: "90px" }}>판매 할 그림 :</div>
 
             <div style={{ marginLeft: "4.35rem" }}>
-              <img src={preImage} />
+              <img style={{ maxHeight: "400px" }} src={preImage} />
             </div>
           </div>
           <hr />
@@ -74,7 +72,7 @@ const RegisterTokenModal: React.FC<any> = ({
       </Modal.Body>
       <Modal.Footer>
         <Button variant="success" onClick={clickHandler}>
-          결제하기
+          등록하기
         </Button>
       </Modal.Footer>
     </Modal>
