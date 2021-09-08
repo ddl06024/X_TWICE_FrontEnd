@@ -12,29 +12,29 @@ import Input from "./Input";
 
 const ModalLogin: React.FC<any> = (props) => {
   const [success, setSuccess] = useState(false);
-  function copyToClipboard(textToCopy:any) {
+  function copyToClipboard(textToCopy: any) {
     // navigator clipboard api needs a secure context (https)
     if (navigator.clipboard && window.isSecureContext) {
-        // navigator clipboard api method'
-        return navigator.clipboard.writeText(textToCopy);
+      // navigator clipboard api method'
+      return navigator.clipboard.writeText(textToCopy);
     } else {
-        // text area method
-        let textArea = document.createElement("textarea");
-        textArea.value = textToCopy;
-        // make the textarea out of viewport
-        textArea.style.position = "fixed";
-        textArea.style.left = "-999999px";
-        textArea.style.top = "-999999px";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        return new Promise((res, rej) => {
-            // here the magic happens
-            document.execCommand('copy') ? res("fail") : rej();
-            textArea.remove();
-        });
+      // text area method
+      let textArea = document.createElement("textarea");
+      textArea.value = textToCopy;
+      // make the textarea out of viewport
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      return new Promise((res, rej) => {
+        // here the magic happens
+        document.execCommand("copy") ? res("fail") : rej();
+        textArea.remove();
+      });
     }
-}
+  }
   const [privateKey, setPrivateKey] = useState(undefined);
   const pkHandler = () => {
     console.log(getCookie("myToken"));
@@ -47,8 +47,8 @@ const ModalLogin: React.FC<any> = (props) => {
     //navigator.clipboard.writeText(String(decoded.user_privatekey));
     //document.execCommand("copy");
     copyToClipboard(String(decoded.user_privatekey))
-    .then(() => console.log('text copied !'))
-    .catch(() => console.log('error'));
+      .then(() => console.log("text copied !"))
+      .catch(() => console.log("error"));
 
     setSuccess(true);
   };
