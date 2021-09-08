@@ -54,7 +54,7 @@ const RegisterTokenModal: React.FC<any> = ({
               <br />
               카테고리 :
               <br />
-              판매일자 :
+              등록일자 :
               <br />
               설명 :
             </div>
