@@ -69,28 +69,37 @@ const RegisterPicture: React.FC<any> = (props) => {
   const descHandleChange = (e: any) => {
     setDesc(e.target.value);
   };
+  const [similarUrl, setSimilarUrl] = useState<any>(null);
 
-  const computeSim = async () => {
+  const computeSim = () => {
     setDisabled(true);
     try {
       const formData = new FormData();
       formData.append("file", files as any);
-      const { data, errors } = await computeSimilarity(formData);
-      console.log(data);
-      if (errors) {
-        throw new HttpError("HTTP 오류가 발생했습니다.", errors);
-      }
-      console.log(data.picture_norm, data.picture_vector);
-      setVector(data.picture_vector);
-      setNorm(data.picture_norm);
-      if (data.picture_vector && data.picture_norm) {
-        setDisabled(false);
-        alert("사진 등록이 가능합니다.");
-      } else {
-        setDisabled(true);
-        setCompareModalShow(true);
-        alert("다른 사진과 유사하여 등록하지 못합니다.");
-      }
+      //const { data, errors } = await computeSimilarity(formData);
+
+      computeSimilarity(formData).then(function ({ data, errors }) {
+        if (data.picture_url) {
+          setSimilarUrl(String(data.picture_url));
+        }
+        if (errors) {
+          throw new HttpError("HTTP 오류가 발생했습니다.", errors);
+        }
+        console.log(data.picture_norm, data.picture_vector);
+        setVector(data.picture_vector);
+        setNorm(data.picture_norm);
+        if (data.picture_vector && data.picture_norm) {
+          setDisabled(false);
+          alert("사진 등록이 가능합니다.");
+        } else {
+          console.log(data.picture_url);
+
+          setDisabled(true);
+          setCompareModalShow(true);
+          console.log(similarUrl);
+          alert("다른 사진과 유사하여 등록하지 못합니다.");
+        }
+      });
     } catch (err) {
       throw new HttpError(err.message, err.extensions);
     }
@@ -402,6 +411,7 @@ const RegisterPicture: React.FC<any> = (props) => {
         show={compareModalShow}
         onHide={() => setCompareModalShow(false)}
         preImage={preImage}
+        similarUrl={similarUrl}
       />
     </Nav>
   );

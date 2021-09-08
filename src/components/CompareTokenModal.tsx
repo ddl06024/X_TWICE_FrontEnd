@@ -10,7 +10,12 @@ import {
   Row,
 } from "react-bootstrap";
 
-const CompareTokenModal: React.FC<any> = ({ show, onHide, preImage }) => {
+const CompareTokenModal: React.FC<any> = ({
+  similarUrl,
+  show,
+  onHide,
+  preImage,
+}) => {
   const clickHandler = () => {
     onHide();
   };
@@ -57,7 +62,7 @@ const CompareTokenModal: React.FC<any> = ({ show, onHide, preImage }) => {
                 <Card.Img
                   variant="bottom"
                   style={{ maxHeight: "400px" }}
-                  src={preImage}
+                  src={similarUrl}
                 />
                 <Card.Body>
                   <Card.Title style={{ color: "red" }}>
