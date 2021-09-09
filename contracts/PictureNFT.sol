@@ -45,10 +45,6 @@ contract PictureNFT is ERC721Full {
         string memory category,
         string memory description
     ) public {
-        require(
-            pictureIdsCreated[title] == 0,
-            "pictureId has already been created"
-        );
         uint256 tokenId = totalSupply().add(1); //전체 토큰의 개수 +1
         Pictures[tokenId] = Picture(_author, _dateCreated);
         pictureIdsCreated[title] = tokenId;
@@ -137,7 +133,6 @@ contract PictureNFT is ERC721Full {
             uint256
         )
     {
-        require(_photoList[tokenId].tokenId != 0, "Photo does not exist");
         return (
             _photoList[tokenId].tokenId,
             _photoList[tokenId].ownerHistory,

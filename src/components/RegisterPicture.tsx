@@ -212,9 +212,7 @@ const RegisterPicture: React.FC<any> = (props) => {
     description: any
   ) {
     return new Promise(function (resolve, reject) {
-      const stitle =
-        String(new Date()) + String(new Date().getMilliseconds()) + title;
-      mintNFT(stitle, author, dateCreated, hash, photo, category, description);
+      mintNFT(title, author, dateCreated, hash, photo, category, description);
       resolve("success");
     });
   }
