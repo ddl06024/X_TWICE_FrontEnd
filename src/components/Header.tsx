@@ -27,6 +27,10 @@ const Header: React.FC<any> = (props) => {
   const handleSearch = () => {
     //props.setViewBy("search");
     //props.setSearchWord(search);
+    if (search == "") {
+      alert("검색어를 입력하세요");
+      return;
+    }
     history.push({
       pathname: "/viewPictures",
       state: { viewBy: "search", search: search },

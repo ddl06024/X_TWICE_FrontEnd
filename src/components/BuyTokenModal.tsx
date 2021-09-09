@@ -17,6 +17,10 @@ const BuyTokenModal: React.FC<any> = ({
   tokenUserAccount,
 }) => {
   const buyHandler = async () => {
+    if (balance <= information.picture_price) {
+      alert("클레이가 모자랍니다. 충전해주세요!");
+      return;
+    }
     try {
       setErrors(undefined);
       await setTimeout(() => {

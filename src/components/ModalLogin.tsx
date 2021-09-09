@@ -54,15 +54,23 @@ const ModalLogin: React.FC<any> = (props) => {
   };
   const { handleLogin, approve, getBalance } = useKlaytn();
   const [balance, setBalance] = useState("");
+  const onClickHandler = () => {
+    getBalance().then(function (balance) {
+      console.log(balance);
+      if (parseInt(balance) <= 0) {
+        alert("클레이를 충전해주세요!");
+        return;
+      }
+      approve();
+      props.onHide();
+    });
+  };
   useEffect(() => {
     getBalance().then(function (balance) {
       setBalance(balance);
     });
-  }, [props.show]);
-  const onClickHandler = () => {
-    approve();
-    props.onHide();
-  };
+  }, [props.show, onClickHandler]);
+
   return (
     <Modal
       {...props}
