@@ -50,7 +50,7 @@ const RegisterTokenModal: React.FC<any> = ({
           <hr />
           <div className="text-truncate" style={{ display: "flex" }}>
             <div style={{ minWidth: "90px" }}>
-              토큰 제목 :
+              사진제목 :
               <br />
               카테고리 :
               <br />
