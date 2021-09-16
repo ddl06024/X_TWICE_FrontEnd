@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Container, Form, Modal, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { setCookie, getCookie } from "../configs/cookie";
+import { setCookie, getCookie, removeCookie } from "../configs/cookie";
 import { useUsers } from "../hooks/useUsers";
 import { useKlaytn } from "../hooks/useKlaytn.js";
 import Input from "./Input";
