@@ -60,7 +60,7 @@ const CardsBuyMain: React.FC<any> = (props) => {
   );
   const notOwner = (
     <Button
-      variant="primary"
+      variant="success"
       onClick={onClickHandler}
       style={{ marginTop: "0.8rem" }}
       className="d-inline-block text-truncate"
@@ -76,17 +76,21 @@ const CardsBuyMain: React.FC<any> = (props) => {
         overflow: "hidden",
       }}
     >
-      <Card
+      {/*<Card
         className="cardShadow"
         border="dark"
         style={{ width: "300px", borderRadius: "0px" }}
+      >*/}
+      <Card
+        style={{ borderColor: "green", width: "22rem" }}
+        className="shadow p-3 mb-5 bg-white rounded"
       >
         <Card.Img
           variant="bottom"
           src={src}
           onError={() => imageErrorHandler()}
           style={{
-            width: "100%",
+            width: "20rem",
             height: "12rem",
             borderTopLeftRadius: "0px",
             borderTopRightRadius: "0px",

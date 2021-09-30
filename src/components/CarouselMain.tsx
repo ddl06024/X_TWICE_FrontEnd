@@ -9,6 +9,7 @@ import {
   Spinner,
   Pagination,
   Card,
+  Container,
 } from "react-bootstrap";
 import "../assets/css/CarouselMain.css";
 import { useHistory, useLocation } from "react-router-dom";
@@ -47,7 +48,12 @@ const CarouselMain: React.FC<any> = (props) => {
   let items = [];
   for (let number = 1; number <= pageCount; number++) {
     items.push(
-      <Pagination.Item key={number} active={number === pageNum}>
+      <Pagination.Item
+        className="paginationItemStyle page-item paginationLinkStyle"
+        style={{ color: "black" }}
+        key={number}
+        //active={number === pageNum}
+      >
         {number}
       </Pagination.Item>
     );
@@ -66,9 +72,7 @@ const CarouselMain: React.FC<any> = (props) => {
     getFirstPictures();
   }, [first]);
   const paginationBasic = (
-    <div
-      style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
-    >
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <Pagination
         className="whiteShadow"
         onClick={(event) => pagination(event)}
@@ -122,53 +126,11 @@ const CarouselMain: React.FC<any> = (props) => {
       }}
     >
       <Row style={{ width: "80%" }} className="align-items-center "> */
+
     <div>
-      <Col style={{ alignContent: "center", overflow: "hidden" }}>
-        <Carousel>
-          {errors && (
-            <p>
-              {" "}
-              {errors.name} {errors.status}{" "}
-            </p>
-          )}
-          {loading ? (
-            <Spinner
-              animation="border"
-              role="status"
-              style={{ margin: "auto" }}
-            >
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          ) : (
-            pictures.map((x: any, index) => {
-              return (
-                <Carousel.Item>
-                  <Image
-                    className="d-block w-100 mainBottomShadow"
-                    onError={imageErrorHandler}
-                    src={x.picture_url}
-                    alt="First slide"
-                    style={{
-                      width: "auto",
-                      height: "100vh",
-                    }}
-                  />
-
-                  <div className="zkzkzk"> </div>
-
-                  <Carousel.Caption>
-                    <h3>{x.picture_title}</h3>
-                    <p>{x.picture_info}</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              );
-            })
-          )}
-        </Carousel>
-      </Col>
       <Card
-        border="dark"
-        bg="dark"
+        border="light"
+        bg="light"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -197,23 +159,130 @@ const CarouselMain: React.FC<any> = (props) => {
               width: "100vh",
             }}
           >
-            <h1
+            <h2
               className="textWhiteShadow"
-              style={{ fontWeight: "bold", color: "white" }}
+              style={{
+                fontSize: "50px",
+                fontWeight: "bold",
+                color: "black",
+                display: "inline",
+              }}
             >
-              NFT를 수집하고
-            </h1>
-            <h1
+              P
+            </h2>
+            <h2
               className="textWhiteShadow"
-              style={{ fontWeight: "bold", color: "white" }}
+              style={{
+                border: "3px",
+                borderColor: "black",
+                fontWeight: "bold",
+                display: "inline",
+                color: "gray",
+              }}
+            >
+              icture tr
+            </h2>
+            <h2
+              className="textWhiteShadow"
+              style={{
+                fontSize: "50px",
+                fontWeight: "bold",
+                display: "inline",
+                color: "black",
+              }}
+            >
+              A
+            </h2>
+            <h2
+              className="textWhiteShadow"
+              style={{ fontWeight: "bold", display: "inline", color: "gray" }}
+            >
+              de
+            </h2>
+            <h2
+              className="textWhiteShadow"
+              style={{
+                fontSize: "50px",
+                fontWeight: "bold",
+                display: "inline",
+                color: "black",
+              }}
             >
               {" "}
-              판매해보세요!
-            </h1>
-            <Nav className="justify-content-center ">
+              S
+            </h2>
+            <h2
+              className="textWhiteShadow"
+              style={{ fontWeight: "bold", display: "inline", color: "gray" }}
+            >
+              oftware nf
+            </h2>
+            <h2
+              className="textWhiteShadow"
+              style={{
+                fontSize: "50px",
+                fontWeight: "bold",
+                display: "inline",
+                color: "black",
+              }}
+            >
+              T
+            </h2>
+            <h2
+              className="textWhiteShadow"
+              style={{
+                fontSize: "50px",
+                fontWeight: "bold",
+                display: "inline",
+                color: "black",
+              }}
+            >
+              {" "}
+              A
+            </h2>
+            <h2
+              className="textWhiteShadow"
+              style={{ fontWeight: "bold", display: "inline", color: "gray" }}
+            >
+              i
+            </h2>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <h1
+                className="textWhiteShadow"
+                style={{
+                  fontWeight: "bold",
+                  color: "black",
+                  display: "inline",
+                  alignSelf: "end",
+                  marginBottom: "15px",
+                  marginTop: "15px",
+                }}
+              >
+                PASTA
+              </h1>
+            </div>
+            <h5
+              style={{
+                fontWeight: "bold",
+                color: "black",
+                display: "block",
+                alignSelf: "end",
+                marginBottom: "15px",
+                marginTop: "15px",
+              }}
+            >
+              Discover, collect, and sell amazing NFTs
+            </h5>
+            <Nav className="justify-content-center mt-2">
               <Button
                 className="whiteShadow"
-                variant="primary"
+                variant="success"
                 size="lg"
                 style={{ margin: 10 }}
                 onClick={() => {
@@ -229,7 +298,7 @@ const CarouselMain: React.FC<any> = (props) => {
               <Button
                 className="whiteShadow"
                 size="lg"
-                variant="outline-primary"
+                variant="outline-success"
                 style={{ margin: 10 }}
                 onClick={() => {
                   history.push("/viewPictures");
@@ -252,7 +321,53 @@ const CarouselMain: React.FC<any> = (props) => {
           />
         </div>
       </Card>
+      {/*
+        <Col style={{ alignContent: "center", overflow: "hidden" }}>
+          <Carousel>
+            {errors && (
+              <p>
+                {" "}
+                {errors.name} {errors.status}{" "}
+              </p>
+            )}
+            {loading ? (
+              <Spinner
+                animation="border"
+                role="status"
+                style={{ margin: "auto" }}
+              >
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            ) : (
+              pictures.map((x: any, index) => {
+                return (
+                  <Carousel.Item>
+                    <Image
+                      className="d-block w-100 mainBottomShadow"
+                      onError={imageErrorHandler}
+                      src={x.picture_url}
+                      alt="First slide"
+                      style={{
+                        width: "auto",
+                        height: "85vh",
+                      }}
+                    />
+
+                    <div className="zkzkzk"> </div>
+
+                    <Carousel.Caption>
+                      <h3>{x.picture_title}</h3>
+                      <p>{x.picture_info}</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                );
+              })
+            )}
+          </Carousel>
+        </Col>
+        */}
     </div>
+
     /*    </Row>
     </Nav>*/
   );

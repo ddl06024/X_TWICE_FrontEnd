@@ -33,7 +33,7 @@ const GridLayoutMain: React.FC<any> = (props) => {
         overflow: "hidden",
       }}
     >
-      <Row style={{ height: "100%", paddingTop: "8vh" }}>
+      <Row style={{ height: "100%", paddingTop: "5vh" }}>
         {loading ? loadingComp : errors ? errorsComp : picturesComp}
       </Row>
       {paginationBasic}

@@ -4,113 +4,116 @@ import { BsFillInfoCircleFill } from "react-icons/bs";
 
 const Introduction: React.FC<{}> = () => {
   return (
-    <CardGroup
-      style={{
-        marginTop: "5rem",
-        padding: "1rem",
-        textAlign: "center",
-      }}
-    >
-      <Card
+    <Container>
+      <CardGroup
         style={{
-          margin: "1rem",
-          borderRadius: "30px",
+          marginTop: "5rem",
           padding: "1rem",
+          textAlign: "center",
         }}
-        border="light"
-        bg="light"
-        text="dark"
       >
-        <BsFillInfoCircleFill
+        <Card
           style={{
-            color: "black",
-            fontSize: "2rem",
+            margin: "1rem",
+            borderRadius: "30px",
+            padding: "1rem",
           }}
-        />
-        {/* <Card.Img variant="top" src="../tempImages/klaytn.png" />*/}
-        <Card.Body>
-          <Card.Title>NFT 란?</Card.Title>
-          <Card.Text>
-            NFT 기술이란 블록체인의 가상화폐 기술을 활용하여 대체 불가능한 특정
-            암호 가상 화폐, token이라 불리는 화폐를 발행하는 것을 의미한다.
-            token에 여러 종류의 디지털 파일을 저장할 수 있으며, 이 token에
-            저장된 파일은 위조 및 변조가 불가능하다. 하지만, 현재 인터넷상의
-            저작권 보호에 대한 사람들의 인식이 부족은 물론 보호를 위한 구체적인
-            시스템이 구축되어 있지 않으며, 개인의 사진, 그림, 영상들이 도용되는
-            사례를 쉽게 발견할 수 있다. 현존하는 NFT 기술을 활용한 거래 플랫폼은
-            다른 사람의 작품을 모방한 모조품에 대해서도 소유권을 주장할 수 있다.
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer>
-          <small className="text-muted">Last updated 3 mins ago</small>
-        </Card.Footer>
-      </Card>
-      <Card
-        style={{
-          margin: "1rem",
-          borderRadius: "30px",
-          padding: "1rem",
-        }}
-        border="light"
-        bg="light"
-        text="dark"
-      >
-        <BsFillInfoCircleFill
+          border="light"
+          bg="light"
+          text="dark"
+        >
+          <BsFillInfoCircleFill
+            style={{
+              color: "black",
+              fontSize: "2rem",
+            }}
+          />
+          {/* <Card.Img variant="top" src="../tempImages/klaytn.png" />*/}
+          <Card.Body>
+            <Card.Title>NFT 란?</Card.Title>
+            <Card.Text>
+              NFT 기술이란 블록체인의 가상화폐 기술을 활용하여 대체 불가능한
+              특정 암호 가상 화폐, token이라 불리는 화폐를 발행하는 것을
+              의미한다. token에 여러 종류의 디지털 파일을 저장할 수 있으며, 이
+              token에 저장된 파일은 위조 및 변조가 불가능하다. 하지만, 현재
+              인터넷상의 저작권 보호에 대한 사람들의 인식이 부족은 물론 보호를
+              위한 구체적인 시스템이 구축되어 있지 않으며, 개인의 사진, 그림,
+              영상들이 도용되는 사례를 쉽게 발견할 수 있다. 현존하는 NFT 기술을
+              활용한 거래 플랫폼은 다른 사람의 작품을 모방한 모조품에 대해서도
+              소유권을 주장할 수 있다.
+            </Card.Text>
+          </Card.Body>
+          <Card.Footer>
+            <small className="text-muted">Last updated 3 mins ago</small>
+          </Card.Footer>
+        </Card>
+        <Card
           style={{
-            color: "black",
-            fontSize: "2rem",
+            margin: "1rem",
+            borderRadius: "30px",
+            padding: "1rem",
           }}
-        />
-        {/*<Card.Img variant="top" src="../tempImages/deeplearning.jpg" />*/}
-        <Card.Body>
-          <Card.Title>주요 기능</Card.Title>
-          <Card.Text>
-            본 작품은 딥러닝을 활용한 유사도 분석 모델을 통해 사진 저작물의
-            유사도를 판단하고 이를 통과한 사진 저작물에 대해서만 NFT를 발행하며,
-            이후 암호화폐를 통해 저작물을 거래한다. 블록체인 기술을 활용하여
-            저작권을 보호하여 신뢰성을 높이고, 모방 이미지에 대해 저작권을
-            부여하는 것을 방지하여 사진의 원본성을 보장한다.
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer>
-          <small className="text-muted">Last updated 3 mins ago</small>
-        </Card.Footer>
-      </Card>
-      <Card
-        style={{
-          margin: "1rem",
-          borderRadius: "30px",
-          padding: "1rem",
-        }}
-        border="light"
-        bg="light"
-        text="dark"
-      >
-        <BsFillInfoCircleFill
+          border="light"
+          bg="light"
+          text="dark"
+        >
+          <BsFillInfoCircleFill
+            style={{
+              color: "black",
+              fontSize: "2rem",
+            }}
+          />
+          {/*<Card.Img variant="top" src="../tempImages/deeplearning.jpg" />*/}
+          <Card.Body>
+            <Card.Title>주요 기능</Card.Title>
+            <Card.Text>
+              본 작품은 딥러닝을 활용한 유사도 분석 모델을 통해 사진 저작물의
+              유사도를 판단하고 이를 통과한 사진 저작물에 대해서만 NFT를
+              발행하며, 이후 암호화폐를 통해 저작물을 거래한다. 블록체인 기술을
+              활용하여 저작권을 보호하여 신뢰성을 높이고, 모방 이미지에 대해
+              저작권을 부여하는 것을 방지하여 사진의 원본성을 보장한다.
+            </Card.Text>
+          </Card.Body>
+          <Card.Footer>
+            <small className="text-muted">Last updated 3 mins ago</small>
+          </Card.Footer>
+        </Card>
+        <Card
           style={{
-            color: "black",
-            fontSize: "2rem",
+            margin: "1rem",
+            borderRadius: "30px",
+            padding: "1rem",
           }}
-        />
-        {/*<Card.Img variant="top" src="../tempImages/background.jpg" />*/}
-        <Card.Body>
-          <Card.Title>기대효과 및 활용분야</Card.Title>
-          <Card.Text>
-            본 작품은 예술 작품의 소유권과 같이 중요한 지적 재산권 문제를
-            다루는데 유용할 플랫폼이 될 수 있으며, 딥러닝 기술을 통한 유효성
-            검증으로 빠른 시간에 투명한 저작권 관리를 실현할 수 있을 것으로
-            보인다. 블록체인을 활용한 NFT 기술은 예술 산업뿐만 아니라 다른
-            콘텐츠 보호가 필요한 분야에 적용될 수 있으며, 이를 기반으로 하는
-            거래 시스템으로 나아갈 수 있다. 또한, 이는 블록체인 네트워크 상의
-            이더 전송으로 저작권을 거래함으로써 수수료 없이 전 세계를 연결하는
-            저작권 거래 플랫폼으로 확장 될 수 있다.
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer>
-          <small className="text-muted">Last updated 3 mins ago</small>
-        </Card.Footer>
-      </Card>
-    </CardGroup>
+          border="light"
+          bg="light"
+          text="dark"
+        >
+          <BsFillInfoCircleFill
+            style={{
+              color: "black",
+              fontSize: "2rem",
+            }}
+          />
+          {/*<Card.Img variant="top" src="../tempImages/background.jpg" />*/}
+          <Card.Body>
+            <Card.Title>기대효과 및 활용분야</Card.Title>
+            <Card.Text>
+              본 작품은 예술 작품의 소유권과 같이 중요한 지적 재산권 문제를
+              다루는데 유용할 플랫폼이 될 수 있으며, 딥러닝 기술을 통한 유효성
+              검증으로 빠른 시간에 투명한 저작권 관리를 실현할 수 있을 것으로
+              보인다. 블록체인을 활용한 NFT 기술은 예술 산업뿐만 아니라 다른
+              콘텐츠 보호가 필요한 분야에 적용될 수 있으며, 이를 기반으로 하는
+              거래 시스템으로 나아갈 수 있다. 또한, 이는 블록체인 네트워크 상의
+              이더 전송으로 저작권을 거래함으로써 수수료 없이 전 세계를 연결하는
+              저작권 거래 플랫폼으로 확장 될 수 있다.
+            </Card.Text>
+          </Card.Body>
+          <Card.Footer>
+            <small className="text-muted">Last updated 3 mins ago</small>
+          </Card.Footer>
+        </Card>
+      </CardGroup>
+    </Container>
     /*
     <Card
       className=" text-black "

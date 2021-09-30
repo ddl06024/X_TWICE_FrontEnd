@@ -16,3 +16,18 @@
 .textWhiteShadow {
   text-shadow: 1px 1px 2px #ffffff;
 }
+
+.paginationItemStyle .page-link {
+  color: rgb(26, 112, 0);
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(22, 226, 15);
+}
+.paginationItemStyle.page-item.active button {
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+.paginationLinkStyle:active {
+  background-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+}
