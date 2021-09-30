@@ -41,11 +41,15 @@ const CardsBuyMain: React.FC<any> = (props) => {
   }, []);
 
   const onClickHandler = () => {
-    increaseViews();
-    history.push({
-      pathname: "/viewPictures/info",
-      state: { information: props.value, user_num2: userId },
-    });
+    if (userId) {
+      increaseViews();
+      history.push({
+        pathname: "/viewPictures/info",
+        state: { information: props.value, user_num2: userId },
+      });
+    } else {
+      alert("로그인 하세요");
+    }
   };
 
   const owner = (

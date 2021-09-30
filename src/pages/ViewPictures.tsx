@@ -29,15 +29,19 @@ const ViewByPopularity: React.FC<{}> = () => {
   const location = useLocation<any>();
   const { displayMyTokensAndSale } = useKlaytn();
 
-  const [searchWord, setSearchWord] = useState(null);
-  const [viewBy, setViewBy] = useState("popularity");
+  const [searchWord, setSearchWord] = useState(
+    location.state ? location.state.search : null
+  );
+  const [viewBy, setViewBy] = useState(
+    location.state ? location.state.viewBy : "popularity"
+  );
   const [category, setCategory] = useState("산");
   useEffect(() => {
     if (location.state) {
       setViewBy(location.state.viewBy);
       setSearchWord(location.state.search);
     }
-  }, [location]);
+  }, [location.state]);
   useEffect(() => {
     setOffset(12);
     setPageCount(Math.ceil(count / offset));
@@ -66,7 +70,7 @@ const ViewByPopularity: React.FC<{}> = () => {
     getFirstPictures();
     //console.log(getCookie("walletInstance"));
     //displayMyTokensAndSale(getCookie("walletInstance"));
-  }, [first, viewBy, category, searchWord]);
+  }, [viewBy, category]);
 
   const paginationBasic = (
     <div
@@ -89,6 +93,7 @@ const ViewByPopularity: React.FC<{}> = () => {
     try {
       setLoading(true);
       setErrors(undefined);
+
       await setTimeout(() => {
         console.log("wait");
       }, 200000);
