@@ -10,5 +10,5 @@ app.get("*", (_, res) => {
   res.sendFile(path.resolve(__dirname + "/build/", "index.html"));
 });
 
-//app.listen(4004);
-app.listen(443);
+app.listen(4004);
+//app.listen(443);
