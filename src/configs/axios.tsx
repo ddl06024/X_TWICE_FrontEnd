@@ -7,13 +7,15 @@ const { handleLogout } = useKlaytn();
 //const history = useHistory();
 
 const instance1 = axios.create({
-  baseURL: "http://172.16.163.74:4000",
+  //baseURL: "http://172.16.163.74:4000",
+  baseURL: "http://sw.uos.ac.kr:4000",
   timeout: 1000,
   /*headers: {'Content-Type': "application/json"}*/
 });
 
 const instance2 = axios.create({
-  baseURL: "http://172.16.163.74:4000",
+  //baseURL: "http://172.16.163.74:4000",
+  baseURL: "http://sw.uos.ac.kr:4000",
   headers: {
     "Content-Type": "application/json",
     Authorization: `${getCookie("myToken")}`,
