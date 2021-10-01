@@ -70,7 +70,7 @@ const ViewByPopularity: React.FC<{}> = () => {
     getFirstPictures();
     //console.log(getCookie("walletInstance"));
     //displayMyTokensAndSale(getCookie("walletInstance"));
-  }, [viewBy, category]);
+  }, [viewBy, category, first, searchWord]);
 
   const paginationBasic = (
     <div
