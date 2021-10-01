@@ -13,6 +13,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { getCookie, removeCookie } from "../configs/cookie";
 import ModalWallet from "./ModalWallet";
+import { AnySchema } from "yup";
 const Header: React.FC<any> = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
   const { handleLogout } = useKlaytn();
@@ -20,16 +21,24 @@ const Header: React.FC<any> = (props) => {
   const [token, setToken] = useState(getCookie("myToken"));
   const [search, setSearch] = useState("");
   const handleSearchWords = (e: any) => {
+    e.preventDefault();
     setSearch(e.target.value);
   };
 
   const decoded = token && jwt_decode(token.toString());
-  const handleSearch = () => {
+  const handleSearch = (e: any) => {
     //props.setViewBy("search");
     //props.setSearchWord(search);
+    e.preventDefault();
     if (search == "") {
       alert("검색어를 입력하세요");
       return;
+    }
+    if (e.keyCode === 13) {
+      history.push({
+        pathname: "/viewPictures",
+        state: { viewBy: "search", search: search },
+      });
     }
     history.push({
       pathname: "/viewPictures",

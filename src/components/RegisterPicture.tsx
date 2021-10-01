@@ -72,6 +72,9 @@ const RegisterPicture: React.FC<any> = (props) => {
   const [similarUrl, setSimilarUrl] = useState<any>(null);
 
   const computeSim = () => {
+    if (!files) {
+      alert("사진을 선택해주세요");
+    }
     setDisabled(true);
     try {
       const formData = new FormData();

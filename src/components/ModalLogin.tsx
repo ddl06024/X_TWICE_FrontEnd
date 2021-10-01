@@ -12,6 +12,7 @@ import Input from "./Input";
 
 const ModalLogin: React.FC<any> = (props) => {
   const [success, setSuccess] = useState(false);
+
   function copyToClipboard(textToCopy: any) {
     // navigator clipboard api needs a secure context (https)
     if (navigator.clipboard && window.isSecureContext) {
@@ -78,6 +79,11 @@ const ModalLogin: React.FC<any> = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdrop="static"
+      onRequestClose={(event: any) => {
+        // Ignore react-modal esc-close handling
+        if (event.type === "keydown" && event.keyCode === 27) return;
+      }}
+      keyboard={false}
     >
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
