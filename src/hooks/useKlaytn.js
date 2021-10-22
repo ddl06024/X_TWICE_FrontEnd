@@ -27,7 +27,6 @@ export function useKlaytn() {
 
     setCookie("walletInstance", walletInstance.toString(), {
       path: "/",
-     
     });
     return walletInstance;
   }
@@ -208,7 +207,7 @@ export function useKlaytn() {
       cav.klay
         .sendTransaction({
           senderRawTransaction: senderRawTransaction,
-          feePayer: sender.address,
+          feePayer: "0x4541e43e9ceaaea64abf92449b0a876038365a14",
         })
         .then(function (receipt) {
           if (receipt.transactionHash) {
@@ -288,7 +287,7 @@ export function useKlaytn() {
             cav.klay
               .sendTransaction({
                 senderRawTransaction: senderRawTransaction,
-                feePayer: sender.address,
+                feePayer: "0x4541e43e9ceaaea64abf92449b0a876038365a14",
               })
               .then(function (receipt) {
                 if (receipt.transactionHash) {
