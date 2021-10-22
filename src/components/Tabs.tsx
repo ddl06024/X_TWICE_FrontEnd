@@ -16,13 +16,13 @@ const Tabs: React.FC<any> = (props) => {
         className="mt-4"
       >
         <Nav.Item>
-          <Nav.Link eventKey="myToken">나의 보유토큰</Nav.Link>
+          <Nav.Link eventKey="myToken">보유 사진</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="myTokenOnSale">나의 판매중인 토큰</Nav.Link>
+          <Nav.Link eventKey="myTokenOnSale">판매 사진</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="History">나의 거래내역</Nav.Link>
+          <Nav.Link eventKey="History">거래 내역</Nav.Link>
         </Nav.Item>
       </Nav>
     </Container>

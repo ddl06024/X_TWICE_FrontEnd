@@ -30,9 +30,9 @@ const CompareTokenModal: React.FC<any> = ({
       <Modal.Header closeButton>
         <Modal.Title
           id="contained-modal-title-vcenter"
-          style={{ fontWeight: "bold", color: "blue" }}
+          style={{ fontWeight: "bold" }}
         >
-          이미 등록되어 있는 사진과 너무 유사하여 등록이 안됩니다!
+          등록 불가 : 기존 사진과 유사!
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -51,8 +51,8 @@ const CompareTokenModal: React.FC<any> = ({
                   src={preImage}
                 />
                 <Card.Body>
-                  <Card.Title style={{ color: "green" }}>
-                    고객님이 등록을 시도한 사진
+                  <Card.Title style={{ fontWeight: "bold" }}>
+                    현재 사진
                   </Card.Title>
                 </Card.Body>
               </Card>
@@ -65,8 +65,8 @@ const CompareTokenModal: React.FC<any> = ({
                   src={similarUrl}
                 />
                 <Card.Body>
-                  <Card.Title style={{ color: "red" }}>
-                    이미 등록되어 있는 사진
+                  <Card.Title style={{ fontWeight: "bold" }}>
+                    기존 사진
                   </Card.Title>
                 </Card.Body>
               </Card>
