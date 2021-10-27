@@ -5,7 +5,7 @@ const path = require("path");
 const root = path.join(__dirname, "build");
 
 app.get("/", (_, res) => {
-  res.send("Hello, world!")
+  res.send("페이지를 찾을 수 없습니다.")
 })
 app.use("/pasta", express.static(root));
 
