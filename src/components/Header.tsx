@@ -129,7 +129,7 @@ const Header: React.FC<any> = (props) => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav ">
           <Nav className="me-auto d-flex flex-fill ">
-            <Form className="d-flex  flex-grow-1 ">
+            <Form className="d-flex  flex-grow-1 " onSubmit={handleSearch}>
               <FormControl
                 type="search"
                 placeholder="Search"
@@ -142,7 +142,6 @@ const Header: React.FC<any> = (props) => {
               <Button
                 variant="outline-success "
                 style={{ marginRight: "3rem" }}
-                onClick={handleSearch}
               >
                 Search
               </Button>
