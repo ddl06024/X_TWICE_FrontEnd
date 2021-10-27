@@ -4,11 +4,13 @@ const path = require("path");
 
 const root = path.join(__dirname, "build");
 
-app.use(express.static(root));
+app.get("/", (_, res) => {
+  res.send("Hello, world!")
+})
+app.use("/pasta", express.static(root));
 
-app.get("*", (_, res) => {
+app.get("/pasta/*", (_, res) => {
   res.sendFile(path.resolve(__dirname + "/build/", "index.html"));
 });
 
 app.listen(4004);
-//app.listen(443);
