@@ -58,7 +58,7 @@ const Header: React.FC<any> = (props) => {
     removeCookie("myToken");
     removeCookie("userId");
     removeCookie("walletInstance");
-
+    console.log(getCookie("myToken"));
     setToken(getCookie("myToken"));
     handleLogout();
 
