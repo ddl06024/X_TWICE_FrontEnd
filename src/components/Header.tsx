@@ -20,6 +20,7 @@ const Header: React.FC<any> = (props) => {
   const history = useHistory();
   const [token, setToken] = useState(getCookie("myToken"));
   const [search, setSearch] = useState("");
+
   const handleSearchWords = (e: any) => {
     e.preventDefault();
     setSearch(e.target.value);
@@ -52,7 +53,7 @@ const Header: React.FC<any> = (props) => {
     //  setToken(location.state.tk);
     //}
     setToken(getCookie("myToken"));
-  }, [location]);
+  }, [location, token]);
   const onLogoutHandler = () => {
     removeCookie("myToken");
     removeCookie("userId");
@@ -60,6 +61,7 @@ const Header: React.FC<any> = (props) => {
 
     setToken(getCookie("myToken"));
     handleLogout();
+
     history.push("/");
   };
   const userInfo = (
@@ -146,7 +148,7 @@ const Header: React.FC<any> = (props) => {
               </Button>
             </Form>
           </Nav>
-          {token ? (
+          {token && decoded ? (
             <Nav>
               {userInfo}
               <Nav.Link onClick={() => setModalShow(true)}>지갑정보</Nav.Link>

@@ -55,7 +55,7 @@ const CardsBuy: React.FC<any> = (props) => {
   async function onBuyHandler() {
     setModalShow(true);
   }
-  const decoded = jwt_decode(getCookie("myToken").toString());
+
   const [tokenUserAccount, setTokenUserAccount] = useState("");
   const ac = information.token_id.toString();
   console.log(ac);
@@ -98,9 +98,25 @@ const CardsBuy: React.FC<any> = (props) => {
               </Card.Title>
               {/*<Card.Text>구매하시겠습니까?</Card.Text>*/}
               {userId && userId == information.user_num ? (
-                <></>
+                <div>보유 사진</div>
               ) : typeof userId == "undefined" ? (
-                <></>
+                <div>
+                  <Button onClick={onBuyHandler} variant="success">
+                    구매하기
+                  </Button>
+                  <BuyTokenModal
+                    setErrors={setErrors}
+                    information={information}
+                    insertHistory={insertHistory}
+                    buyToken={buyToken}
+                    BuyToken={BuyToken}
+                    cancleTokenOnSale={cancleTokenOnSale}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    history={history}
+                    tokenUserAccount={tokenUserAccount}
+                  />
+                </div>
               ) : (
                 <div>
                   <Button onClick={onBuyHandler} variant="success">
@@ -116,7 +132,7 @@ const CardsBuy: React.FC<any> = (props) => {
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                     history={history}
-                    decoded={decoded}
+                    decoded={jwt_decode(getCookie("myToken").toString())}
                     balance={balance}
                     tokenUserAccount={tokenUserAccount}
                   />

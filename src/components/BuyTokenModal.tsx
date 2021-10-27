@@ -17,6 +17,10 @@ const BuyTokenModal: React.FC<any> = ({
   tokenUserAccount,
 }) => {
   const buyHandler = async () => {
+    if (!decoded) {
+      alert("로그인 하세요");
+      return;
+    }
     if (balance <= information.picture_price) {
       alert("클레이가 모자랍니다. 충전해주세요!");
       return;
@@ -79,9 +83,9 @@ const BuyTokenModal: React.FC<any> = ({
             flexDirection: "column",
           }}
         >
-          <h5>토큰 정보</h5>
+          <h5 style={{ fontWeight: "bold" }}>토큰 정보</h5>
           <div className="text-truncate" style={{ display: "flex" }}>
-            <div style={{ minWidth: "90px" }}>
+            <div style={{ minWidth: "90px", fontWeight: "bold" }}>
               현 지갑 주소 :
               <br />
               NFT 아이디 :
@@ -91,7 +95,7 @@ const BuyTokenModal: React.FC<any> = ({
               가격 :
             </div>
 
-            <div style={{ marginLeft: "1rem" }}>
+            <div style={{ marginLeft: "1rem", fontWeight: "bold" }}>
               {tokenUserAccount}
               <br />
               {information.token_id}
@@ -104,20 +108,29 @@ const BuyTokenModal: React.FC<any> = ({
               {" klay"}
             </div>
           </div>
-          <hr />
-          <h5>내 정보</h5>
-          <div className="text-truncate" style={{ display: "flex" }}>
-            <div style={{ minWidth: "90px" }}>
-              내 지갑 주소 :
-              <br />
-              보유 클레이 :
-            </div>
-            <div style={{ marginLeft: "1rem" }}>
-              {decoded.user_account}
-              <br /> <span style={{ fontWeight: "bold" }}>{balance}</span>{" "}
-              {" klay"}
-            </div>
-          </div>
+
+          {decoded ? (
+            <>
+              <hr />
+              <h5 style={{ fontWeight: "bold" }}>내 정보</h5>
+              <div className="text-truncate" style={{ display: "flex" }}>
+                <div style={{ minWidth: "90px", fontWeight: "bold" }}>
+                  내 지갑 주소 :
+                  <br />
+                  보유 클레이 :
+                </div>
+                <div style={{ marginLeft: "1rem", fontWeight: "bold" }}>
+                  {decoded.user_account}
+                  <br /> <span style={{ fontWeight: "bold" }}>
+                    {balance}
+                  </span>{" "}
+                  {" klay"}
+                </div>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </Modal.Body>
       <Modal.Footer>
