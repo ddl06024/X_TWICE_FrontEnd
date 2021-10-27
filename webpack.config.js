@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "build"),
     filename: "index.bundle.js",
-    publicPath: "/",
+    publicPath: "/pasta",
   },
   mode: process.env.NODE_ENV || "development",
   resolve: {

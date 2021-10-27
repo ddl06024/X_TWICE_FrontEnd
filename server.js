@@ -4,11 +4,13 @@ const path = require("path");
 
 const root = path.join(__dirname, "build");
 
-app.use("/", express.static(root));
+app.get("/", (_, res) => {
+  res.send("페이지를 찾을 수 없습니다.")
+})
+app.use("/pasta", express.static(root));
 
-app.get("*", (_, res) => {
+app.get("/pasta/*", (_, res) => {
   res.sendFile(path.resolve(__dirname + "/build/", "index.html"));
 });
 
 app.listen(4004);
-//app.listen(443);
