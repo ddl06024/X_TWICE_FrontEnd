@@ -99,7 +99,7 @@ const Header: React.FC<any> = (props) => {
     >
       <Container>
         <Image
-          src="../tempImages/nfticon.png"
+          src="/pasta/tempImages/nfticon.png"
           fluid
           style={{
             cursor: "pointer",

@@ -14,7 +14,7 @@ const Footer: React.FC<any> = () => {
           >
             <a href="https://uos.ac.kr/main.do?epTicket=LOG#">
               <Image
-                src="../tempImages/logo.png"
+                src="/pasta/tempImages/logo.png"
                 fluid
                 style={{ width: "10rem" }}
               />
