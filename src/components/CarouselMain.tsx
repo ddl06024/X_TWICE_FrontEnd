@@ -293,7 +293,7 @@ const CarouselMain: React.FC<any> = (props) => {
                   }
                 }}
               >
-                만들기
+                사진 등록
               </Button>{" "}
               <Button
                 className="whiteShadow"
@@ -304,7 +304,7 @@ const CarouselMain: React.FC<any> = (props) => {
                   history.push("/viewPictures");
                 }}
               >
-                보기
+                사진 보기
               </Button>
             </Nav>
           </div>
