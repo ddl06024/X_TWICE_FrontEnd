@@ -142,6 +142,8 @@ const Header: React.FC<any> = (props) => {
               <Button
                 variant="outline-success "
                 style={{ marginRight: "3rem" }}
+                type="submit"
+                value="Submit"
               >
                 Search
               </Button>
